@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+#include "Common.h"
+
 /**
  * @brief The TaxNode class
  * A node in a taxonomic tree. Holds and provides access to parent and children-pointers,
@@ -17,13 +19,13 @@ public:
      * @brief TaxNode constructor.
      * Store constructor arguments and add itself to parents child list.
      */
-    TaxNode(TaxNode &parent, string &name, KMerSet &kmers, unsigned int node_id );
+    TaxNode(TaxNode &parent, std::string &name, KMerSet &kmers, unsigned int node_id );
 
     /** Access parent node */
     TaxNode &getParent();
 
     /** Access name */
-    string &getName();
+    std::string &getName();
 
     /** Access k-mer set */
     KMerSet &getKMers();

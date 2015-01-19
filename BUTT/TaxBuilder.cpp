@@ -1,5 +1,5 @@
 #include "TaxBuilder.h"
 
-TaxBuilder::TaxBuilder()
+TaxBuilder::TaxBuilder(SeqToKMers seqSplitter)
 {
 }

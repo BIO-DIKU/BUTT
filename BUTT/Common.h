@@ -2,8 +2,7 @@
 #define COMMON_H
 
 #include <set>
-#include <string>
 
-typedef KMerSet std::set<int>;
+typedef std::set<int> KMerSet;
 
 #endif // COMMON_H
