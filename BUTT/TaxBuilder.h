@@ -8,9 +8,9 @@
 
 /**
  * @brief The TaxBuilder class
- * Class for building the databases for the taxonomy classifier. After construction a
- * set of fasta entries can be added and as a final step the databases can be generated
- * with the saveDatabases function. Only entries added before a call to saveDatabases
+ * Class for building the index for the taxonomy classifier. After construction a
+ * set of fasta entries can be added and as a final step the index can be generated
+ * with the saveIndex function. Only entries added before a call to saveIndex
  * are stored.
  */
 class TaxBuilder
@@ -35,17 +35,15 @@ public:
     void addFastaEntry(std::string taxonomyString, std::string sequence);
 
     /**
-     * @brief Build and save database.
+     * @brief Build and save index.
      */
-    void saveDatabases(std::string directory, std::string prefix);
+    void saveIndex(std::string directory, std::string prefix);
 
 private:
 
     SeqToKMers sequenceSplitter;
 
-    void buildDatabases();
-
-    void treeRemap();
+    void buildIndex();
 
     /**
      * When fasta entries are added their k-mers are only added to the bottom node in

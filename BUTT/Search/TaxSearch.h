@@ -1,6 +1,18 @@
 #ifndef TAXSEARCH_H
 #define TAXSEARCH_H
 
+#include <tuple>
+#include <set>
+#include <string>
+
+#include "SeqToKMers.h"
+
+/**
+ * @brief A container for search-hit information used for return value of
+ * TaxSearch::search.
+ */
+typedef std::tuple<std::string, int, std::string> Hit;
+
 class TaxSearch
 {
 public:
@@ -17,21 +29,31 @@ public:
     TaxSearch(SeqToKMers seqSplitter, int hits_max, bool best_only, double coverage);
 
     /**
-     * Method to execute a search for a given sequence entry. First the
-     * sequence is broken down into unique kmers of a given kmer_size
-     * overlapping with a given step_size. See Taxonomy::Index.add.
-     * Now, for each taxonomic level, starting from species all nodes
-     * for each kmer is looked up in the database. The nodes containing
-     * most kmers are considered hits. If there are no hits at a taxonomic
-     * level, we move to the next level. Hits are sorted according to how
-     * many kmers matched this particular node and a consensus taxonomy
-     * string is determined. Hits are also filtered with the following
-     * options:
-     * hits_max  -
-     * best_only -
-     * coverage  -
+     * @brief Method to search for a given sequence.
+     * First the sequence is broken down into unique k-mers using the
+     * seqSplitter.  For each taxonomic level starting from the deepest, all
+     * nodes containing these k-mers are looked up. The nodes containing at
+     * least a ratio of TaxSearch::coverage of the k-mers are considered hits.
+     * If there are no hits at a taxonomic level, we move to the next level.
+     *
+     * If TaxSearch::best_only is set only the (at most TaxSearch::hits_max)
+     * hits with maximum coverage are returned. Otherwise the (at most
+     * TaxSearch::hits_max) hits with largest coverage (over
+     * TaxSearch::coverage) are returned.
+     * TODO: Rephrase a bit.
+     * If there are no hits at the root level an empty set is returned.
+     *
+     * This function will only return non-empty results after
+     * TaxSearch::readDatabases has been called.
+     */
+    std::set<Hit> search(std::string seqName, std::string sequence);
 
-    void readDatabases(std::string &directory, std::string &prefix);
+    /**
+     * @brief Reads the index-files into data structure and prepare for the search
+     * @param directory
+     * @param prefix
+     */
+    void readIndex(std::string &directory, std::string &prefix);
 };
 
 #endif // TAXSEARCH_H
