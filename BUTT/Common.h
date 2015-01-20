@@ -2,7 +2,27 @@
 #define COMMON_H
 
 #include <set>
+#include <cstdint>
 
-typedef std::set<int> KMerSet;
+#define NUCL_BIT 2
+
+/**
+ * Each oligo is encoded as a k-mer (2 bits) by encoding two bits per nucletoide:
+ *
+ * a = A = 00
+ * c = C = 01
+ * g = G = 10
+ * u = U = 11
+ * t = T = 11
+ *
+ * E.g. UCCUACGG = 0110100100101111 = 26927
+ * Using uint32_t, this definition of k-mer therefore allows for k up to 16.
+ */
+typedef uint32_t KMer;
+
+/**
+ * @brief An ordered set of k-mers.
+ */
+typedef std::set<KMer> KMerSet;
 
 #endif // COMMON_H

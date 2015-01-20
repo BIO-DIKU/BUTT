@@ -23,9 +23,12 @@ public:
      */
     TaxBuilder(SeqToKMers seqSplitter);
 
+    ~TaxBuilder();
+
     /**
      * @brief Add a fasta entry specified by a taxonomy string and a sequence to the
      * taxonomy classifier.
+     * A TaxonomyStringException is thrown if the taxonomy string is malformated.
      * @param taxonomyString A taxonomy string of the format "[<C>#<Name>;<C>#<Name>;..]"
      * where <C> is a classification character indicating the level of the classification
      * and <Name> is the classification itself. An example of a valid taxonomy string could be:
@@ -39,9 +42,17 @@ public:
      */
     void saveIndex(std::string directory, std::string prefix);
 
+    /**
+     * @brief Return the node given an id.
+     * Throws a MissingNodeException if unknown id.
+     * This function is provided only for debugging and testing purposes.
+     */
+    TaxNode& getNode(unsigned int id);
 private:
 
     SeqToKMers sequenceSplitter;
+
+    TaxNode* root;
 
     void buildIndex();
 

@@ -15,7 +15,10 @@ SOURCES += main.cpp \
     TaxBuilder.cpp \
     SeqToKMers.cpp \
     Search/NameNode.cpp \
-    Search/TaxSearch.cpp
+    Search/TaxSearch.cpp \
+    Tests/TestTaxBuilder.cpp \
+    Tests/TestTaxSearch.cpp \
+    Tests/TestSeqToKMers.cpp
 
 include(deployment.pri)
 qtcAddDeployment()
@@ -26,5 +29,8 @@ HEADERS += \
     TaxBuilder.h \
     SeqToKMers.h \
     Search/NameNode.h \
-    Search/TaxSearch.h
+    Search/TaxSearch.h \
+    Tests/TestTaxBuilder.h \
+    Tests/TestTaxSearch.h \
+    Tests/TestSeqToKMers.h
 

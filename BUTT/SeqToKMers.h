@@ -2,6 +2,7 @@
 #define SEQTOKMERS_H
 
 #include <string>
+#include <climits>
 
 #include "Common.h"
 
@@ -18,6 +19,8 @@ public:
 
     /**
      * @brief Prepare a sequence-to-kmer conversion.
+     * A SequenceToKMersException is thrown if kmer_size==0 or
+     * kmer_size>sizeof(KMer)*CHAR_BIT/NUCL_BIT or step_size==0.
      * @param kmer_size The size of each k-mer
      * @param step_size The number of characters between the start of
      * adjacent k-mers
@@ -25,9 +28,11 @@ public:
     SeqToKMers(unsigned int kmer_size=8, unsigned int step_size=1);
 
     /**
-     * @brief Convert the sequence to a set of k-mers using the settings
-     * specified in the constructor. Only k-mers of the sequence containing
-     * the characters AUTCG (both upper/lower case permitted) are returned.
+     * @brief Convert the sequence to a set of unique k-mers using the
+     * settings specified in the constructor.
+     * Only k-mers of the sequence composed of the characters AUTCG (both
+     * upper/lower case permitted) are returned. All T-characters will
+     * be converted to U characters.
      */
     KMerSet sequenceToKMers(std::string sequence);
 

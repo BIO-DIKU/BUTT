@@ -49,7 +49,9 @@ public:
     std::set<Hit> search(std::string seqName, std::string sequence);
 
     /**
-     * @brief Reads the index-files into data structure and prepare for the search
+     * @brief Reads the index-files into data structure and prepare for the
+     * search. If either the directory or files specified by prefix are non-
+     * existing a FileNotFoundException will be raised.
      * @param directory
      * @param prefix
      */
