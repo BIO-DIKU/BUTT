@@ -1,5 +1,11 @@
 #include "TestTaxBuilder.h"
 
-TestTaxBuilder::TestTaxBuilder()
+bool TestTaxBuilder::testAddFastaEntry()
 {
+
+}
+
+bool TestTaxBuilder::testTaxBuilder()
+{
+
 }

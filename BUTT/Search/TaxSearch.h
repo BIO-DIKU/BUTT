@@ -10,8 +10,13 @@
 /**
  * @brief A container for search-hit information used for return value of
  * TaxSearch::search.
+ * The first string represents the seqName provided for a search.
+ * The second string represents the consensus taxonomy string of the search
+ * results.
+ * The integer indicates the number of node-hits that were used to compile the
+ * consensus (at most hits_max).
  */
-typedef std::tuple<std::string, int, std::string> Hit;
+typedef std::tuple<std::string, std::string, int> Hit;
 
 class TaxSearch
 {
@@ -29,24 +34,38 @@ public:
     TaxSearch(SeqToKMers seqSplitter, int hits_max, bool best_only, double coverage);
 
     /**
+     * @brief Perform a BUTT search using searchNodes and compile a consensus
+     * taxonomy string.
+     * @param seqName a sequence name (not used in search).
+     * @param sequence the query-sequence
+     *
+     * @return a tuple containing the seqName and consensus string.
+     * Example:
+     * ("Query 1","K#Bacteria(100);P#Proteobacteria(100);C#Gammaproteobacteria(80);O#Vibrionales(75);F#;G#;S#")
+     */
+    Hit search(std::string seqName, std::string sequence);
+
+
+    /**
      * @brief Method to search for a given sequence.
      * First the sequence is broken down into unique k-mers using the
      * seqSplitter.  For each taxonomic level starting from the deepest, all
      * nodes containing these k-mers are looked up. The nodes containing at
-     * least a ratio of TaxSearch::coverage of the k-mers are considered hits.
-     * If there are no hits at a taxonomic level, we move to the next level.
+     * least a ratio of TaxSearch::coverage of the k-mers are considered node-hits.
+     * If there are no node-hits at a taxonomic level, we move to the next level.
      *
-     * If TaxSearch::best_only is set only the (at most TaxSearch::hits_max)
-     * hits with maximum coverage are returned. Otherwise the (at most
+     * If TaxSearch::best_only is set, only the (at most TaxSearch::hits_max)
+     * node-hits with maximum coverage are returned. Otherwise the (at most
      * TaxSearch::hits_max) hits with largest coverage (over
      * TaxSearch::coverage) are returned.
-     * TODO: Rephrase a bit.
-     * If there are no hits at the root level an empty set is returned.
+     *
+     * If there are no node-hits at the root level an empty set is returned.
      *
      * This function will only return non-empty results after
-     * TaxSearch::readDatabases has been called.
+     * TaxSearch::readDatabases has been called. The values in the set are
+     * indices of nodes in the node-tree.
      */
-    std::set<Hit> search(std::string seqName, std::string sequence);
+    std::set<int> searchNodes(std::string sequence);
 
     /**
      * @brief Reads the index-files into data structure and prepare for the
@@ -56,6 +75,8 @@ public:
      * @param prefix
      */
     void readIndex(std::string &directory, std::string &prefix);
+
+private:
 };
 
 #endif // TAXSEARCH_H
