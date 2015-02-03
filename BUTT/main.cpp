@@ -1,10 +1,14 @@
 #include <iostream>
 
+#include "Tests/TestAll.h"
+
 using namespace std;
 
 int main()
 {
-    cout << "Hello World!" << endl;
+    TestAll tests;
+    tests.runTests();
+
     return 0;
 }
 

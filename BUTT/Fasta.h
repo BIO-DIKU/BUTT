@@ -4,23 +4,25 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <fstream>
 
 /**
  * @brief A sequence entry container.
  */
-struct {
+struct FastaEntry{
     /** Header info contained between '>' character and end-of-line */
     std::string header;
     /** Sequence info is all printable characters between two header-lines or a header-line and eof. */
     std::string sequence;
-} FastaEntry;
+};
 
 /**
  * @brief Exception thrown by Fasta class
  */
 class FastaException: public std::exception {
 public:
-    FastaException(std::string &msg): exceptionMst(msg){}
+    FastaException(std::string &msg): exceptionMsg(msg){}
+    FastaException(const FastaException &e): exceptionMsg(e.exceptionMsg){}
     const std::string exceptionMsg;
 };
 
@@ -31,22 +33,20 @@ class Fasta
 {
 public:
     /** @brief Set up a fasta-file for reading from the specified file */
-    Fasta(std::string filePath);
+    Fasta(const std::string &filePath);
 
     /**
      * @brief Read the next entry from the fasta-file.
-     * If the file contains no more entries this method will throw a FastaIOException
+     * If the file contains no more entries this method will return NULL.
+     * Blank lines are ignored.
      */
     FastaEntry nextEntry();
 
-    /**
-     * @brief Indicates if the file contains any more entries.
-     * This is the recommended way of detecting for eof.
-     */
     bool hasNextEntry();
 
 private:
-    std::istream inputStream;
+    std::ifstream inputStream;
+    std::string nextHeader;
 };
 
 #endif // FASTA_H

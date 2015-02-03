@@ -1,16 +1,20 @@
 #ifndef TESTFASTA_H
 #define TESTFASTA_H
 
+#include <string>
+
 class TestFasta
 {
 public:
-    TestFasta();
+    TestFasta(const std::string &fast_test_directory);
 
-    bool testFasta();
+    bool runTests();
 
 private:
+    std::string fastaDirectory;
+
     /**
-     * Test that well-formed entries are correctly read
+     * Test that well-formed entries are correctly read and that eof follows
      * Input:
      * >1 K#Bacteria;P#Proteobacteria
      * ATCGU atcgu

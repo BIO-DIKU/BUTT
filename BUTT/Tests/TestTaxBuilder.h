@@ -13,10 +13,11 @@ class TestTaxBuilder
 public:
     TestTaxBuilder();
 
+    bool runTests();
+private:
+
     bool testAddFastaEntry();
     bool testTaxBuilder();
-
-private:
 
     TaxBuilder builder;
 

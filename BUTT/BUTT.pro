@@ -20,7 +20,9 @@ SOURCES += main.cpp \
     Tests/TestTaxSearch.cpp \
     Tests/TestSeqToKMers.cpp \
     Fasta.cpp \
-    Tests/TestFasta.cpp
+    Tests/TestFasta.cpp \
+    Tests/TestAll.cpp \
+    Tests/TestHelper.cpp
 
 include(deployment.pri)
 qtcAddDeployment()
@@ -36,5 +38,7 @@ HEADERS += \
     Tests/TestTaxSearch.h \
     Tests/TestSeqToKMers.h \
     Fasta.h \
-    Tests/TestFasta.h
+    Tests/TestFasta.h \
+    Tests/TestAll.h \
+    Tests/TestHelper.h
 

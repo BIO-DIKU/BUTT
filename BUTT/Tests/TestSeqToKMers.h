@@ -6,10 +6,13 @@ class TestSeqToKMers
 public:
     TestSeqToKMers();
 
+    bool runTests();
+
+
+private:
     bool testSeqToKMers();
     bool testSequenceToKMers();
 
-private:
     /**
      * sequence = ATCG
      * kmer_size = 17

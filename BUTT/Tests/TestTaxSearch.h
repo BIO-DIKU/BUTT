@@ -9,13 +9,14 @@ class TestTaxSearch
 public:
     TestTaxSearch();
 
+    bool runTests();
+private:
     bool testTaxSearch();
 
     bool testSearchNodes();
 
     bool testSearch();
 
-private:
     /*
      * test-cases for testSearchNodes.
      * The following tree-layout is used for test1-test8
