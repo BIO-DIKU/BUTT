@@ -44,7 +44,7 @@ private:
      *
      *
      * Expected:
-     *   ("1", "at cgATCG"),
+     *   ("1", "at cg ATCG"),
      *   ("2", "atcg")
      */
     bool test2();
@@ -70,7 +70,7 @@ private:
     bool test4();
 
     /**
-     * Tests that empty sequence followed by linebreak throws exception
+     * Tests that empty sequence followed by eof throws exception
      * Input
      * >1
      *

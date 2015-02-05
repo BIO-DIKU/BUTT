@@ -4,6 +4,7 @@
 #include "TestSeqToKMers.h"
 #include "TestTaxBuilder.h"
 #include "TestTaxSearch.h"
+#include "TestHelper.h"
 
 #include <iostream>
 
@@ -13,9 +14,8 @@ TestAll::TestAll()
 
 bool TestAll::runTests()
 {
-    TestFasta test_1("../BUTT/Tests/Fastas");
-    bool test_1_status = test_1.runTests();
-    std::cerr<<"TestAll::runTests: TestFasta "<<(test_1_status?"succesful":"failed")<<std::endl;
-
-    return true;
+    BUTT_PRE_TESTS();
+    BUTT_RUN_TEST("TestAll: TestFasta", TestFasta("../BUTT/Tests/Fastas").runTests());
+    BUTT_RUN_TEST("TestAll: TestSeqToKMers", TestSeqToKMers().runTests());
+    BUTT_POST_TESTS();
 }

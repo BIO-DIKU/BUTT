@@ -6,6 +6,12 @@
 
 #define NUCL_BIT 2
 
+#define NUCL_A 0
+#define NUCL_C 1
+#define NUCL_G 2
+#define NUCL_U 3
+#define NUCL_T 3
+
 /**
  * Each oligo is encoded as a k-mer (2 bits) by encoding two bits per nucletoide:
  *

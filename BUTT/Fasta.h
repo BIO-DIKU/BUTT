@@ -32,16 +32,24 @@ public:
 class Fasta
 {
 public:
-    /** @brief Set up a fasta-file for reading from the specified file */
+    /**
+     * @brief Set up a fasta-file for reading from the specified file.
+     * Throws an exception if the first entry has empty header.
+     */
     Fasta(const std::string &filePath);
 
     /**
      * @brief Read the next entry from the fasta-file.
-     * If the file contains no more entries this method will return NULL.
      * Blank lines are ignored.
+     * The behavior of this function is undefined if hasNextEntry() is true.
+     * An exception is thrown if an empty header or sequence is encountered.
+     * Empty spaces are not stripped from either sequences or headers.
      */
     FastaEntry nextEntry();
 
+    /**
+     * @brief Checks if there are any more entries in the Fasta file.
+     */
     bool hasNextEntry();
 
 private:

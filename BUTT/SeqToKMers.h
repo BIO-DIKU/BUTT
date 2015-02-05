@@ -6,6 +6,14 @@
 
 #include "Common.h"
 
+/** @brief Exception thrown by SeqToKMers class. */
+class SeqToKMerException: public std::exception {
+public:
+    SeqToKMerException(std::string &msg): exceptionMsg(msg){}
+    SeqToKMerException(const SeqToKMerException &e): exceptionMsg(e.exceptionMsg){}
+    const std::string exceptionMsg;
+};
+
 
 /**
  * @brief Class for converting a sequence string into a set of k-mers.
@@ -34,7 +42,7 @@ public:
      * upper/lower case permitted) are returned. All T-characters will
      * be converted to U characters.
      */
-    KMerSet sequenceToKMers(std::string sequence);
+    KMerSet sequenceToKMers(std::string &sequence);
 
 private:
     unsigned int kmer_size;

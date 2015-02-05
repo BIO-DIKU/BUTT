@@ -1,6 +1,8 @@
 #ifndef TESTSEQTOKMERS_H
 #define TESTSEQTOKMERS_H
 
+#include "Common.h"
+
 class TestSeqToKMers
 {
 public:
@@ -12,6 +14,9 @@ public:
 private:
     bool testSeqToKMers();
     bool testSequenceToKMers();
+
+    const KMer &get(KMerSet &set, int elem);
+
 
     /**
      * sequence = ATCG

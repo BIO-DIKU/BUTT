@@ -14,4 +14,10 @@ namespace BUTTTest{
 #define BUTT_ASSERT_TRUE(actual, message) if(!BUTTTest::assertTrue(actual,message)) return false;
 #define BUTT_ASSERT_FALSE(actual, message) if(!BUTTTest::assertFalse(actual,message)) return false;
 
+#define BUTT_PRE_TESTS() bool status=true; bool testStatus;
+#define BUTT_POST_TESTS() return status;
+#define BUTT_RUN_TEST(message, function) \
+    testStatus = function; \
+    status&=testStatus; \
+    std::cerr<<message<<": "<<(testStatus?"succesful":"failed")<<std::endl;
 #endif // TESTHELPER_H
