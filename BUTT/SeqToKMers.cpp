@@ -40,6 +40,7 @@ int decode(char nucl){
 
 KMerSet SeqToKMers::sequenceToKMers(std::string &sequence)
 {
+    std::cout<<std::endl;
     KMerSet ret;
     unsigned int mask = (1<<(kmer_size*2))-1;
     int n = sequence.length();
@@ -50,14 +51,24 @@ KMerSet SeqToKMers::sequenceToKMers(std::string &sequence)
         tmp <<= 2*step_size;
         tmp &= mask;
 
-        for(unsigned int i=0; i<(pos==0?kmer_size:delta); i++){
+        bool skipKMer = false;
+
+        unsigned int i=0;
+        for(; i<(pos==0?kmer_size:delta); i++){
             char nucl = sequence[ pos+kmer_size-i-1 ];
             int dec = decode(nucl);
-            if(dec<0){}
+            if(dec<0){
+                skipKMer = true;
+                break;
+
+            }
             tmp |= (dec<<(2*i));
         }
 
-        ret.insert(tmp);
+        if(!skipKMer){
+            ret.insert(tmp);
+            std::cout<<"Inserting "<<tmp<<std::endl;
+        }
 
     }
 

@@ -22,6 +22,10 @@ bool TestSeqToKMers::runTests()
     BUTT_RUN_TEST("TestSeqToKMers test 4", test4());
     BUTT_RUN_TEST("TestSeqToKMers test 5", test5());
     BUTT_RUN_TEST("TestSeqToKMers test 6", test6());
+    BUTT_RUN_TEST("TestSeqToKMers test 7", test7());
+    BUTT_RUN_TEST("TestSeqToKMers test 8", test8());
+    BUTT_RUN_TEST("TestSeqToKMers test 9", test9());
+    BUTT_RUN_TEST("TestSeqToKMers test 10", test10());
     BUTT_POST_TESTS();
 
 }
@@ -145,6 +149,77 @@ bool TestSeqToKMers::test6()
     std::string seq("ATCC");
     KMerSet set = convert.sequenceToKMers(seq);
     BUTT_ASSERT_EQUALS(0, set.size(), "k-mer set not empty");
+
+    return true;
+}
+
+/**
+ * sequence = ATCG
+ * kmer_size = 1
+ * step_size = 2
+ * Expects: A,C
+ */
+bool TestSeqToKMers::test7()
+{
+    SeqToKMers convert(1,2);
+    std::string seq("ATCG");
+    KMerSet set = convert.sequenceToKMers(seq);
+    BUTT_ASSERT_EQUALS(2, set.size(), "K-mer set size should be 2 (is "+std::to_string(set.size())+")");
+    BUTT_ASSERT_EQUALS(NUCL_A, get(set, 0), "A is not in k-mer set");
+    BUTT_ASSERT_EQUALS(NUCL_C, get(set, 1), "C is not in k-mer set");
+
+    return true;
+}
+
+/**
+ * sequence = ATCGU
+ * kmer_size = 1
+ * step_size = 2
+ * Expects: A,C,U
+ */
+bool TestSeqToKMers::test8()
+{
+    SeqToKMers convert(1,2);
+    std::string seq("ATCGU");
+    KMerSet set = convert.sequenceToKMers(seq);
+    BUTT_ASSERT_EQUALS(3, set.size(), "K-mer set size should be 3 (is "+std::to_string(set.size())+")");
+    BUTT_ASSERT_EQUALS(NUCL_A, get(set, 0), "A is not in k-mer set");
+    BUTT_ASSERT_EQUALS(NUCL_C, get(set, 1), "C is not in k-mer set");
+    BUTT_ASSERT_EQUALS(NUCL_U, get(set, 2), "U is not in k-mer set");
+
+    return true;
+}
+
+/**
+ * sequence = ATCG
+ * kmer_size = 1
+ * step_size = 4
+ * Expects: A
+ */
+bool TestSeqToKMers::test9()
+{
+    SeqToKMers convert(1,4);
+    std::string seq("ATCG");
+    KMerSet set = convert.sequenceToKMers(seq);
+    BUTT_ASSERT_EQUALS(1, set.size(), "K-mer set size should be 1 (is "+std::to_string(set.size())+")");
+    BUTT_ASSERT_EQUALS(NUCL_A, get(set, 0), "A is not in k-mer set");
+
+    return true;
+}
+
+/**
+ * sequence = AnCG
+ * kmer_size = 2
+ * step_size = 1
+ * Expects: CG
+ */
+bool TestSeqToKMers::test10()
+{
+    SeqToKMers convert(2,1);
+    std::string seq("AnCG");
+    KMerSet set = convert.sequenceToKMers(seq);
+    BUTT_ASSERT_EQUALS(1, set.size(), "K-mer set size should be 1 (is "+std::to_string(set.size())+")");
+    BUTT_ASSERT_EQUALS( (NUCL_C<<2)|(NUCL_G) , get(set, 0), "CG is not in k-mer set");
 
     return true;
 }
