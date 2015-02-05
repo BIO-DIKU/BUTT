@@ -16,15 +16,15 @@ TestSeqToKMers::TestSeqToKMers()
 bool TestSeqToKMers::runTests()
 {
     BUTT_PRE_TESTS();
-    BUTT_RUN_TEST("TestSeqToKMers test 1", test1());
-    BUTT_RUN_TEST("TestSeqToKMers test 2", test2());
-    BUTT_RUN_TEST("TestSeqToKMers test 3", test3());
-    BUTT_RUN_TEST("TestSeqToKMers test 4", test4());
-    BUTT_RUN_TEST("TestSeqToKMers test 5", test5());
-    BUTT_RUN_TEST("TestSeqToKMers test 6", test6());
-    BUTT_RUN_TEST("TestSeqToKMers test 7", test7());
-    BUTT_RUN_TEST("TestSeqToKMers test 8", test8());
-    BUTT_RUN_TEST("TestSeqToKMers test 9", test9());
+    //BUTT_RUN_TEST("TestSeqToKMers test 1", test1());
+    //BUTT_RUN_TEST("TestSeqToKMers test 2", test2());
+    //BUTT_RUN_TEST("TestSeqToKMers test 3", test3());
+    //BUTT_RUN_TEST("TestSeqToKMers test 4", test4());
+    //BUTT_RUN_TEST("TestSeqToKMers test 5", test5());
+    //BUTT_RUN_TEST("TestSeqToKMers test 6", test6());
+    //BUTT_RUN_TEST("TestSeqToKMers test 7", test7());
+    //BUTT_RUN_TEST("TestSeqToKMers test 8", test8());
+    //BUTT_RUN_TEST("TestSeqToKMers test 9", test9());
     BUTT_RUN_TEST("TestSeqToKMers test 10", test10());
     BUTT_POST_TESTS();
 

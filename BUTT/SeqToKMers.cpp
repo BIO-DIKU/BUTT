@@ -38,39 +38,58 @@ int decode(char nucl){
    }
 }
 
+unsigned int SeqToKMers::decodeKMer(std::string &sequence, unsigned int pos, KMer &buffer, int suffixSz)
+{
+
+    for(int i=0; i<suffixSz; i++){
+        char nuclChar = sequence[ pos+kmer_size-i-1 ];
+        int nucl = decode(nuclChar);
+        if(nucl<0) return pos+kmer_size-i;
+        buffer |= (nucl<<(2*i));
+    }
+    return -1;
+}
+
 KMerSet SeqToKMers::sequenceToKMers(std::string &sequence)
 {
     std::cout<<std::endl;
     KMerSet ret;
     unsigned int mask = (1<<(kmer_size*2))-1;
     int n = sequence.length();
-    KMer tmp = 0;
-    int delta = std::min(kmer_size, step_size);
-    for(int pos = 0; pos<=(n-(int)kmer_size); pos+=step_size)
-    {
-        tmp <<= 2*step_size;
-        tmp &= mask;
+    KMer buffer = 0;
 
-        bool skipKMer = false;
+    int status = decodeKMer(sequence, 0,buffer, kmer_size);
+    std::cout<<status<<" "<<buffer<<std::endl;
+    int pos=0;
+    while(pos<=(n-(int)kmer_size)){
+        if (!status)
+            ret.insert(buffer);
 
-        unsigned int i=0;
-        for(; i<(pos==0?kmer_size:delta); i++){
-            char nucl = sequence[ pos+kmer_size-i-1 ];
-            int dec = decode(nucl);
-            if(dec<0){
-                skipKMer = true;
-                break;
-
-            }
-            tmp |= (dec<<(2*i));
+        int stepBy = status/step_size;
+        while(stepBy<status) {//TODO: Fixme.
+            stepBy+=step_size;
+            buffer <<= 2*step_size;
         }
+        buffer |= mask;
 
-        if(!skipKMer){
-            ret.insert(tmp);
-            std::cout<<"Inserting "<<tmp<<std::endl;
-        }
+        pos+=stepBy;
+        status = decodeKMer(sequence, pos, buffer, kmer_size-status);
 
     }
+    std::cout<<status<<" "<<buffer<<std::endl;
+
+    //int delta = std::min(kmer_size, step_size);
+    //for(int pos = 0; pos<=(n-(int)kmer_size); pos+=step_size)
+    //{
+    //
+    //
+    //
+    //    buffer <<= 2*step_size;
+    //    buffer &= mask;
+
+    //    ret.insert(tmp);
+
+    //}
 
     return ret;
 }

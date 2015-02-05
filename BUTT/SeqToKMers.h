@@ -47,6 +47,8 @@ public:
 private:
     unsigned int kmer_size;
     unsigned int step_size;
+
+    unsigned int decodeKMer(std::string &sequence, unsigned int pos, KMer &buffer, int suffixSz);
 };
 
 #endif // SEQTOKMERS_H
