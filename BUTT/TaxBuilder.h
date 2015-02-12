@@ -6,6 +6,18 @@
 #include "SeqToKMers.h"
 #include "TaxNode.h"
 
+
+/**
+ * @brief Exception thrown by TaxBuilder class
+ */
+class TaxonomyStringException: public std::exception {
+public:
+    TaxonomyStringException(std::string &msg): exceptionMsg(msg){}
+    TaxonomyStringException(const TaxonomyStringException &e): exceptionMsg(e.exceptionMsg){}
+    const std::string exceptionMsg;
+};
+
+
 /**
  * @brief The TaxBuilder class
  * Class for building the index for the taxonomy classifier. After construction a
@@ -26,7 +38,7 @@ public:
     ~TaxBuilder();
 
     /**
-     * @brief Add a fasta entry specified by a taxonomy string and a sequence to the
+     * @brief Add a taxonomy entry specified by a taxonomy string and a sequence to the
      * taxonomy classifier.
      * A TaxonomyStringException is thrown if the taxonomy string is malformated.
      * @param taxonomyString A taxonomy string of the format "[<C>#<Name>;<C>#<Name>;..]"
@@ -35,7 +47,8 @@ public:
      * "K#Bacteria;P#Proteobacteria;C#Gammaproteobacteria;O#Vibrionales;F#Vibrionaceae;G#Vibrio;S#Vibrio"
      * @param sequence An RNA/DNA sequence associated with this taxonomy.
      */
-    void addFastaEntry(std::string taxonomyString, std::string sequence);
+    void addTaxEntry(std::string &taxonomyString, std::string &sequence);
+
 
     /**
      * @brief Build and save index.
@@ -48,13 +61,33 @@ public:
      * This function is provided only for debugging and testing purposes.
      */
     TaxNode& getNode(unsigned int id);
+
+    /**
+     * @brief Return the number of nodes in the tree
+     * This function is provided only for debugging and testing purposes.
+     */
+    unsigned int treeSize();
 private:
 
-    SeqToKMers sequenceSplitter;
+    const SeqToKMers sequenceSplitter;
 
     TaxNode* root;
 
     void buildIndex();
+
+    /**
+     * @brief checkTaxEntry checks if the taxonomyString satisfies:
+     * 1: The format must be C#Name;C#Name;...C#Name where C can be any single character and Name is a (possibly empty) string without '#'
+     * 2: Each level has its own distinct character
+     * 3: If a level has an empty name all following names must be empty
+     * 4: The number and order of level names is the same as for any previous checked entry
+     * @param taxonomyString will be filled with the taxonomyString split by ';' for efficiency
+     * @return true iff the taxonomyString satisfies the above criteria
+     */
+    bool checkTaxEntry(std::string &taxonomyString, std::vector<std::string> &splitTaxString);
+
+    std::vector<char> level_names;
+
 
     /**
      * When fasta entries are added their k-mers are only added to the bottom node in

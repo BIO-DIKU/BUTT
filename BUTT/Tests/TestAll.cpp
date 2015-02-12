@@ -17,5 +17,6 @@ bool TestAll::runTests()
     BUTT_PRE_TESTS();
     BUTT_RUN_TEST("TestAll: TestFasta", TestFasta("../BUTT/Tests/Fastas").runTests());
     BUTT_RUN_TEST("TestAll: TestSeqToKMers", TestSeqToKMers().runTests());
+    BUTT_RUN_TEST("TestAll: TestTaxBuilder", TestTaxBuilder().runTests());
     BUTT_POST_TESTS();
 }

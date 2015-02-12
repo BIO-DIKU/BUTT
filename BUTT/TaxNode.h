@@ -14,6 +14,7 @@
 class TaxNode
 {
 public:
+    const unsigned int node_id; ///< Node id
 
     /**
      * @brief TaxNode constructor.
@@ -35,7 +36,13 @@ public:
 
 private:
     TaxNode* parent;
-    std::vector<TaxNode*> children;
+    std::map<std::string, TaxNode*> children;
+    const std::string name;
+
+    // Constructor for root node
+    TaxNode();
+
+    friend class TaxBuilder;
 
 };
 

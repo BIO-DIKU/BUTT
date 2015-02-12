@@ -16,9 +16,6 @@ public:
     bool runTests();
 private:
 
-    bool testAddFastaEntry();
-    bool testTaxBuilder();
-
     TaxBuilder builder;
 
     /**
