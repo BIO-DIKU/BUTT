@@ -48,6 +48,14 @@ private:
     unsigned int kmer_size;
     unsigned int step_size;
 
+    /**
+     * @brief Decode the k-mer at position pos in sequence and place the result in buffer.
+     * @param sequence
+     * @param pos is the position of the beginning of the window in sequence
+     * @param buffer holds the binary representation of the decoded k-mer
+     * @param suffixSz indicates how many residues from the end of this window needs to be decoded.
+     * @return an integer indicating the number of positions to jump
+     */
     unsigned int decodeKMer(std::string &sequence, unsigned int pos, KMer &buffer, int suffixSz);
 };
 
