@@ -131,21 +131,41 @@ void TaxBuilder::saveTaxIndex(std::string &file_path)
     ostream<<"#NODE_ID\tLEVEL\tNAME\tPARENT_ID"<<std::endl;
     saveTaxIndex(root, 0, ostream);
     ostream.close();
+}
 
+void TaxBuilder::buildKMerIndex(TaxNode* n, int depth, std::vector< std::map< KMer, std::list<int> > > &kmer_index)
+{
+    while(kmer_index.size()<=depth)
+        kmer_index.push_back(std::map<KMer, std::list<int> >());
 
-    //pullUnions(*root);
-    //std::vector< std::map< KMer, std::list<int> > > kmer_index;
+    KMerSet &kmers = n->getKMers();
+    for(auto kmer_it=kmers.begin(); kmer_it!=kmers.end(); kmer_it++){
+        KMer kmer = *kmer_it;
+        kmer_index[depth][kmer].push_back(n->node_id);
+    }
 
+    for(auto child_it=n->children.begin(); child_it!=n->children.end(); child_it++){
+        buildKMerIndex(child_it->second, depth+1, kmer_index);
+    }
 }
 
 void TaxBuilder::saveKMerIndex(std::string &file_path)
 {
     pullUnions(*root);
     std::vector< std::map< KMer, std::list<int> > > kmer_index;
+    buildKMerIndex(root, 0, kmer_index);
 
     std::ofstream ostream(file_path);
     ostream<<"#LEVEL\tKMER\tNODES"<<std::endl;
-    //...
+    for(unsigned int level=0;level<kmer_index.size();level++){
+        for(auto kmer_it = kmer_index[level].begin(); kmer_it!=kmer_index[level].end(); kmer_it++){
+            ostream<<level<<'\t'<<kmer_it->first<<'\t';
+            for(auto node_it=kmer_it->second.begin(); node_it!=kmer_it->second.end(); node_it++){
+                ostream<<*node_it<<';';
+            }
+            ostream<<std::endl;
+        }
+    }
     ostream.close();
 
 

@@ -23,6 +23,7 @@ bool TestTaxBuilder::runTests()
     BUTT_RUN_TEST("TestTaxBuilder test 4", test4());
     BUTT_RUN_TEST("TestTaxBuilder test 5", test5());
     BUTT_RUN_TEST("TestTaxBuilder test 6", test6());
+    BUTT_RUN_TEST("TestTaxBuilder test 7", test7());
     BUTT_POST_TESTS();
 
 }
@@ -233,7 +234,9 @@ bool TestTaxBuilder::test6()
         BUTT_ASSERT_EQUALS(expectedLines[lineNum], line, "Line mismatch. Expected \""+expectedLines[lineNum]+"\" was \""+line+"\"");
         lineNum++;
     }
+    BUTT_ASSERT_EQUALS(expectedLines.size(), lineNum, "Incorrect number of lines. Expected "+std::to_string(expectedLines.size())+", but had "+std::to_string(lineNum));
 
+    return true;
 }
 
 
@@ -269,25 +272,38 @@ bool TestTaxBuilder::test6()
  * 3	AGA	4
  * 3	GAG	4
  */
-bool TestTaxBuilder::test6()
+bool TestTaxBuilder::test7()
 {
-    std::string file("taxIndex.txt");
-    builder.saveTaxIndex(file);
+    std::string file("kmerIndex.txt");
+    builder.saveKMerIndex(file);
 
     std::vector<std::string> expectedLines = {
-        "#",
-        "0\t0\troot\t-1",
-        "1\t1\tK#B\t0",
-        "2\t2\tP#E\t1",
-        "3\t2\tP#F\t1",
-        "4\t3\tC#G\t2"
+        "#LEVEL\tKMER\tNODES",
+        "0\t2\t0;"  ,  // AAG=2
+        "0\t8\t0;"  ,  // AGA=8
+        "0\t11\t0;" ,  // AGU=11
+        "0\t34\t0;" ,  // GAG=34
+        "1\t2\t1;"  ,  // AAG
+        "1\t8\t1;"  ,  // AGA
+        "1\t11\t1;" ,  // AGU
+        "1\t34\t1;" ,  // GAG
+        "2\t2\t2;3;",  // AAG
+        "2\t8\t2;"  ,  // AGA
+        "2\t11\t3;" ,  // AGU
+        "2\t34\t2;" ,  // GAG
+        "3\t2\t4;"  ,  // AAG
+        "3\t8\t4;"  ,  // AGA
+        "3\t34\t4;"    // GAG
     };
 
-    std::ifstream input("taxIndex.txt");
+    std::ifstream input("kmerIndex.txt");
     std::string line;
     int lineNum = 0;
     while(std::getline(input,line)){
         BUTT_ASSERT_EQUALS(expectedLines[lineNum], line, "Line mismatch. Expected \""+expectedLines[lineNum]+"\" was \""+line+"\"");
+        lineNum++;
     }
+    BUTT_ASSERT_EQUALS(expectedLines.size(), lineNum, "Incorrect number of lines. Expected "+std::to_string(expectedLines.size())+", but had "+std::to_string(lineNum));
+    return true;
 
 }

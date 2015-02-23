@@ -157,6 +157,39 @@ private:
      */
     bool test6();
 
+    /**
+     * Input:
+     * r             A
+     *             /
+     * K          B
+     *          /   \
+     * P       E     F
+     *       /
+     * C    G
+     * kmers(A)={}
+     * kmers(B)={AAG}
+     * kmers(E)={AAG,AGA}
+     * kmers(F)={AAG,AGU}
+     * kmers(G)={AAG,AGA,GAG}
+     * After saveKMerIndex("kmerIndex.txt") we expect the file to contain:
+     * #LEVEL	KMER	NODES
+     * 0	AAG	0
+     * 0	AGA	0
+     * 0	AGU	0
+     * 0	GAG	0
+     * 1	AAG	1
+     * 1	AGA	1
+     * 1	AGU	1
+     * 1	GAG	1
+     * 2	AAG	2;3
+     * 2	AGA	2
+     * 2	AGU	3
+     * 2	GAG	2
+     * 3	AAG	4
+     * 3	AGA	4
+     * 3	GAG	4
+     */
+    bool test7();
 };
 
 #endif // TESTTAXBUILDER_H

@@ -2,6 +2,7 @@
 #define TAXBUILDER_H
 
 #include <string>
+#include <list>
 #include <fstream>
 
 #include "SeqToKMers.h"
@@ -106,6 +107,7 @@ private:
     void pullUnions(TaxNode &n);
 
     void saveTaxIndex(TaxNode* n, int depth, std::ofstream &ostream);
+    void buildKMerIndex(TaxNode* n, int depth, std::vector< std::map< KMer, std::list<int> > > &kmer_index);
 };
 
 #endif // TAXBUILDER_H
