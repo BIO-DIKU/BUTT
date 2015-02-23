@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <list>
 
 #include "Common.h"
 
@@ -113,7 +114,40 @@ void TaxBuilder::pullUnions(TaxNode &n)
     }
 }
 
-void TaxBuilder::saveIndex(std::string directory, std::string prefix)
+void TaxBuilder::saveTaxIndex(TaxNode* n, int depth, std::ofstream &ostream)
 {
+    int parent_id = (depth==0?-1:n->getParent().node_id);
+    ostream<<n->node_id<<'\t'<<depth<<'\t'<<n->getName()<<'\t'<<parent_id<<std::endl;
+
+    for(auto child_it=n->children.begin(); child_it!=n->children.end(); child_it++){
+        saveTaxIndex(child_it->second, depth+1, ostream);
+    }
+}
+
+
+void TaxBuilder::saveTaxIndex(std::string &file_path)
+{
+    std::ofstream ostream(file_path);
+    ostream<<"#NODE_ID\tLEVEL\tNAME\tPARENT_ID"<<std::endl;
+    saveTaxIndex(root, 0, ostream);
+    ostream.close();
+
+
+    //pullUnions(*root);
+    //std::vector< std::map< KMer, std::list<int> > > kmer_index;
+
+}
+
+void TaxBuilder::saveKMerIndex(std::string &file_path)
+{
+    pullUnions(*root);
+    std::vector< std::map< KMer, std::list<int> > > kmer_index;
+
+    std::ofstream ostream(file_path);
+    ostream<<"#LEVEL\tKMER\tNODES"<<std::endl;
+    //...
+    ostream.close();
+
+
 
 }

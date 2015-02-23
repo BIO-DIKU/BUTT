@@ -2,6 +2,7 @@
 #define TAXBUILDER_H
 
 #include <string>
+#include <fstream>
 
 #include "SeqToKMers.h"
 #include "TaxNode.h"
@@ -51,9 +52,14 @@ public:
 
 
     /**
-     * @brief Build and save index.
+     * @brief Build and save taxonomy index.
      */
-    void saveIndex(std::string directory, std::string prefix);
+    void saveTaxIndex(std::string &file_path);
+
+    /**
+     * @brief Build and save kmer index.
+     */
+    void saveKMerIndex(std::string &file_path);
 
     /**
      * @brief Return the node given an id.
@@ -98,6 +104,8 @@ private:
      * their classification. This function pulls all k-mers into parent-nodes using unions.
      */
     void pullUnions(TaxNode &n);
+
+    void saveTaxIndex(TaxNode* n, int depth, std::ofstream &ostream);
 };
 
 #endif // TAXBUILDER_H

@@ -114,6 +114,49 @@ private:
      */
     bool test5();
 
+    /**
+     * Input:
+     * r             A
+     *             /
+     * K          B
+     *          /   \
+     * P       E     F
+     *       /
+     * C    G
+     * kmers(A)={}
+     * kmers(B)={AAG}
+     * kmers(E)={AAG,AGA}
+     * kmers(F)={AAG,AGU}
+     * kmers(G)={AAG,AGA,GAG}
+     * After saveIndex("taxIndex.txt", "kmerIndex.txt") we expect the two files to exist
+     * and contain:
+     * taxIndex.txt:
+     * #NODE_ID	LEVEL	NAME	PARENT_ID
+     * 0	0	root	-1
+     * 1	1	K#B	0
+     * 2	2	P#E	1
+     * 3	2	P#F	1
+     * 4	3	C#G	2
+     * kmerIndex.txt:
+     * #LEVEL	KMER	NODES
+     * 0	AAG	0
+     * 0	AGA	0
+     * 0	AGU	0
+     * 0	GAG	0
+     * 1	AAG	1
+     * 1	AGA	1
+     * 1	AGU	1
+     * 1	GAG	1
+     * 2	AAG	2;3
+     * 2	AGA	2
+     * 2	AGU	3
+     * 2	GAG	2
+     * 3	AAG	4
+     * 3	AGA	4
+     * 3	GAG	4
+     */
+    bool test6();
+
 };
 
 #endif // TESTTAXBUILDER_H

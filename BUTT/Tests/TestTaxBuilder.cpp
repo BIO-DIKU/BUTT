@@ -1,6 +1,8 @@
 #include "TestTaxBuilder.h"
 
 #include <iostream>
+#include <fstream>
+#include <string>
 
 #include "TaxBuilder.h"
 #include "SeqToKMers.h"
@@ -20,6 +22,7 @@ bool TestTaxBuilder::runTests()
     BUTT_RUN_TEST("TestTaxBuilder test 3", test3());
     BUTT_RUN_TEST("TestTaxBuilder test 4", test4());
     BUTT_RUN_TEST("TestTaxBuilder test 5", test5());
+    BUTT_RUN_TEST("TestTaxBuilder test 6", test6());
     BUTT_POST_TESTS();
 
 }
@@ -165,4 +168,126 @@ bool TestTaxBuilder::test5()
     BUTT_ASSERT_EQUALS(2, builder.getNode(3).getKMers().size(), "Node 3 should have 2 K-mers");
     BUTT_ASSERT_EQUALS(3, builder.getNode(4).getKMers().size(), "Node 4 should have 3 K-mers");
     return true;
+}
+
+
+/**
+ * Input:
+ * r             A
+ *             /
+ * K          B
+ *          /   \
+ * P       E     F
+ *       /
+ * C    G
+ * kmers(A)={}
+ * kmers(B)={AAG}
+ * kmers(E)={AAG,AGA}
+ * kmers(F)={AAG,AGU}
+ * kmers(G)={AAG,AGA,GAG}
+ * After saveTaxIndex("taxIndex.txt") we expect the following file to exist
+ * and contain:
+ * taxIndex.txt:
+ * #NODE_ID	LEVEL	NAME	PARENT_ID
+ * 0	0	root	-1
+ * 1	1	K#B	0
+ * 2	2	P#E	1
+ * 3	2	P#F	1
+ * 4	3	C#G	2
+ * kmerIndex.txt:
+ * #LEVEL	KMER	NODES
+ * 0	AAG	0
+ * 0	AGA	0
+ * 0	AGU	0
+ * 0	GAG	0
+ * 1	AAG	1
+ * 1	AGA	1
+ * 1	AGU	1
+ * 1	GAG	1
+ * 2	AAG	2;3
+ * 2	AGA	2
+ * 2	AGU	3
+ * 2	GAG	2
+ * 3	AAG	4
+ * 3	AGA	4
+ * 3	GAG	4
+ */
+bool TestTaxBuilder::test6()
+{
+    std::string file("taxIndex.txt");
+    builder.saveTaxIndex(file);
+
+    std::vector<std::string> expectedLines = {
+        "#NODE_ID\tLEVEL\tNAME\tPARENT_ID",
+        "0\t0\troot\t-1",
+        "1\t1\tK#B\t0",
+        "2\t2\tP#E\t1",
+        "4\t3\tC#G\t2",
+        "3\t2\tP#F\t1"
+    };
+
+    std::ifstream input("taxIndex.txt");
+    std::string line;
+    int lineNum = 0;
+    while(std::getline(input,line)){
+        BUTT_ASSERT_EQUALS(expectedLines[lineNum], line, "Line mismatch. Expected \""+expectedLines[lineNum]+"\" was \""+line+"\"");
+        lineNum++;
+    }
+
+}
+
+
+/**
+ * Input:
+ * r             A
+ *             /
+ * K          B
+ *          /   \
+ * P       E     F
+ *       /
+ * C    G
+ * kmers(A)={}
+ * kmers(B)={AAG}
+ * kmers(E)={AAG,AGA}
+ * kmers(F)={AAG,AGU}
+ * kmers(G)={AAG,AGA,GAG}
+ * After saveKMerIndex("kmerIndex.txt") we expect the file to contain:
+ * #LEVEL	KMER	NODES
+ * 0	AAG	0
+ * 0	AGA	0
+ * 0	AGU	0
+ * 0	GAG	0
+ * 1	AAG	1
+ * 1	AGA	1
+ * 1	AGU	1
+ * 1	GAG	1
+ * 2	AAG	2;3
+ * 2	AGA	2
+ * 2	AGU	3
+ * 2	GAG	2
+ * 3	AAG	4
+ * 3	AGA	4
+ * 3	GAG	4
+ */
+bool TestTaxBuilder::test6()
+{
+    std::string file("taxIndex.txt");
+    builder.saveTaxIndex(file);
+
+    std::vector<std::string> expectedLines = {
+        "#",
+        "0\t0\troot\t-1",
+        "1\t1\tK#B\t0",
+        "2\t2\tP#E\t1",
+        "3\t2\tP#F\t1",
+        "4\t3\tC#G\t2"
+    };
+
+    std::ifstream input("taxIndex.txt");
+    std::string line;
+    int lineNum = 0;
+    while(std::getline(input,line)){
+        BUTT_ASSERT_EQUALS(expectedLines[lineNum], line, "Line mismatch. Expected \""+expectedLines[lineNum]+"\" was \""+line+"\"");
+    }
+
 }
