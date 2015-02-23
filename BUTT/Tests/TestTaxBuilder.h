@@ -89,6 +89,31 @@ private:
      * kmers(G)={AAG,AGA,GAG}
      */
     bool test4();
+
+
+    /**
+     * Input:
+     * r             A
+     *             /
+     * K          B
+     *          /   \
+     * P       E     F
+     *       /
+     * C    G
+     * kmers(A)={}
+     * kmers(B)={AAG}
+     * kmers(E)={AAG,AGA}
+     * kmers(F)={AAG,AGU}
+     * kmers(G)={AAG,AGA,GAG}
+     * After pullUnions we expect:
+     * kmers(A)={AAG,AGA,AGU,GAG}
+     * kmers(B)={AAG,AGA,AGU,GAG}
+     * kmers(E)={AAG,AGA,GAG}
+     * kmers(F)={AAG,AGU}
+     * kmers(G)={AAG,AGA,GAG}
+     */
+    bool test5();
+
 };
 
 #endif // TESTTAXBUILDER_H

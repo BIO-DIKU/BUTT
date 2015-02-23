@@ -42,11 +42,11 @@ public:
      * upper/lower case permitted) are returned. All T-characters will
      * be converted to U characters.
      */
-    KMerSet sequenceToKMers(std::string &sequence);
+    KMerSet sequenceToKMers(std::string &sequence)const ;
 
 private:
-    unsigned int kmer_size;
-    unsigned int step_size;
+    const unsigned int kmer_size;
+    const unsigned int step_size;
 
     /**
      * @brief Decode the k-mer at position pos in sequence and place the result in buffer.
@@ -56,7 +56,7 @@ private:
      * @param suffixSz indicates how many residues from the end of this window needs to be decoded.
      * @return an integer indicating the number of positions to jump
      */
-    unsigned int decodeKMer(std::string &sequence, unsigned int pos, KMer &buffer, int suffixSz);
+    unsigned int decodeKMer(std::string &sequence, unsigned int pos, KMer &buffer, int suffixSz) const;
 };
 
 #endif // SEQTOKMERS_H

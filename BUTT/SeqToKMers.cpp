@@ -39,7 +39,7 @@ int decode(char nucl){
    }
 }
 
-unsigned int SeqToKMers::decodeKMer(std::string &sequence, unsigned int pos, KMer &buffer, int suffixSz)
+unsigned int SeqToKMers::decodeKMer(std::string &sequence, unsigned int pos, KMer &buffer, int suffixSz) const
 {
     for(int i=0; i<suffixSz; i++){
         char nuclChar = sequence[ pos+kmer_size-i-1 ];
@@ -50,7 +50,7 @@ unsigned int SeqToKMers::decodeKMer(std::string &sequence, unsigned int pos, KMe
     return 0;
 }
 
-KMerSet SeqToKMers::sequenceToKMers(std::string &sequence)
+KMerSet SeqToKMers::sequenceToKMers(std::string &sequence) const
 {
     KMerSet ret;
     unsigned int mask = (1<<(kmer_size*2))-1;

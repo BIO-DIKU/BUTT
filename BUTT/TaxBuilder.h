@@ -47,7 +47,7 @@ public:
      * "K#Bacteria;P#Proteobacteria;C#Gammaproteobacteria;O#Vibrionales;F#Vibrionaceae;G#Vibrio;S#Vibrio"
      * @param sequence An RNA/DNA sequence associated with this taxonomy.
      */
-    void addTaxEntry(std::string &taxonomyString, std::string &sequence);
+    void addTaxEntry(std::string &&taxonomyString, std::string &&sequence);
 
 
     /**
@@ -72,8 +72,11 @@ private:
     const SeqToKMers sequenceSplitter;
 
     TaxNode* root;
+    unsigned int tree_size;
 
     void buildIndex();
+
+    inline bool isLeaf(std::vector<std::string> &tax_path, unsigned int t);
 
     /**
      * @brief checkTaxEntry checks if the taxonomyString satisfies:
@@ -88,6 +91,7 @@ private:
 
     std::vector<char> level_names;
 
+    friend class TestTaxBuilder;
 
     /**
      * When fasta entries are added their k-mers are only added to the bottom node in

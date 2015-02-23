@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <map>
 
 #include "Common.h"
 
@@ -20,29 +21,38 @@ public:
      * @brief TaxNode constructor.
      * Store constructor arguments and add itself to parents child list.
      */
-    TaxNode(TaxNode &parent, std::string &name, KMerSet &kmers, unsigned int node_id );
+    TaxNode(TaxNode *parent, std::string &name, unsigned int node_id );
 
     /** Access parent node */
     TaxNode &getParent();
 
     /** Access name */
-    std::string &getName();
+    const std::string &getName();
 
     /** Access k-mer set */
     KMerSet &getKMers();
 
+    /** Add k-mer set */
+    void addKMers(KMerSet &&kmers_);
+
+    /** Add k-mer set */
+    void addKMers(KMerSet &kmers_);
+
     /** Access child nodes */
-    std::vector<TaxNode*> &getChildren();
+    //std::vector<TaxNode*> &getChildren();
+    TaxNode* getChild(std::string &child_name);
 
 private:
     TaxNode* parent;
     std::map<std::string, TaxNode*> children;
     const std::string name;
+    KMerSet kmers;
 
     // Constructor for root node
     TaxNode();
 
     friend class TaxBuilder;
+    TaxNode* findNode(int id);
 
 };
 
