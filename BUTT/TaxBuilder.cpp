@@ -21,6 +21,11 @@ TaxBuilder::~TaxBuilder()
 
 void TaxBuilder::addTaxEntry(std::string &&taxonomyString, std::string &&sequence)
 {
+    addTaxEntry(taxonomyString, sequence);
+}
+
+void TaxBuilder::addTaxEntry(std::string &taxonomyString, std::string &sequence)
+{
     std::vector<std::string> tax_tokens;
     bool tax_string_status = checkTaxEntry(taxonomyString, tax_tokens);
 
@@ -38,7 +43,8 @@ void TaxBuilder::addTaxEntry(std::string &&taxonomyString, std::string &&sequenc
             next_child = new TaxNode(node, tax_tokens[t], tree_size++);
 
         if(isLeaf(tax_tokens, t)){
-            next_child->addKMers(sequenceSplitter.sequenceToKMers(sequence));
+            //next_child->addKMers(sequenceSplitter.sequenceToKMers(sequence));
+            sequenceSplitter.addKMersToSet(sequence, next_child->kmers);
             break;
         }else{
             node = next_child;
@@ -117,7 +123,7 @@ void TaxBuilder::pullUnions(TaxNode &n)
 void TaxBuilder::saveTaxIndex(TaxNode* n, int depth, std::ofstream &ostream)
 {
     int parent_id = (depth==0?-1:n->getParent().node_id);
-    ostream<<n->node_id<<'\t'<<depth<<'\t'<<n->getName()<<'\t'<<parent_id<<std::endl;
+    ostream<<n->node_id<<'\t'<<parent_id<<'\t'<<depth<<'\t'<<n->getName()<<std::endl;
 
     for(auto child_it=n->children.begin(); child_it!=n->children.end(); child_it++){
         saveTaxIndex(child_it->second, depth+1, ostream);
@@ -128,7 +134,7 @@ void TaxBuilder::saveTaxIndex(TaxNode* n, int depth, std::ofstream &ostream)
 void TaxBuilder::saveTaxIndex(std::string &file_path)
 {
     std::ofstream ostream(file_path);
-    ostream<<"#NODE_ID\tLEVEL\tNAME\tPARENT_ID"<<std::endl;
+    ostream<<"#NODE_ID\tPARENT_ID\tLEVEL\tNAME"<<std::endl;
     saveTaxIndex(root, 0, ostream);
     ostream.close();
 }
@@ -160,6 +166,7 @@ void TaxBuilder::saveKMerIndex(std::string &file_path)
     for(unsigned int level=0;level<kmer_index.size();level++){
         for(auto kmer_it = kmer_index[level].begin(); kmer_it!=kmer_index[level].end(); kmer_it++){
             ostream<<level<<'\t'<<kmer_it->first<<'\t';
+            kmer_it->second.sort();
             for(auto node_it=kmer_it->second.begin(); node_it!=kmer_it->second.end(); node_it++){
                 ostream<<*node_it<<';';
             }

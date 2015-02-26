@@ -50,6 +50,37 @@ unsigned int SeqToKMers::decodeKMer(std::string &sequence, unsigned int pos, KMe
     return 0;
 }
 
+void SeqToKMers::addKMersToSet(std::string &sequence, KMerSet &set) const
+{
+    unsigned int mask = (1<<(kmer_size*2))-1;
+    KMer buffer = 0;
+
+    int status = 0;
+    int suffix_size = kmer_size;
+    int stepBy = step_size;
+    int minMultiple = 1; // The smallest multiple of step_size larger than last status (or 1 if status=0)
+
+    for( int pos=0; pos<=((int)sequence.length()-(int)kmer_size); pos+=stepBy ){
+
+        status = decodeKMer(sequence, pos, buffer, suffix_size );
+
+        if(status==0){  // Complete k-mer was stored in buffer.
+            set.insert(buffer);
+
+            suffix_size = std::min(kmer_size,step_size);
+            minMultiple = 1;
+        }else{  // An unknown nucleotide was encountered. Fast forward window
+            suffix_size = status;
+            minMultiple = (int)std::ceil(status/step_size);
+        }
+
+        // Proceed to next window
+        stepBy = minMultiple*step_size;
+        buffer <<= 2*stepBy;
+        buffer &= mask;
+    }
+}
+
 KMerSet SeqToKMers::sequenceToKMers(std::string &sequence) const
 {
     KMerSet ret;

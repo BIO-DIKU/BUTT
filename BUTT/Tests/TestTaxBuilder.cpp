@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cstdio>
 
 #include "TaxBuilder.h"
 #include "SeqToKMers.h"
@@ -24,6 +25,7 @@ bool TestTaxBuilder::runTests()
     BUTT_RUN_TEST("TestTaxBuilder test 5", test5());
     BUTT_RUN_TEST("TestTaxBuilder test 6", test6());
     BUTT_RUN_TEST("TestTaxBuilder test 7", test7());
+    BUTT_RUN_TEST("TestTaxBuilder test 8", test8());
     BUTT_POST_TESTS();
 
 }
@@ -215,19 +217,19 @@ bool TestTaxBuilder::test5()
  */
 bool TestTaxBuilder::test6()
 {
-    std::string file("taxIndex.txt");
+    std::string file("testTmp_taxIndex.txt");
     builder.saveTaxIndex(file);
 
     std::vector<std::string> expectedLines = {
-        "#NODE_ID\tLEVEL\tNAME\tPARENT_ID",
-        "0\t0\troot\t-1",
-        "1\t1\tK#B\t0",
-        "2\t2\tP#E\t1",
-        "4\t3\tC#G\t2",
-        "3\t2\tP#F\t1"
+        "#NODE_ID\tPARENT_ID\tLEVEL\tNAME",
+        "0\t-1\t0\troot",
+        "1\t0\t1\tK#B",
+        "2\t1\t2\tP#E",
+        "4\t2\t3\tC#G",
+        "3\t1\t2\tP#F"
     };
 
-    std::ifstream input("taxIndex.txt");
+    std::ifstream input("testTmp_taxIndex.txt");
     std::string line;
     int lineNum = 0;
     while(std::getline(input,line)){
@@ -235,6 +237,8 @@ bool TestTaxBuilder::test6()
         lineNum++;
     }
     BUTT_ASSERT_EQUALS(expectedLines.size(), lineNum, "Incorrect number of lines. Expected "+std::to_string(expectedLines.size())+", but had "+std::to_string(lineNum));
+
+    remove("testTmp_taxIndex.txt");
 
     return true;
 }
@@ -274,7 +278,7 @@ bool TestTaxBuilder::test6()
  */
 bool TestTaxBuilder::test7()
 {
-    std::string file("kmerIndex.txt");
+    std::string file("testTmp_kmerIndex.txt");
     builder.saveKMerIndex(file);
 
     std::vector<std::string> expectedLines = {
@@ -296,7 +300,7 @@ bool TestTaxBuilder::test7()
         "3\t34\t4;"    // GAG
     };
 
-    std::ifstream input("kmerIndex.txt");
+    std::ifstream input("testTmp_kmerIndex.txt");
     std::string line;
     int lineNum = 0;
     while(std::getline(input,line)){
@@ -304,6 +308,55 @@ bool TestTaxBuilder::test7()
         lineNum++;
     }
     BUTT_ASSERT_EQUALS(expectedLines.size(), lineNum, "Incorrect number of lines. Expected "+std::to_string(expectedLines.size())+", but had "+std::to_string(lineNum));
+    remove("testTmp_kmerIndex.txt");
     return true;
 
+}
+
+/**
+ * Input:
+ * r             A
+ *             /   \
+ * K          B     D
+ *          /   \    \
+ * P       C     F    E
+ * kmers(A)={AA}
+ * kmers(B)={AA}
+ * kmers(E)={AA}
+ * kmers(F)={AA}
+ * kmers(G)={AA}
+ * After saveKMerIndex("kmerIndex.txt") we expect the file to contain:
+ * #LEVEL	KMER	NODES
+ * 0	AA	0
+ * 1	AA	1;3
+ * 2	AA	2;4;5
+ */
+bool TestTaxBuilder::test8()
+{
+    TaxBuilder tb(SeqToKMers(2,1));
+    tb.addTaxEntry("K#B;P#C", "AA");
+    tb.addTaxEntry("K#D;P#E", "AA");
+    tb.addTaxEntry("K#B;P#F", "AA");
+
+    std::string fname("testTmp_kmerIndex.txt");
+    tb.saveKMerIndex(fname);
+
+    std::vector<std::string> expectedLines = {
+        "#LEVEL\tKMER\tNODES",
+        "0\t0\t0;",
+        "1\t0\t1;3;",
+        "2\t0\t2;4;5;"
+    };
+
+    std::ifstream input("testTmp_kmerIndex.txt");
+    std::string line;
+    int lineNum = 0;
+    while(std::getline(input,line)){
+        BUTT_ASSERT_EQUALS(expectedLines[lineNum], line, "Line mismatch. Expected \""+expectedLines[lineNum]+"\" was \""+line+"\"");
+        lineNum++;
+    }
+    BUTT_ASSERT_EQUALS(expectedLines.size(), lineNum, "Incorrect number of lines. Expected "+std::to_string(expectedLines.size())+", but had "+std::to_string(lineNum));
+
+    remove("testTmp_kmerIndex.txt");
+    return true;
 }

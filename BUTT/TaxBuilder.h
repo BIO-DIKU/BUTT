@@ -52,13 +52,31 @@ public:
     void addTaxEntry(std::string &&taxonomyString, std::string &&sequence);
 
 
+    void addTaxEntry(std::string &taxonomyString, std::string &sequence);
+
+
     /**
      * @brief Build and save taxonomy index.
+     * The taxonomy index is a clear-text file of the format:
+     * #NODE_ID   PARENT_ID    LEVEL      NAME
+     * 0          -1           0          root
+     * 37426      0            1          K#Archaea
+     * 37427      37426        2          P#Crenarchaeota
+     * 37428      37427        3          C#Thermoprotei
+     * The NODE_ID is a unique non-negative identifier for tax-string nodes created using a
+     * depth-first traversal of the taxonomy tree. The PARENT_ID is the NODE_ID of the parent
+     * except for the root node where the PARENT_ID is -1. LEVEL is the depth of the node
+     * in the taxonomy tree and NAME is either 'root' or the specific part of the taxonomy
+     * string related to the nodes level.
      */
     void saveTaxIndex(std::string &file_path);
 
     /**
      * @brief Build and save kmer index.
+     * The kmer index is a clear-text file that for each level indicates for each kmer the
+     * node ids containing this kmer. The file is formatted using 3 columns where the first
+     * indicates the LEVEL, the second indicates the KMER, and the third is a semicolon
+     * separated sorted list of NODES (node-ids) that contain KMER.
      */
     void saveKMerIndex(std::string &file_path);
 

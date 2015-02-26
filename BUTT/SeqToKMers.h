@@ -42,7 +42,15 @@ public:
      * upper/lower case permitted) are returned. All T-characters will
      * be converted to U characters.
      */
-    KMerSet sequenceToKMers(std::string &sequence)const ;
+    KMerSet sequenceToKMers(std::string &sequence) const;
+
+    /**
+     * @brief Convert the sequence to a set of unique k-mers just as the
+     * sequenceToKMers function, except the resulting kmer-set is not returned
+     * but added to set. This allows for fewer KMerSet constructions and
+     * destructions by TaxBuilder.
+     */
+    void addKMersToSet(std::string &sequence, KMerSet &set) const;
 
 private:
     const unsigned int kmer_size;

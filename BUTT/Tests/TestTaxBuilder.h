@@ -190,6 +190,25 @@ private:
      * 3	GAG	4
      */
     bool test7();
+    /**
+     * Input:
+     * r             A
+     *             /   \
+     * K          B     D
+     *          /   \    \
+     * P       C     F    E
+     * kmers(A)={AA}
+     * kmers(B)={AA}
+     * kmers(E)={AA}
+     * kmers(F)={AA}
+     * kmers(G)={AA}
+     * After saveKMerIndex("kmerIndex.txt") we expect the file to contain:
+     * #LEVEL	KMER	NODES
+     * 0	AA	0
+     * 1	AA	1;3
+     * 2	AA	2;4;5
+     */
+    bool test8();
 };
 
 #endif // TESTTAXBUILDER_H
