@@ -158,6 +158,61 @@ void TaxBuilder::buildKMerIndex(TaxNode* n, int depth, std::vector< std::map< KM
 void TaxBuilder::saveKMerIndex(std::string &file_path)
 {
     pullUnions(*root);
+
+    std::ofstream ostream(file_path);
+    ostream<<"#LEVEL\tKMER\tNODES"<<std::endl;
+
+    //Perform a standard BFS following http://en.wikipedia.org/wiki/Breadth-first_search
+    std::list< TaxNode* >* queue1 = new std::list<TaxNode*>();
+    std::list< TaxNode* >* queue2 = new std::list<TaxNode*>();
+    queue2->push_back(root);
+
+    int lvl = -1;
+    while(!queue2->empty()){
+        lvl++;
+
+        // Swap queues
+        auto tmp = queue1;
+        queue1 = queue2;
+        queue2 = tmp;
+
+        // Collect KMer-to-nodeid map
+        std::map< KMer, std::set<int> > kmer_map;
+        while(!queue1->empty()){
+            TaxNode* n = queue1->front(); queue1->pop_front();
+
+            KMerSet &kmers = n->getKMers();
+            for(auto kmer_it=kmers.begin(); kmer_it!=kmers.end(); kmer_it++){
+                KMer kmer = *kmer_it;
+                kmer_map[kmer].insert(n->node_id);
+            }
+
+            //Put children of n in queue2
+            for(auto child_it=n->children.begin(); child_it!=n->children.end(); child_it++){
+                queue2->push_back(child_it->second);
+            }
+        }
+
+        // Print
+        for(auto kmer_it = kmer_map.begin(); kmer_it!=kmer_map.end(); kmer_it++){
+            ostream<<lvl<<'\t'<<kmer_it->first<<'\t';
+            for(auto node_it=kmer_it->second.begin(); node_it!=kmer_it->second.end(); node_it++){
+                ostream<<*node_it<<';';
+            }
+            ostream<<std::endl;
+        }
+
+    }
+
+    delete queue1;
+    delete queue2;
+
+
+    ostream.close();
+
+
+
+    /*
     std::vector< std::map< KMer, std::list<int> > > kmer_index;
     buildKMerIndex(root, 0, kmer_index);
 
@@ -174,7 +229,7 @@ void TaxBuilder::saveKMerIndex(std::string &file_path)
         }
     }
     ostream.close();
-
+    */
 
 
 }

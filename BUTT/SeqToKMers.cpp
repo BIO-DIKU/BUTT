@@ -41,10 +41,17 @@ int decode(char nucl){
 
 unsigned int SeqToKMers::decodeKMer(std::string &sequence, unsigned int pos, KMer &buffer, int suffixSz) const
 {
+    //std::cout<<"decodeKMer(.. ";
+    //for(int i=pos;i<pos+kmer_size;i++) std::cout<<sequence[i];
+    //std::cout<<" .., "<<pos<<", "<<buffer<<", "<<suffixSz<<")"<<std::endl;
+
     for(int i=0; i<suffixSz; i++){
         char nuclChar = sequence[ pos+kmer_size-i-1 ];
         int nucl = decode(nuclChar);
-        if(nucl<0) return pos+kmer_size-i;
+        if(nucl<0) {
+            unsigned int ret = kmer_size-i;
+            return kmer_size-i;
+        }
         buffer |= (nucl<<(2*i));
     }
     return 0;
@@ -66,6 +73,14 @@ void SeqToKMers::addKMersToSet(std::string &sequence, KMerSet &set) const
 
         if(status==0){  // Complete k-mer was stored in buffer.
             set.insert(buffer);
+            //if(buffer>=(1<<16)){
+            //    std::cout<<"buffer: "<<buffer<<std::endl;
+            //    std::cout<<"mask: "<<mask<<std::endl;
+            //    std::cout<<"sequence: "<<sequence<<std::endl;
+            //    std::cout<<"pos: "<<pos<<std::endl;
+            //    std::cout<<"kmer_size: "<<kmer_size<<std::endl;
+            //    throw "Bug located";
+            //}
 
             suffix_size = std::min(kmer_size,step_size);
             minMultiple = 1;
@@ -98,6 +113,8 @@ KMerSet SeqToKMers::sequenceToKMers(std::string &sequence) const
 
         if(status==0){  // Complete k-mer was stored in buffer.
             ret.insert(buffer);
+            if(buffer>=(1<<16))
+                throw "Bug located";
 
             suffix_size = std::min(kmer_size,step_size);
             minMultiple = 1;

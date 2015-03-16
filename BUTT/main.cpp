@@ -25,7 +25,7 @@ void benchmarkBuilder(int argc, char** argv)
     cout<<"Assuming second argument is a fasta file"<<endl;
 
     Fasta fasta(argv[1]);
-    TaxBuilder builder(SeqToKMers(8, 1));
+    TaxBuilder builder(SeqToKMers(9, 1));
 
     while(fasta.hasNextEntry()){
         FastaEntry entry = fasta.nextEntry();
