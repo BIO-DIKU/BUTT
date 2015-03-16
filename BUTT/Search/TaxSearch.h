@@ -4,7 +4,10 @@
 #include <tuple>
 #include <set>
 #include <string>
+#include <vector>
+#include <list>
 
+#include "Search/NameNode.h"
 #include "SeqToKMers.h"
 
 /**
@@ -68,15 +71,30 @@ public:
     std::set<int> searchNodes(std::string sequence);
 
     /**
-     * @brief Reads the index-files into data structure and prepare for the
-     * search. If either the directory or files specified by prefix are non-
-     * existing a FileNotFoundException will be raised.
-     * @param directory
-     * @param prefix
+     * @brief Reads the taxonomy index files into data structure and prepare for the
+     * search. If the file does not exist, a FileNotFoundException will be raised.
+     * @param file_path
      */
-    void readIndex(std::string &directory, std::string &prefix);
+    void readTaxIndex(std::string &file_path);
+
+    /**
+     * @brief Reads the kmer index files into data structure and prepare for the
+     * search. If the file does not exist, a FileNotFoundException will be raised.
+     * @param file_path
+     */
+    void readKMerIndex(std::string &file_path);
 
 private:
+    const SeqToKMers seq_splitter;
+    const int hits_max;
+    const bool best_only;
+    const double coverage;
+    std::vector<NameNode> nodes;
+
+    /// First vector indexes LEVEL, second the KMER and the third is a list of nodes
+    std::vector< std::vector< std::list<int> > > kmer_node_indices;
+
+
 };
 
 #endif // TAXSEARCH_H

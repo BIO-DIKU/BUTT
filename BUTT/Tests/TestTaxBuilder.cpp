@@ -308,6 +308,7 @@ bool TestTaxBuilder::test7()
         lineNum++;
     }
     BUTT_ASSERT_EQUALS(expectedLines.size(), lineNum, "Incorrect number of lines. Expected "+std::to_string(expectedLines.size())+", but had "+std::to_string(lineNum));
+    input.close();
     remove("testTmp_kmerIndex.txt");
     return true;
 
@@ -356,6 +357,7 @@ bool TestTaxBuilder::test8()
         lineNum++;
     }
     BUTT_ASSERT_EQUALS(expectedLines.size(), lineNum, "Incorrect number of lines. Expected "+std::to_string(expectedLines.size())+", but had "+std::to_string(lineNum));
+    input.close();
 
     remove("testTmp_kmerIndex.txt");
     return true;

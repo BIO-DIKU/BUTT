@@ -9,7 +9,9 @@
 class NameNode
 {
 public:
-    NameNode(std::string name, unsigned int parent, unsigned int node_id, unsigned int seq_id);
+    NameNode(std::string name, unsigned int parent, unsigned int node_id);
+    NameNode(const NameNode& node);
+    //NameNode();
 
     std::string &getName();
 
@@ -17,11 +19,9 @@ public:
 
     unsigned int getNodeId();
 
-    unsigned int getSequenceId();
-
 private:
     std::string name;
-    unsigned int parent, node_id, seq_id;
+    unsigned int parent, node_id;
 };
 
 #endif // NAMENODE_H
