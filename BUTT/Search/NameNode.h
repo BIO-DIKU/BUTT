@@ -9,19 +9,20 @@
 class NameNode
 {
 public:
-    NameNode(std::string name, unsigned int parent, unsigned int node_id);
+    NameNode(std::string name, int parent, unsigned int node_id);
     NameNode(const NameNode& node);
     //NameNode();
 
     std::string &getName();
 
-    unsigned int getParentId();
+    int getParentId();
 
     unsigned int getNodeId();
 
 private:
     std::string name;
-    unsigned int parent, node_id;
+    int parent;
+    unsigned int node_id;
 };
 
 #endif // NAMENODE_H

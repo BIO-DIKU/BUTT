@@ -8,6 +8,7 @@
 #include <list>
 
 #include "Search/NameNode.h"
+#include "Search/TaxConsensus.h"
 #include "SeqToKMers.h"
 
 /**
@@ -48,7 +49,7 @@ public:
      * @param tax_index_path File path for the taxonomy index file
      * fewer kmers than the total amount of kmers x coverage it will be filtered.
      */
-    TaxSearch(SeqToKMers seqSplitter, int hits_max, bool best_only, double coverage, std::string &kmer_index_path, std::string &tax_index_path);
+    TaxSearch(SeqToKMers seqSplitter, int hits_max, bool best_only, double coverage, TaxConsensus* consensus_builder, std::string &kmer_index_path, std::string &tax_index_path);
 
     /**
      * @brief Perform a BUTT search using searchNodes and compile a consensus
@@ -60,7 +61,11 @@ public:
      * Example:
      * ("Query 1","K#Bacteria(100);P#Proteobacteria(100);C#Gammaproteobacteria(80);O#Vibrionales(75);F#;G#;S#")
      */
-    Hit search(std::string seqName, std::string sequence);
+    Hit search(std::string &seqName, std::string &sequence);
+
+
+    /// R-value version of search function for convenience and tests
+    Hit search(std::string &&seqName, std::string &&sequence);
 
 
     /**
@@ -82,7 +87,22 @@ public:
      * TaxSearch::readDatabases has been called. The values in the set are
      * indices of nodes in the node-tree.
      */
-    std::set<int> searchNodes(std::string sequence);
+    std::set<int> searchNodes(std::string &sequence);
+
+private:
+    const SeqToKMers seq_splitter;
+    const int hits_max;
+    const bool best_only;
+    const double coverage;
+    TaxConsensus* consensus_builder;
+    std::vector<NameNode> nodes;
+
+    /// First vector indexes LEVEL, second the KMER and the third is a list of nodes
+    std::vector< std::vector< std::list<int> > > kmer_node_indices;
+
+    /// Working memory for building histograms in search. Arrays are used in the hope
+    /// that memset will be faster than vector::assign.
+    std::vector<unsigned int> node_counts;
 
     /**
      * @brief Reads the taxonomy index files into data structure and prepare for the
@@ -98,17 +118,11 @@ public:
      */
     void readKMerIndex(std::string &file_path);
 
-private:
-    const SeqToKMers seq_splitter;
-    const int hits_max;
-    const bool best_only;
-    const double coverage;
-    std::vector<NameNode> nodes;
+    void fill_node_tax_row(int node_id, std::vector<std::string> &node_tax_row);
 
-    /// First vector indexes LEVEL, second the KMER and the third is a list of nodes
-    std::vector< std::vector< std::list<int> > > kmer_node_indices;
+    static bool descendingSortOrder(unsigned int a, unsigned int b){ return a>b; }
 
-
+    void pickBestHits(std::set<int> &ret);
 };
 
 #endif // TAXSEARCH_H

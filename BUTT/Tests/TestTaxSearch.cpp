@@ -2,6 +2,7 @@
 
 #include "TestHelper.h"
 #include "Search/TaxSearch.h"
+#include "Search/SimpleTaxConsensus.h"
 
 #include <cstdlib>
 #include <cstdio>
@@ -49,7 +50,7 @@ bool TestTaxSearch::testIOExceptions()
         output<<taxIndexContents;
         output.close();
 
-        TaxSearch searcher(SeqToKMers(4,1), 2, false, 0, kmer_index_path,tax_index_path);
+        TaxSearch searcher(SeqToKMers(4,1), 2, false, 0, new SimpleTaxConsensus(), kmer_index_path,tax_index_path);
         BUTT_ASSERT_TRUE(false, "testIOException shouldnt reach this point");
     }catch(TaxSearchException e){
         BUTT_ASSERT_TRUE(true, "If you're here you're fine");
@@ -67,7 +68,7 @@ bool TestTaxSearch::testIOExceptions()
         ofstream output(kmer_index_path);
         output<<kmerIndexContents;
         output.close();
-        TaxSearch searcher(SeqToKMers(4,1), 2, false, 0, kmer_index_path,tax_index_path);
+        TaxSearch searcher(SeqToKMers(4,1), 2, false, 0, new SimpleTaxConsensus(), kmer_index_path,tax_index_path);
         BUTT_ASSERT_TRUE(false, "testIOException shouldnt reach this point");
     }catch(TaxSearchException e){
         BUTT_ASSERT_TRUE(true, "If you're here you're fine");
@@ -126,7 +127,7 @@ bool TestTaxSearch::test1()
 
     string file1("temp_kmerIndex.txt");
     string file2("temp_taxIndex.txt");
-    TaxSearch searcher(SeqToKMers(4, 1), 2, false, 0, file1, file2);
+    TaxSearch searcher(SeqToKMers(4, 1), 2, false, 0, new SimpleTaxConsensus(), file1, file2);
     remove("temp_kmerIndex.txt");
     remove("temp_taxIndex.txt");
 
@@ -229,117 +230,3 @@ bool TestTaxSearch::test8()
 }
 
 
-
-/*
- * TestTaxSearch::test-cases for testSearch.
- * The following tree-layout is used for test1-test8
- *                 r
- *    		       |
- *         A_1  A_1  A_2  Z_7
- *               |
- *         B_1  B_1  B_2  Y_8
- *               |
- *      C_1  C_1  C_2  X_9
- *
- */
-
-/**
- * Tests that empty search for non-existing taxonomy gives consensus
- * taxonomy with all levels empty.
- * Input: Kmers not corresponding to any node
- * Expected: ("Q", "K#;P#;C#;O#;F#;G#;S#", 0)
- */
-bool TestTaxSearch::testSearchNodes1()
-{
-
-}
-
-/**
- * Tests consensus of perfect hit
- * Input: kmers matching: C_1, C_1
- * Expected: ("Q", "K#A_1(100/100);P#B_1(100/100);C#C_1(100/100);O#;F#;G#;S#", 2)
- */
-bool TestTaxSearch::testSearchNodes2()
-{
-
-}
-
-/**
- * Tests consensus of hit down to C-level, first word
- * Input: kmers matching: C_1, C_2
- * Expected: ("Q", "K#A_1(100/100);P#B_1(100/100);C#C(100);O#;F#;G#;S#", 2)
- */
-bool TestTaxSearch::testSearchNodes3()
-{
-
-}
-
-/**
- * Tests consensus of hit down to P-level, second word
- * Input: kmers matching: C_1, X_9
- * Expected: ("Q", "K#A_1(100/100);P#B_1(100/100);C#;O#;F#;G#;S#", 2)
- */
-bool TestTaxSearch::testSearchNodes4()
-{
-
-}
-
-/**
- * Tests consensus of hit down to P-level, second word
- * Input: kmers matching: B_1, B_1
- * Expected: ("Q", "K#A_1(100/100);P#B_1(100/100);C#;O#;F#;G#;S#", 2)
- */
-bool TestTaxSearch::testSearchNodes5()
-{
-
-}
-
-/**
- * Tests consensus of hit down to P-level, first word
- * Input: kmers matching: B_1, B_2
- * Expected: ("Q", "K#A_1(100/100);P#B(100);C#;O#;F#;G#;S#", 2)
- */
-bool TestTaxSearch::testSearchNodes6()
-{
-
-}
-
-/**
- * Tests consensus of hit down to K-level, second word
- * Input: kmers matching: B_1, Y_8
- * Expected: ("Q", "K#A_1(100/100);P#;C#;O#;F#;G#;S#", 2)
- */
-bool TestTaxSearch::testSearchNodes7()
-{
-
-}
-
-/**
- * Tests consensus of hit down to K-level, second word
- * Input: kmers matching: A_1, A_1
- * Expected: ("Q", "K#A_1(100/100);P#;C#;O#;F#;G#;S#", 2)
- */
-bool TestTaxSearch::testSearchNodes8()
-{
-
-}
-
-/**
- * Tests consensus of hit down to K-level, first word
- * Input: kmers matching: A_1, A_2
- * Expected: ("Q", "K#A(100);P#;C#;O#;F#;G#;S#", 2)
- */
-bool TestTaxSearch::testSearchNodes9()
-{
-
-}
-
-/**
- * Tests no consensus, but with hits
- * Input: kmers matching: A_1, Z_7
- * Expected: ("Q", "K#;P#;C#;O#;F#;G#;S#", 2)
- */
-bool TestTaxSearch::testSearchNodes10()
-{
-
-}

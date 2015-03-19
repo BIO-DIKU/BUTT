@@ -2,16 +2,20 @@
 
 #include "Common.h"
 
+#include <map>
+#include <vector>
 #include <fstream>
 #include <string>
+#include <algorithm>
 
 using namespace std;
 
-TaxSearch::TaxSearch(SeqToKMers seqSplitter, int hits_max, bool best_only, double coverage, std::string &kmer_index_path, std::string &tax_index_path):
+TaxSearch::TaxSearch(SeqToKMers seqSplitter, int hits_max, bool best_only, double coverage, TaxConsensus* consensus_builder, std::string &kmer_index_path, std::string &tax_index_path):
     seq_splitter(seqSplitter),
     hits_max(hits_max),
     best_only(best_only),
     coverage(coverage),
+    consensus_builder(consensus_builder),
     nodes(200000, NameNode("NA",-2,0)) //Expected size of RDP is around 200000
 {
 
@@ -59,6 +63,7 @@ void TaxSearch::readKMerIndex(std::string &file_path)
     if(!input.good())
         throw TaxSearchException("TaxSearch::readKMerIndex: File not found or readable");
 
+    int max_node_id = 0;
     std::string line;
     while (std::getline(input, line))
     {
@@ -84,20 +89,56 @@ void TaxSearch::readKMerIndex(std::string &file_path)
             kmer_node_indices[level].push_back( list<int>() );
         }
 
-        for(auto node_it = nodeTokens.begin(); node_it!=nodeTokens.end(); node_it++){
+        for(auto node_it = nodeTokens.begin(); node_it!=nodeTokens.end(); ++node_it){
             int node_id = atoi(node_it->c_str());
             kmer_node_indices[level][kmer].push_back(node_id);
+
+            if(node_id>max_node_id)
+                max_node_id = node_id;
         }
     }
+
+    unsigned int node_counts_size = max_node_id+1;
+    node_counts.resize(node_counts_size);
 
     input.close();
 
 }
 
-Hit TaxSearch::search(std::string seqName, std::string sequence)
+Hit TaxSearch::search(std::string &&seqName, std::string &&sequence){
+    return search(seqName, sequence);
+}
+
+Hit TaxSearch::search(std::string &seqName, std::string &sequence)
 {
+    set<int> node_hits = searchNodes(sequence);
+
+    int levels = kmer_node_indices.size()-1;
+    vector< vector< string > > node_tax_table;
+
+    for(auto hit_it = node_hits.begin(); hit_it!=node_hits.end(); ++hit_it){
+        vector<string> node_tax_row(levels, "");
+        fill_node_tax_row(*hit_it, node_tax_row);
+        node_tax_table.push_back(node_tax_row);
+    }
+
+    string consensus = consensus_builder->buildConsensus(node_tax_table);
+    return make_tuple(seqName, consensus, node_hits.size());
 
 }
+
+void TaxSearch::fill_node_tax_row(int node_id, vector<string> &node_tax_row)
+{
+    NameNode &n = nodes[node_id];
+    int level = kmer_node_indices.size()-1;
+    do{
+        node_tax_row[level] = n.getName();
+        n = nodes[n.getParentId()];
+        level--;
+    }while(n.getParentId()>=0);
+
+}
+
 
 /**
  * @brief Method to search for a given sequence.
@@ -118,10 +159,37 @@ Hit TaxSearch::search(std::string seqName, std::string sequence)
  * TaxSearch::readDatabases has been called. The values in the set are
  * indices of nodes in the node-tree.
  */
-std::set<int> TaxSearch::searchNodes(std::string sequence)
+std::set<int> TaxSearch::searchNodes(std::string &sequence)
 {
     KMerSet kmer_set = seq_splitter.sequenceToKMers(sequence);
 
+    std::fill(node_counts.begin(), node_counts.end(), 0);
 
+    for(int level=kmer_node_indices.size()-1; level>0; level--){
+        for(auto kmer_it = kmer_set.begin(); kmer_it!=kmer_set.end(); ++kmer_it){
+
+            list<int>& node_list = kmer_node_indices[level][*kmer_it];
+
+            for(auto node_it=node_list.begin(); node_it!=node_list.end(); ++node_it ){
+                node_counts[*node_it]++;
+            }
+        }
+        std::set<int> ret;
+        pickBestHits(ret);
+        if(ret.size()>0)
+            return ret;
+    }
+
+    std::set<int> ret;
+    return ret;
+}
+
+void TaxSearch::pickBestHits(std::set<int> &ret)
+{
+    sort(node_counts.begin(), node_counts.end(), descendingSortOrder);
+
+    for(int i=0;i<hits_max;i++){
+        ret.insert(node_counts[i]);
+    }
 
 }

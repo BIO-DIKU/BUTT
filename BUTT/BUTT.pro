@@ -22,7 +22,11 @@ SOURCES += main.cpp \
     Fasta.cpp \
     Tests/TestFasta.cpp \
     Tests/TestAll.cpp \
-    Tests/TestHelper.cpp
+    Tests/TestHelper.cpp \
+    Search/TaxConsensus.cpp \
+    Search/SimpleTaxConsensus.cpp \
+    Tests/TestSimpleConsensus.cpp \
+    Tests/TestCleverTaxConsensus.cpp
 
 include(deployment.pri)
 qtcAddDeployment()
@@ -40,5 +44,9 @@ HEADERS += \
     Fasta.h \
     Tests/TestFasta.h \
     Tests/TestAll.h \
-    Tests/TestHelper.h
+    Tests/TestHelper.h \
+    Search/TaxConsensus.h \
+    Search/SimpleTaxConsensus.h \
+    Tests/TestSimpleConsensus.h \
+    Tests/TestCleverTaxConsensus.h
 
