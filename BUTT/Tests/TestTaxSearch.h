@@ -17,6 +17,12 @@ private:
 
     bool testSearch();
 
+    /**
+     * Test that TaxSearchException is thrown if either the kmer index file
+     * or taxonomy index file does not exist.
+     */
+    bool testIOExceptions();
+
     /*
      * test-cases for testSearchNodes.
      * The following tree-layout is used for test1-test8

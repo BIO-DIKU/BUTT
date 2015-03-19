@@ -11,6 +11,18 @@
 #include "SeqToKMers.h"
 
 /**
+ * @brief Exception thrown by TaxSearch class
+ */
+class TaxSearchException: public std::exception {
+public:
+    TaxSearchException(std::string &&msg): exceptionMsg(msg){}
+    TaxSearchException(const TaxSearchException &e): exceptionMsg(e.exceptionMsg){}
+    const std::string exceptionMsg;
+};
+
+
+
+/**
  * @brief A container for search-hit information used for return value of
  * TaxSearch::search.
  * The first string represents the seqName provided for a search.
@@ -32,9 +44,11 @@ public:
      * That is if a hit consists of 344 kmers out of 345 possible, only hits with
      * 344 kmers are included.
      * @param coverage Filter hits based on kmer coverage. If a hit contains
+     * @param kmer_index_path File path for the kmer index file
+     * @param tax_index_path File path for the taxonomy index file
      * fewer kmers than the total amount of kmers x coverage it will be filtered.
      */
-    TaxSearch(SeqToKMers seqSplitter, int hits_max, bool best_only, double coverage);
+    TaxSearch(SeqToKMers seqSplitter, int hits_max, bool best_only, double coverage, std::string &kmer_index_path, std::string &tax_index_path);
 
     /**
      * @brief Perform a BUTT search using searchNodes and compile a consensus

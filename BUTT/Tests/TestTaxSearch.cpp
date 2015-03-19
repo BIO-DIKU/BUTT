@@ -18,6 +18,7 @@ TestTaxSearch::TestTaxSearch()
 bool TestTaxSearch::runTests()
 {
     BUTT_PRE_TESTS();
+    BUTT_RUN_TEST("TestTaxSearch test IO", testIOExceptions());
     BUTT_RUN_TEST("TestTaxSearch test 1", test1());
     BUTT_RUN_TEST("TestTaxSearch test 2", test2());
     BUTT_RUN_TEST("TestTaxSearch test 3", test3());
@@ -30,6 +31,51 @@ bool TestTaxSearch::runTests()
 
 }
 
+bool TestTaxSearch::testIOExceptions()
+{
+    try{
+        string kmer_index_path("randomNonexistingASDFpath.txt1");
+        string tax_index_path("temp_taxIndex.txt");
+        string taxIndexContents = "";
+        taxIndexContents += "0\t-1\t0\tI\n";
+        taxIndexContents += "1\t0\t1\tG\n";
+        taxIndexContents += "2\t1\t2\tD\n";
+        taxIndexContents += "3\t1\t2\tF\n";
+        taxIndexContents += "4\t1\t2\tE\n";
+        taxIndexContents += "5\t4\t3\tA\n";
+        taxIndexContents += "6\t4\t3\tB\n";
+        taxIndexContents += "7\t4\t3\tC\n";
+        ofstream output(tax_index_path);
+        output<<taxIndexContents;
+        output.close();
+
+        TaxSearch searcher(SeqToKMers(4,1), 2, false, 0, kmer_index_path,tax_index_path);
+        BUTT_ASSERT_TRUE(false, "testIOException shouldnt reach this point");
+    }catch(TaxSearchException e){
+        BUTT_ASSERT_TRUE(true, "If you're here you're fine");
+    }
+    remove("temp_taxIndex.txt");
+
+    try{
+        string kmer_index_path("temp_kmerIndex.txt");
+        string tax_index_path("randomNonexistingASDFpath.txt1");
+        string kmerIndexContents = "";
+        kmerIndexContents += "0\t0\t0\n";
+        kmerIndexContents += "1\t0\t1\n";
+        kmerIndexContents += "2\t0\t4\n";
+        kmerIndexContents += "3\t0\t5;6\n";
+        ofstream output(kmer_index_path);
+        output<<kmerIndexContents;
+        output.close();
+        TaxSearch searcher(SeqToKMers(4,1), 2, false, 0, kmer_index_path,tax_index_path);
+        BUTT_ASSERT_TRUE(false, "testIOException shouldnt reach this point");
+    }catch(TaxSearchException e){
+        BUTT_ASSERT_TRUE(true, "If you're here you're fine");
+    }
+    remove("temp_kmerIndex.txt");
+
+    return true;
+}
 
 /*
  * test-cases for testSearchNodes.
@@ -78,9 +124,9 @@ bool TestTaxSearch::test1()
     output<<kmerIndexContents;
     output.close();
 
-    TaxSearch searcher(SeqToKMers(4, 1), 2, false, 0);
-    string file1("temp_taxIndex.txt"); searcher.readTaxIndex(file1);
-    string file2("temp_kmerIndex.txt"); searcher.readKMerIndex(file2);
+    string file1("temp_kmerIndex.txt");
+    string file2("temp_taxIndex.txt");
+    TaxSearch searcher(SeqToKMers(4, 1), 2, false, 0, file1, file2);
     remove("temp_kmerIndex.txt");
     remove("temp_taxIndex.txt");
 

@@ -7,7 +7,7 @@
 
 using namespace std;
 
-TaxSearch::TaxSearch(SeqToKMers seqSplitter, int hits_max, bool best_only, double coverage):
+TaxSearch::TaxSearch(SeqToKMers seqSplitter, int hits_max, bool best_only, double coverage, std::string &kmer_index_path, std::string &tax_index_path):
     seq_splitter(seqSplitter),
     hits_max(hits_max),
     best_only(best_only),
@@ -15,12 +15,17 @@ TaxSearch::TaxSearch(SeqToKMers seqSplitter, int hits_max, bool best_only, doubl
     nodes(200000, NameNode("NA",-2,0)) //Expected size of RDP is around 200000
 {
 
+    readTaxIndex(tax_index_path);
+    readKMerIndex(kmer_index_path);
 }
 
 
 void TaxSearch::readTaxIndex(std::string &file_path)
 {
     ifstream input(file_path);
+    if(!input.good())
+        throw TaxSearchException("TaxSearch::readTaxIndex: File not found or readable");
+
     std::string line;
     while (std::getline(input, line))
     {
@@ -51,6 +56,9 @@ void TaxSearch::readTaxIndex(std::string &file_path)
 void TaxSearch::readKMerIndex(std::string &file_path)
 {
     ifstream input(file_path);
+    if(!input.good())
+        throw TaxSearchException("TaxSearch::readKMerIndex: File not found or readable");
+
     std::string line;
     while (std::getline(input, line))
     {
@@ -86,6 +94,10 @@ void TaxSearch::readKMerIndex(std::string &file_path)
 
 }
 
+Hit TaxSearch::search(std::string seqName, std::string sequence)
+{
+
+}
 
 /**
  * @brief Method to search for a given sequence.
@@ -109,5 +121,7 @@ void TaxSearch::readKMerIndex(std::string &file_path)
 std::set<int> TaxSearch::searchNodes(std::string sequence)
 {
     KMerSet kmer_set = seq_splitter.sequenceToKMers(sequence);
+
+
 
 }
