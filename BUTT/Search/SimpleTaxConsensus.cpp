@@ -1,18 +1,20 @@
 #include "SimpleTaxConsensus.h"
-
 #include <map>
 #include <string>
 #include <algorithm>
 #include <tuple>
 
 using namespace std;
+
 SimpleTaxConsensus::SimpleTaxConsensus()
 {
 }
 
 std::string SimpleTaxConsensus::buildConsensus(std::vector< std::vector< std::string > > &tax_table)
 {
-    int rows = tax_table.size();
+    int rows  = tax_table.size();
+    int level = 3; // FIXME
+
     if(rows==0) return "";
 
     string ret;
@@ -36,5 +38,23 @@ std::string SimpleTaxConsensus::buildConsensus(std::vector< std::vector< std::st
             ret+=";";
     }
 
-    return ret;
+    switch (level) {
+    case 0:
+      return ret+";K#;P#;C#;O#;F#;G#;S#";
+    case 1:
+      return ret+";P#;C#;O#;F#;G#;S#";
+    case 2:
+      return ret+";C#;O#;F#;G#;S#";
+    case 3:
+      return ret+";O#;F#;G#;S#";
+    case 4:
+      return ret+";F#;G#;S#";
+    case 5:
+      return ret+";G#;S#";
+    case 6:
+      return ret+";S#";
+    default:
+      std::string msg("Something bad happened. Taxonomy consensus: \""+ret+"\", Taxonomy level: \""+to_string(level)+"\"");
+      throw SimpleTaxConsensusException(msg);
+    }
 }
