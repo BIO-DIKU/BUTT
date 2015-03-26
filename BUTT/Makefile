@@ -11,8 +11,8 @@
 CC            = clang
 CXX           = clang++
 DEFINES       = 
-CFLAGS        = -pipe -mmacosx-version-min=10.7 -O2 -arch x86_64 -Wall -W $(DEFINES)
-CXXFLAGS      = -pipe -stdlib=libc++ -mmacosx-version-min=10.7 -std=c++11 -O3 -arch x86_64 -Wall -W $(DEFINES)
+CFLAGS        = -pipe -mmacosx-version-min=10.7 -O0 -arch x86_64 -Wall -W $(DEFINES)
+CXXFLAGS      = -pipe -stdlib=libc++ -mmacosx-version-min=10.7 -std=c++11 -O0 -g -arch x86_64 -Wall -W $(DEFINES)
 INCPATH       = -I/usr/local/Cellar/qt/4.8.6/mkspecs/unsupported/macx-clang-libc++ -I.
 LINK          = clang++
 LFLAGS        = -headerpad_max_install_names -stdlib=libc++ -mmacosx-version-min=10.7 -arch x86_64

@@ -1,12 +1,11 @@
-#include "TaxSearch.h"
-
-#include "Common.h"
-
 #include <map>
+#include <iostream>
 #include <vector>
 #include <fstream>
 #include <string>
 #include <algorithm>
+#include "TaxSearch.h"
+#include "Common.h"
 
 using namespace std;
 
@@ -117,8 +116,9 @@ Hit TaxSearch::search(std::string &seqName, std::string &sequence)
     vector< vector< string > > node_tax_table;
 
     for(auto hit_it = node_hits.begin(); hit_it!=node_hits.end(); ++hit_it){
-        vector<string> node_tax_row(levels, "");
+        vector<string> node_tax_row;
         fill_node_tax_row(*hit_it, node_tax_row);
+
         node_tax_table.push_back(node_tax_row);
     }
 
@@ -130,11 +130,16 @@ Hit TaxSearch::search(std::string &seqName, std::string &sequence)
 void TaxSearch::fill_node_tax_row(int node_id, vector<string> &node_tax_row)
 {
     NameNode &n = nodes[node_id];
-    int level = kmer_node_indices.size()-1;
+
     do{
-        node_tax_row[level] = n.getName();
+        string name = n.getName();
+        vector< string > words = split(name, '_');
+
+        for(auto word_it = words.rbegin(); word_it!=words.rend(); ++word_it){
+            node_tax_row.insert(node_tax_row.begin(), *word_it);
+        }
+
         n = nodes[n.getParentId()];
-        level--;
     }while(n.getParentId()>=0);
 }
 
@@ -166,14 +171,25 @@ std::set<int> TaxSearch::searchNodes(std::string &sequence)
     for(int level=kmer_node_indices.size()-1; level>0; level--){
         for(auto kmer_it = kmer_set.begin(); kmer_it!=kmer_set.end(); ++kmer_it){
 
-            list<int>& node_list = kmer_node_indices[level][*kmer_it];
+            list<int> &node_list = kmer_node_indices[level][*kmer_it];
 
-            for(auto node_it=node_list.begin(); node_it!=node_list.end(); ++node_it ){
+            cerr << "LEVEL: " << to_string(level) << endl;
+            cerr << " KMER: " << *kmer_it << endl;
+            cerr << " NODE_LIST_SIZE " << node_list.size() << endl;
+
+            for(auto node_it=node_list.begin(); node_it!=node_list.end(); ++node_it){
+                cerr << "NODE: " << *node_it;
+                cerr << " NODE_COUNTS_SIZE: " << node_counts.size();
+                cerr << endl;
+
+                if (*node_it >= node_counts.size())
+                    cerr << "HER2" << endl;
+
                 node_counts[*node_it]++;
             }
         }
         std::set<int> ret;
-        pickBestHits(ret);
+        pickBestHits(ret, kmer_set.size());
         if(ret.size()>0)
             return ret;
     }
@@ -182,14 +198,24 @@ std::set<int> TaxSearch::searchNodes(std::string &sequence)
     return ret;
 }
 
-void TaxSearch::pickBestHits(std::set<int> &ret)
+void TaxSearch::pickBestHits(std::set<int> &ret, int kmer_size)
 {
-    sort(node_counts.begin(), node_counts.end(), descendingSortOrder);
+    vector< pair<int, int> > hits;
+    int i = 0;
 
-    for(int i=0;i<hits_max;i++){
-        ret.insert(node_counts[i]);
+    for(auto node_it = node_counts.begin(); node_it!=node_counts.end(); ++node_it){
+        if (*node_it >= kmer_size * coverage) {
+            hits.push_back(pair<int, int>(i, *node_it));
+        }
+
+        ++i;
     }
 
+    sort(hits.begin(), hits.end(), descendingPairSortOrder);
+
+    for(int i=0;i<hits_max;i++){
+        ret.insert(hits[i].first);
+    }
 }
 
 void TaxSearch::readTaxLevelNames()
@@ -203,8 +229,8 @@ void TaxSearch::readTaxLevelNames()
         pos        = node_it->getName().find("#");
         level_name = node_it->getName().substr(0, pos);  // "<string>#<...>"
 
-        if (level > level_names.size())
-            level_names.resize(level * 2);
+        if (level >= level_names.size())
+            level_names.resize(level + 1);
 
         level_names[level] = level_name;
     }

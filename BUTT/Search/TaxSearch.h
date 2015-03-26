@@ -6,7 +6,8 @@
 #include <string>
 #include <vector>
 #include <list>
-
+#include <utility>
+#include "Common.h"
 #include "Search/NameNode.h"
 #include "Search/TaxConsensus.h"
 #include "SeqToKMers.h"
@@ -119,9 +120,13 @@ private:
 
     void fill_node_tax_row(int node_id, std::vector<std::string> &node_tax_row);
 
-    static bool descendingSortOrder(unsigned int a, unsigned int b){ return a>b; }
+    static bool descendingSortOrder(unsigned int a, unsigned int b){ return a > b; }
 
-    void pickBestHits(std::set<int> &ret);
+    static bool descendingPairSortOrder(const std::pair<int, int> &a, const std::pair<int, int> &b) {
+        return a.second > b.second;
+    }
+
+    void pickBestHits(std::set<int> &ret, int kmer_size);
 
     void readTaxLevelNames();
 };
