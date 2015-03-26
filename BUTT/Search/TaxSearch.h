@@ -21,8 +21,6 @@ public:
     const std::string exceptionMsg;
 };
 
-
-
 /**
  * @brief A container for search-hit information used for return value of
  * TaxSearch::search.
@@ -96,6 +94,7 @@ private:
     const double coverage;
     TaxConsensus* consensus_builder;
     std::vector<NameNode> nodes;
+    std::vector< std::string > level_names;
 
     /// First vector indexes LEVEL, second the KMER and the third is a list of nodes
     std::vector< std::vector< std::list<int> > > kmer_node_indices;
@@ -123,6 +122,8 @@ private:
     static bool descendingSortOrder(unsigned int a, unsigned int b){ return a>b; }
 
     void pickBestHits(std::set<int> &ret);
+
+    void readTaxLevelNames();
 };
 
 #endif // TAXSEARCH_H

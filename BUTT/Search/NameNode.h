@@ -9,18 +9,18 @@
 class NameNode
 {
 public:
-    NameNode(std::string name, int parent, unsigned int node_id);
+    NameNode(std::string name, int level, int parent, unsigned int node_id);
     NameNode(const NameNode& node);
-    //NameNode();
 
     std::string &getName();
+    int getLevel();
 
     int getParentId();
-
     unsigned int getNodeId();
 
 private:
     std::string name;
+    int level;
     int parent;
     unsigned int node_id;
 };

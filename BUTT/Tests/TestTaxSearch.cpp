@@ -10,6 +10,8 @@
 #include <fstream>
 #include <iostream>
 
+#define LEVEL_NAMES {"K", "P", "C", "O", "F", "G", "S"}
+
 using namespace std;
 
 TestTaxSearch::TestTaxSearch()
@@ -50,7 +52,7 @@ bool TestTaxSearch::testIOExceptions()
         output<<taxIndexContents;
         output.close();
 
-        TaxSearch searcher(SeqToKMers(4,1), 2, false, 0, new SimpleTaxConsensus(), kmer_index_path,tax_index_path);
+        TaxSearch searcher(SeqToKMers(4,1), 2, false, 0, new SimpleTaxConsensus(LEVEL_NAMES), kmer_index_path,tax_index_path);
         BUTT_ASSERT_TRUE(false, "testIOException shouldnt reach this point");
     }catch(TaxSearchException e){
         BUTT_ASSERT_TRUE(true, "If you're here you're fine");
@@ -68,7 +70,7 @@ bool TestTaxSearch::testIOExceptions()
         ofstream output(kmer_index_path);
         output<<kmerIndexContents;
         output.close();
-        TaxSearch searcher(SeqToKMers(4,1), 2, false, 0, new SimpleTaxConsensus(), kmer_index_path,tax_index_path);
+        TaxSearch searcher(SeqToKMers(4,1), 2, false, 0, new SimpleTaxConsensus(LEVEL_NAMES), kmer_index_path,tax_index_path);
         BUTT_ASSERT_TRUE(false, "testIOException shouldnt reach this point");
     }catch(TaxSearchException e){
         BUTT_ASSERT_TRUE(true, "If you're here you're fine");
@@ -127,7 +129,7 @@ bool TestTaxSearch::test1()
 
     string file1("temp_kmerIndex.txt");
     string file2("temp_taxIndex.txt");
-    TaxSearch searcher(SeqToKMers(4, 1), 2, false, 0, new SimpleTaxConsensus(), file1, file2);
+    TaxSearch searcher(SeqToKMers(4, 1), 2, false, 0, new SimpleTaxConsensus(LEVEL_NAMES), file1, file2);
     remove("temp_kmerIndex.txt");
     remove("temp_taxIndex.txt");
 
@@ -137,7 +139,6 @@ bool TestTaxSearch::test1()
     BUTT_ASSERT_EQUALS(2, get<2>(h), "Should have hit 2 nodes");
 
     return true;
-
 }
 
 

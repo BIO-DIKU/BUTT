@@ -16,13 +16,12 @@ TaxSearch::TaxSearch(SeqToKMers seqSplitter, int hits_max, bool best_only, doubl
     best_only(best_only),
     coverage(coverage),
     consensus_builder(consensus_builder),
-    nodes(200000, NameNode("NA",-2,0)) //Expected size of RDP is around 200000
+    nodes(200000, NameNode("NA", -1, -2, 0)) //Expected size of RDP is around 200000
 {
-
     readTaxIndex(tax_index_path);
     readKMerIndex(kmer_index_path);
+    readTaxLevelNames();
 }
-
 
 void TaxSearch::readTaxIndex(std::string &file_path)
 {
@@ -42,11 +41,12 @@ void TaxSearch::readTaxIndex(std::string &file_path)
         if(line[0]=='#') continue;
 
         vector<string> tokens = split(line, '\t');
-        unsigned int node_id = atoi(tokens[0].c_str());
-        int parent_id = atoi(tokens[1].c_str());
-        string name = tokens[3];
+        unsigned int node_id  = atoi(tokens[0].c_str());
+        int parent_id         = atoi(tokens[1].c_str());
+        int level             = atoi(tokens[2].c_str());
+        string name           = tokens[3];
 
-        NameNode node(name, parent_id, node_id);
+        NameNode node(name, level, parent_id, node_id);
 
         if(nodes.capacity()<=node_id)
             nodes.reserve(nodes.capacity()*2);
@@ -136,9 +136,7 @@ void TaxSearch::fill_node_tax_row(int node_id, vector<string> &node_tax_row)
         n = nodes[n.getParentId()];
         level--;
     }while(n.getParentId()>=0);
-
 }
-
 
 /**
  * @brief Method to search for a given sequence.
@@ -192,4 +190,22 @@ void TaxSearch::pickBestHits(std::set<int> &ret)
         ret.insert(node_counts[i]);
     }
 
+}
+
+void TaxSearch::readTaxLevelNames()
+{
+    int         level = 0;
+    int         pos   = 0;
+    std::string level_name;
+
+    for(auto node_it=nodes.begin(); node_it!=nodes.end(); ++node_it ){
+        level      = node_it->getLevel();
+        pos        = node_it->getName().find("#");
+        level_name = node_it->getName().substr(0, pos);  // "<string>#<...>"
+
+        if (level > level_names.size())
+            level_names.resize(level * 2);
+
+        level_names[level] = level_name;
+    }
 }

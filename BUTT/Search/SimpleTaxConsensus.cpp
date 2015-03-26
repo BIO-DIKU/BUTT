@@ -6,55 +6,67 @@
 
 using namespace std;
 
-SimpleTaxConsensus::SimpleTaxConsensus()
+SimpleTaxConsensus::SimpleTaxConsensus(vector < string > _level_names)
 {
+    level_names = _level_names;
 }
 
-std::string SimpleTaxConsensus::buildConsensus(std::vector< std::vector< std::string > > &tax_table)
+string SimpleTaxConsensus::buildConsensus(vector< vector< string > > &tax_table)
 {
-    int rows  = tax_table.size();
-    int level = 3; // FIXME
+    int rows           = tax_table.size();
+    int level          = 0;
+    int min_row_length = 999999;
+    string ret;
 
     if(rows==0) return "";
 
-    string ret;
-
-    int columns = tax_table[0].size();
-
-    for(int col=0;col<columns;col++){
-        map<string, int> col_occurences;
-        for(int row=0;row<rows;row++){
-            col_occurences[tax_table[row][col]]++;
-        }
-
-        vector< pair<string, int> > entryset;
-        for(auto map_it = col_occurences.begin(); map_it!=col_occurences.end(); ++map_it){
-            entryset.push_back(*map_it);
-        }
-        sort(entryset.begin(), entryset.end(), descendingSortOrderPair);
-
-        ret+=entryset[0].first;
-        if(col<columns-1)
-            ret+=";";
+    for(int row=0;row<rows;++row){
+        if (tax_table[row].size() < min_row_length)
+            min_row_length = tax_table[row].size();
     }
 
-    switch (level) {
-    case 0:
-      return ret+";K#;P#;C#;O#;F#;G#;S#";
-    case 1:
-      return ret+";P#;C#;O#;F#;G#;S#";
-    case 2:
-      return ret+";C#;O#;F#;G#;S#";
-    case 3:
-      return ret+";O#;F#;G#;S#";
-    case 4:
-      return ret+";F#;G#;S#";
-    case 5:
-      return ret+";G#;S#";
-    case 6:
-      return ret+";S#";
-    default:
-      std::string msg("Something bad happened. Taxonomy consensus: \""+ret+"\", Taxonomy level: \""+to_string(level)+"\"");
-      throw SimpleTaxConsensusException(msg);
+    for(int col=0;col<min_row_length;++col){
+        if (columnPerfectConsensus(tax_table, col)) {
+            if (tax_table[0][col][1] == '#') {
+                if (level > 0)
+                    ret+=";";
+
+                level++;
+            }
+            else
+                ret+="_";
+
+            ret+=tax_table[0][col];
+        } else {    
+            break;
+        }
     }
+
+    return ret+buildTaxSuffix(level);
 }
+
+bool SimpleTaxConsensus::columnPerfectConsensus(vector< vector< string > > &tax_table, int col)
+{
+    for(int row=1;row<tax_table.size();row++){
+        if (tax_table[row][col] != tax_table[0][col])
+            return false;
+    }
+
+    return true;
+}
+
+string SimpleTaxConsensus::buildTaxSuffix(int level)
+{
+    string suffix = "";
+
+    for(int i=level;i < level_names.size(); ++i){
+        if (i > 0)
+            suffix += ";";
+        suffix += level_names[i] + "#";
+    }
+
+    return suffix;
+}
+
+//      string msg("Something bad happened. Taxonomy consensus: \""+ret+"\", Taxonomy level: \""+to_string(level)+"\"");
+//      throw SimpleTaxConsensusException(msg);
