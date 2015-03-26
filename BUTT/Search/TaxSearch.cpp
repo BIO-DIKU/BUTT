@@ -136,7 +136,6 @@ void TaxSearch::fill_node_tax_row(int node_id, vector<string> &node_tax_row)
         n = nodes[n.getParentId()];
         level--;
     }while(n.getParentId()>=0);
-
 }
 
 /**

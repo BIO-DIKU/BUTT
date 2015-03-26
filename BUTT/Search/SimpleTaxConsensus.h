@@ -54,6 +54,11 @@ private:
     std::vector< std::string > level_names;
 
     std::string buildTaxSuffix(int level);
+
+    /**
+     * Checks if all strings are identical in a given tax_table and given column.
+     * */
+    bool columnPerfectConsensus(std::vector< std::vector< std::string > > &tax_table, int col);
 };
 
 #endif // SIMPLETAXCONSENSUS_H
