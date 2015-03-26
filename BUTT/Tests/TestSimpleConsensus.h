@@ -2,9 +2,13 @@
 #define TESTSIMPLECONSENSUS_H
 
 #include "TestHelper.h"
+#include "Search/SimpleTaxConsensus.h"
 
 class TestSimpleConsensus
 {
+private:
+    SimpleTaxConsensus consensus;
+
 public:
     TestSimpleConsensus();
 

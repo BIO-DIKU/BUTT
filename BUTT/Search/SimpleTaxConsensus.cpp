@@ -6,14 +6,15 @@
 
 using namespace std;
 
-SimpleTaxConsensus::SimpleTaxConsensus()
+SimpleTaxConsensus::SimpleTaxConsensus(vector < string > _level_names)
 {
+    level_names = _level_names;
 }
 
 std::string SimpleTaxConsensus::buildConsensus(std::vector< std::vector< std::string > > &tax_table)
 {
     int rows  = tax_table.size();
-    int level = 3; // FIXME
+    int col   = 0;
 
     if(rows==0) return "";
 
@@ -21,7 +22,7 @@ std::string SimpleTaxConsensus::buildConsensus(std::vector< std::vector< std::st
 
     int columns = tax_table[0].size();
 
-    for(int col=0;col<columns;col++){
+    for(col=0;col<columns;col++){
         map<string, int> col_occurences;
         for(int row=0;row<rows;row++){
             col_occurences[tax_table[row][col]]++;
@@ -38,23 +39,19 @@ std::string SimpleTaxConsensus::buildConsensus(std::vector< std::vector< std::st
             ret+=";";
     }
 
-    switch (level) {
-    case 0:
-      return ret+";K#;P#;C#;O#;F#;G#;S#";
-    case 1:
-      return ret+";P#;C#;O#;F#;G#;S#";
-    case 2:
-      return ret+";C#;O#;F#;G#;S#";
-    case 3:
-      return ret+";O#;F#;G#;S#";
-    case 4:
-      return ret+";F#;G#;S#";
-    case 5:
-      return ret+";G#;S#";
-    case 6:
-      return ret+";S#";
-    default:
-      std::string msg("Something bad happened. Taxonomy consensus: \""+ret+"\", Taxonomy level: \""+to_string(level)+"\"");
-      throw SimpleTaxConsensusException(msg);
-    }
+    return ret+buildTaxSuffix(col);
 }
+
+string SimpleTaxConsensus::buildTaxSuffix(int level)
+{
+    string suffix = "";
+
+    for(int i=level;i < level_names.size(); ++i){
+        suffix += ";" + level_names[i] + "#";
+    }
+
+    return suffix;
+}
+
+//      std::string msg("Something bad happened. Taxonomy consensus: \""+ret+"\", Taxonomy level: \""+to_string(level)+"\"");
+//      throw SimpleTaxConsensusException(msg);

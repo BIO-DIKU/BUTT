@@ -1,7 +1,8 @@
 #include "NameNode.h"
 
-NameNode::NameNode(std::string name, int parent, unsigned int node_id):
+NameNode::NameNode(std::string name, int level, int parent, unsigned int node_id):
     name(name),
+    level(level),
     parent(parent),
     node_id(node_id)
 {
@@ -9,20 +10,13 @@ NameNode::NameNode(std::string name, int parent, unsigned int node_id):
 
 NameNode::NameNode(const NameNode& node):
     name(node.name),
+    level(node.level),
     parent(node.parent),
     node_id(node.node_id)
 {
-
 }
 
-//NameNode::NameNode():
-//    name("NA"),
-//    parent(-2),
-//    node_id(0)
-//{
-//
-//}
-
 std::string &NameNode::getName(){ return name; }
+int NameNode::getLevel(){ return level; }
 int NameNode::getParentId(){ return parent; }
 unsigned int NameNode::getNodeId(){ return node_id; }

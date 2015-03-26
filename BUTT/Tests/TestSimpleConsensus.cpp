@@ -6,8 +6,9 @@
 
 using namespace std;
 
-TestSimpleConsensus::TestSimpleConsensus()
+TestSimpleConsensus::TestSimpleConsensus(): consensus({"K", "P", "C", "O", "F", "G", "S"})
 {
+
 }
 
 bool TestSimpleConsensus::runTests()
@@ -46,16 +47,14 @@ bool TestSimpleConsensus::testSearchNodes1()
  */
 bool TestSimpleConsensus::testSearchNodes2()
 {
-    SimpleTaxConsensus consensus_builder;
-
     vector< vector< string> > tax_table = {
         {"K#a_1", "P#b_1", "C#c_1"},
         {"K#a_1", "P#b_1", "C#c_1"}
     };
 
-    cerr<<consensus_builder.buildConsensus(tax_table)<<endl;
+    cerr<<consensus.buildConsensus(tax_table)<<endl;
 
-    BUTT_ASSERT_EQUALS("K#a_1;P#b_1;C#c_1;O#;F#;G#;S#", consensus_builder.buildConsensus(tax_table), "Perfect match didn't work.");
+    BUTT_ASSERT_EQUALS("K#a_1;P#b_1;C#c_1;O#;F#;G#;S#", consensus.buildConsensus(tax_table), "Perfect match didn't work.");
 
     return true;
 }
@@ -70,16 +69,14 @@ bool TestSimpleConsensus::testSearchNodes2()
  */
 bool TestSimpleConsensus::testSearchNodes3()
 {
-    SimpleTaxConsensus consensus_builder;
-
     vector< vector< string> > tax_table = {
         {"K#a_1", "P#b_1", "C#c_1"},
         {"K#a_1", "P#b_1", "C#c_2"}
     };
 
-    cerr<<consensus_builder.buildConsensus(tax_table)<<endl;
+    cerr<<consensus.buildConsensus(tax_table)<<endl;
 
-    BUTT_ASSERT_EQUALS("K#a_1;P#b_1;C#c;O#;F#;G#;S#", consensus_builder.buildConsensus(tax_table), "Perfect match didn't work.");
+    BUTT_ASSERT_EQUALS("K#a_1;P#b_1;C#c;O#;F#;G#;S#", consensus.buildConsensus(tax_table), "Perfect match didn't work.");
 
     return true;
 }
@@ -94,16 +91,14 @@ bool TestSimpleConsensus::testSearchNodes3()
  */
 bool TestSimpleConsensus::testSearchNodes4()
 {
-    SimpleTaxConsensus consensus_builder;
-
     vector< vector< string> > tax_table = {
         {"K#a_1", "P#b_1", "C#c_1"},
         {"K#a_1", "P#b_1", "C#x_2"}
     };
 
-    cerr<<consensus_builder.buildConsensus(tax_table)<<endl;
+    cerr<<consensus.buildConsensus(tax_table)<<endl;
 
-    BUTT_ASSERT_EQUALS("K#a_1;P#b_1;C#;O#;F#;G#;S#", consensus_builder.buildConsensus(tax_table), "Perfect match didn't work.");
+    BUTT_ASSERT_EQUALS("K#a_1;P#b_1;C#;O#;F#;G#;S#", consensus.buildConsensus(tax_table), "Perfect match didn't work.");
 
     return true;
 }
@@ -118,16 +113,14 @@ bool TestSimpleConsensus::testSearchNodes4()
  */
 bool TestSimpleConsensus::testSearchNodes5()
 {
-    SimpleTaxConsensus consensus_builder;
-
     vector< vector< string> > tax_table = {
         {"K#a_1", "P#b_1", "C#c_1"},
         {"K#a_1", "P#b_2", "C#x_2"}
     };
 
-    cerr<<consensus_builder.buildConsensus(tax_table)<<endl;
+    cerr<<consensus.buildConsensus(tax_table)<<endl;
 
-    BUTT_ASSERT_EQUALS("K#a_1;P#b;C#;O#;F#;G#;S#", consensus_builder.buildConsensus(tax_table), "Perfect match didn't work.");
+    BUTT_ASSERT_EQUALS("K#a_1;P#b;C#;O#;F#;G#;S#", consensus.buildConsensus(tax_table), "Perfect match didn't work.");
 
     return true;
 }
@@ -142,16 +135,14 @@ bool TestSimpleConsensus::testSearchNodes5()
  */
 bool TestSimpleConsensus::testSearchNodes6()
 {
-    SimpleTaxConsensus consensus_builder;
-
     vector< vector< string> > tax_table = {
         {"K#a_1", "P#b_1", "C#c_1"},
         {"K#a_1", "P#x_2", "C#x_2"}
     };
 
-    cerr<<consensus_builder.buildConsensus(tax_table)<<endl;
+    cerr<<consensus.buildConsensus(tax_table)<<endl;
 
-    BUTT_ASSERT_EQUALS("K#a_1;P#;C#;O#;F#;G#;S#", consensus_builder.buildConsensus(tax_table), "Perfect match didn't work.");
+    BUTT_ASSERT_EQUALS("K#a_1;P#;C#;O#;F#;G#;S#", consensus.buildConsensus(tax_table), "Perfect match didn't work.");
 
     return true;
 }
@@ -166,16 +157,14 @@ bool TestSimpleConsensus::testSearchNodes6()
  */
 bool TestSimpleConsensus::testSearchNodes7()
 {
-    SimpleTaxConsensus consensus_builder;
-
     vector< vector< string> > tax_table = {
         {"K#a_1", "P#b_1", "C#c_1"},
         {"K#a_2", "P#x_2", "C#x_2"}
     };
 
-    cerr<<consensus_builder.buildConsensus(tax_table)<<endl;
+    cerr<<consensus.buildConsensus(tax_table)<<endl;
 
-    BUTT_ASSERT_EQUALS("K#a;P#;C#;O#;F#;G#;S#", consensus_builder.buildConsensus(tax_table), "Perfect match didn't work.");
+    BUTT_ASSERT_EQUALS("K#a;P#;C#;O#;F#;G#;S#", consensus.buildConsensus(tax_table), "Perfect match didn't work.");
 
     return true;
 }

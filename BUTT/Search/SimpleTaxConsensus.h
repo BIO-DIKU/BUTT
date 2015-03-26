@@ -17,7 +17,7 @@ public:
 class SimpleTaxConsensus: public TaxConsensus
 {
 public:
-    SimpleTaxConsensus();
+    SimpleTaxConsensus(std::vector <std::string> level_names);
 
     /**
      * Function for building a consensus string from a given taxonomy table.
@@ -48,6 +48,12 @@ public:
     static bool descendingSortOrderPair(const std::pair<std::string, int> &a, const std::pair<std::string, int> &b){
         return a.second>b.second;
     }
+
+private:
+
+    std::vector< std::string > level_names;
+
+    std::string buildTaxSuffix(int level);
 };
 
 #endif // SIMPLETAXCONSENSUS_H
