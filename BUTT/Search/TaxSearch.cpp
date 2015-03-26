@@ -231,3 +231,9 @@ void TaxSearch::readTaxLevelNames()
         level_names[level] = level_name;
     }
 }
+
+std::ostream & operator<<(std::ostream & os, Hit hit)
+{
+    os<<"Hit["<<std::get<0>(hit)<<", "<<std::get<1>(hit)<<", "<<std::get<2>(hit)<<"]";
+    return os;
+}

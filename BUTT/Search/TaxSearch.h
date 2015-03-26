@@ -32,6 +32,7 @@ public:
  * consensus (at most hits_max).
  */
 typedef std::tuple<std::string, std::string, int> Hit;
+std::ostream & operator<<(std::ostream & os, Hit hit);
 
 class TaxSearch
 {

@@ -63,4 +63,20 @@ static std::vector<std::string> split(const std::string &s, char delim) {
     return elems;
 }
 
+template<typename T>
+std::ostream & operator<<(std::ostream & os, std::vector<T> vec)
+{
+    os<<"{ ";
+    std::copy(vec.begin(), vec.end(), std::ostream_iterator<T>(os, " "));
+    os<<"}";
+    return os;
+}
+
+template<typename T, typename R>
+std::ostream & operator<<(std::ostream & os, std::pair<T,R> pair)
+{
+    os<<"("<<pair.first<<","<<pair.second<<")";
+    return os;
+}
+
 #endif // COMMON_H
