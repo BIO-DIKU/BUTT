@@ -157,7 +157,7 @@ bool TestTaxSearch::test1()
  */
 bool TestTaxSearch::test2()
 {
-
+    return false;
 }
 
 /**
@@ -170,6 +170,7 @@ bool TestTaxSearch::test2()
  */
 bool TestTaxSearch::test3(){
 
+    return false;
 }
 
 /**
@@ -183,6 +184,7 @@ bool TestTaxSearch::test3(){
 bool TestTaxSearch::test4()
 {
 
+    return false;
 }
 
 /**
@@ -196,6 +198,7 @@ bool TestTaxSearch::test4()
 bool TestTaxSearch::test5()
 {
 
+    return false;
 }
 
 /**
@@ -209,6 +212,7 @@ bool TestTaxSearch::test5()
 bool TestTaxSearch::test6()
 {
 
+    return false;
 }
 
 /**
@@ -221,6 +225,7 @@ bool TestTaxSearch::test6()
 bool TestTaxSearch::test7()
 {
 
+    return false;
 }
 
 /**
@@ -233,6 +238,7 @@ bool TestTaxSearch::test7()
 bool TestTaxSearch::test8()
 {
 
+    return false;
 }
 
 

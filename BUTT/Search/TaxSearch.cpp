@@ -226,7 +226,8 @@ void TaxSearch::readTaxLevelNames()
 
     for(auto node_it=nodes.begin(); node_it!=nodes.end(); ++node_it ){
         level      = node_it->getLevel();
-        pos        = node_it->getName().find("#");
+        size_t pos = node_it->getName().find("#");
+        if(pos==string::npos) continue;
         level_name = node_it->getName().substr(0, pos);  // "<string>#<...>"
 
         if (level >= level_names.size())
