@@ -133,15 +133,20 @@ bool TestTaxSearch::test1()
     remove("temp_kmerIndex.txt");
     remove("temp_taxIndex.txt");
 
+    string seq_name = "seqname";
     string seq = "AAAA";
 
     set< int > nodes = searcher.searchNodes(seq);
 
     BUTT_ASSERT_EQUALS(2, nodes.size(), "Should have hit 2 nodes, got "+to_string(nodes.size()));
+    BUTT_ASSERT_TRUE(nodes.find(5) != nodes.end(), "Node 5 not found in nodes");
+    BUTT_ASSERT_TRUE(nodes.find(6) != nodes.end(), "Node 6 not found in nodes");
 
-    //BUTT_ASSERT_EQUALS("seqname", get<0>(h), "Sequence name should be seqname but is "+get<0>(h));
-    //BUTT_ASSERT_EQUALS("I;G;E", get<1>(h), "Consensus should be I;G;E but is "+get<1>(h));
-    //BUTT_ASSERT_EQUALS(2, get<2>(h), "Should have hit 2 nodes");
+    Hit h = searcher.search(seq_name, seq);
+
+    BUTT_ASSERT_EQUALS(2, get<2>(h), "Should have hit 2 nodes");
+    BUTT_ASSERT_EQUALS(seq_name, get<0>(h), "Sequence name should be "+seq_name+" but is "+get<0>(h));
+    BUTT_ASSERT_EQUALS("I;G;E", get<1>(h), "Consensus should be I;G;E but is "+get<1>(h));
 
     return true;
 }

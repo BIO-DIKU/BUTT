@@ -104,16 +104,21 @@ void TaxSearch::readKMerIndex(std::string &file_path)
 
 }
 
+/**
+ *
+ * Debug function where second argument can be a literal "sequence".
+ *
+ * */
 Hit TaxSearch::search(std::string &&seqName, std::string &&sequence){
     return search(seqName, sequence);
 }
 
 Hit TaxSearch::search(std::string &seqName, std::string &sequence)
 {
-    set<int> node_hits = searchNodes(sequence);
-
     int levels = kmer_node_indices.size()-1;
     vector< vector< string > > node_tax_table;
+
+    set<int> node_hits = searchNodes(sequence);
 
     for(auto hit_it = node_hits.begin(); hit_it!=node_hits.end(); ++hit_it){
         vector<string> node_tax_row;
@@ -136,6 +141,7 @@ void TaxSearch::fill_node_tax_row(int node_id, vector<string> &node_tax_row)
         vector< string > words = split(name, '_');
 
         for(auto word_it = words.rbegin(); word_it!=words.rend(); ++word_it){
+            cerr << "Word: " << *word_it << endl;
             node_tax_row.insert(node_tax_row.begin(), *word_it);
         }
 
@@ -173,18 +179,7 @@ std::set<int> TaxSearch::searchNodes(std::string &sequence)
 
             list<int> &node_list = kmer_node_indices[level][*kmer_it];
 
-            cerr << "LEVEL: " << to_string(level) << endl;
-            cerr << " KMER: " << *kmer_it << endl;
-            cerr << " NODE_LIST_SIZE " << node_list.size() << endl;
-
             for(auto node_it=node_list.begin(); node_it!=node_list.end(); ++node_it){
-                cerr << "NODE: " << *node_it;
-                cerr << " NODE_COUNTS_SIZE: " << node_counts.size();
-                cerr << endl;
-
-                if (*node_it >= node_counts.size())
-                    cerr << "HER2" << endl;
-
                 node_counts[*node_it]++;
             }
         }
