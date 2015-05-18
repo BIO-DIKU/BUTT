@@ -34,6 +34,7 @@ bool TestTaxSearch::runTests()
     BUTT_RUN_TEST("TestTaxSearch test 6", test6());
     BUTT_RUN_TEST("TestTaxSearch test 7", test7());
     BUTT_RUN_TEST("TestTaxSearch test 8", test8());
+    BUTT_RUN_TEST("TestTaxSearch test 9", test9());
     BUTT_POST_TESTS();
 }
 
@@ -265,7 +266,6 @@ bool TestTaxSearch::test3()
     vector< int > nodes = searcher.searchNodes(seq);
 
     BUTT_ASSERT_EQUALS(2, nodes.size(), "Should have hit 2 nodes, got "+to_string(nodes.size()));
-    cerr << "First Node:" << *nodes.begin() << endl;
     BUTT_ASSERT_TRUE(nodes[0] == 6, "Node 6 not first hit");
     BUTT_ASSERT_TRUE(nodes[1] == 5, "Node 5 not second hit");
 
@@ -579,5 +579,50 @@ bool TestTaxSearch::test8()
  */
 bool TestTaxSearch::test9()
 {
-    return false;
+    //"#NODE_ID	PARENT_ID	LEVEL	NAME"
+    string taxIndexContents = "";
+    taxIndexContents += "0\t-1\t0\ti\n";
+    taxIndexContents += "1\t0\t1\tK#g\n";
+    taxIndexContents += "2\t1\t2\tP#d\n";
+    taxIndexContents += "3\t1\t2\tP#f\n";
+    taxIndexContents += "4\t1\t2\tP#e\n";
+    taxIndexContents += "5\t4\t3\tC#a\n";
+    taxIndexContents += "6\t4\t3\tC#b\n";
+    taxIndexContents += "7\t4\t3\tC#c\n";
+
+    ofstream output("temp_taxIndex.txt");
+    output<<taxIndexContents;
+    output.close();
+
+    //"#LEVEL	KMER	NODES"
+    string kmerIndexContents = "";
+    kmerIndexContents += "0\t0\t0\n";
+    kmerIndexContents += "1\t0\t1\n";
+    kmerIndexContents += "2\t0\t4\n";
+    kmerIndexContents += "3\t0\t5;6;7\n";
+
+    output = ofstream("temp_kmerIndex.txt");
+    output<<kmerIndexContents;
+    output.close();
+
+    string file1("temp_kmerIndex.txt");
+    string file2("temp_taxIndex.txt");
+    TaxSearch searcher(SeqToKMers(4, 1), 2, false, 0, new SimpleTaxConsensus(LEVEL_NAMES), file1, file2);
+    remove("temp_kmerIndex.txt");
+    remove("temp_taxIndex.txt");
+
+    string seq_name = "seqname";
+    string seq = "GGGG";
+
+    vector< int > nodes = searcher.searchNodes(seq);
+
+    BUTT_ASSERT_EQUALS(0, nodes.size(), "Should have hit 0 nodes, got "+to_string(nodes.size()));
+
+    Hit h = searcher.search(seq_name, seq);
+
+    BUTT_ASSERT_EQUALS(0, get<2>(h), "Should have hit 0 nodes");
+    BUTT_ASSERT_EQUALS(seq_name, get<0>(h), "Sequence name should be "+seq_name+" but is "+get<0>(h));
+    BUTT_ASSERT_EQUALS("Unclassified", get<1>(h), "Consensus should be 'Unclassified' but is "+get<1>(h));
+
+    return true;
 }

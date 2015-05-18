@@ -171,8 +171,12 @@ std::vector<int> TaxSearch::searchNodes(std::string &sequence)
         std::fill(node_counts.begin(), node_counts.end(), 0); // Reset histogram.
         level_it->update_nodes_hist(node_counts, kmer_set);
         pickBestHits(ret, kmer_set.size());
+
         if(ret.size()>0)
+        {
+            sort(ret.begin(), ret.end(), descendingSortOrder);
             return ret;
+        }
     }
 
     return ret;
