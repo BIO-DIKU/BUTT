@@ -64,10 +64,8 @@ public:
      */
     Hit search(std::string &seqName, std::string &sequence);
 
-
-    /// R-value version of search function for convenience and tests
+    /// R-value version of search function for convenience and tests.
     Hit search(std::string &&seqName, std::string &&sequence);
-
 
     /**
      * @brief Method to search for a given sequence.

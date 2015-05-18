@@ -89,8 +89,9 @@ void TaxSearch::readKMerIndex(std::string &file_path)
             int node_id = atoi(node_it->c_str());
             level_vector[level].add_node_to_kmer(node_id, kmer);
 
-            if(node_id>max_node_id)
+            if(node_id>max_node_id) {
                 max_node_id = node_id;
+            }
         }
     }
 
@@ -135,10 +136,8 @@ void TaxSearch::fill_node_tax_row(int node_id, vector<string> &node_tax_row)
         string name = n.getName();
         vector< string > words = split(name, '_');
 
-        for(auto word_it = words.rbegin(); word_it!=words.rend(); ++word_it){
-            cerr << "Word: " << *word_it << endl;
+        for(auto word_it = words.rbegin(); word_it!=words.rend(); ++word_it)
             node_tax_row.insert(node_tax_row.begin(), *word_it);
-        }
 
         n = nodes[n.getParentId()];
     }while(n.getParentId()>=0);
@@ -185,7 +184,7 @@ void TaxSearch::pickBestHits(std::vector<int> &ret, int kmer_size)
     int i = 0;
 
     for(auto node_it = node_counts.begin(); node_it!=node_counts.end(); ++node_it){
-        if (*node_it >= kmer_size * coverage) {
+        if (*node_it > 0 && *node_it >= kmer_size * coverage){
             hits.push_back(pair<int, int>(i, *node_it));
         }
 
@@ -203,8 +202,8 @@ void TaxSearch::pickBestHits(std::vector<int> &ret, int kmer_size)
         return;
     }
 
-    for(int i=0;i<hits_max;i++){
-        ret.push_back(hits[i].first);  // TODO What if hits.size < hits_max ???
+    for(int i=0;i<hits_max && i < hits.size();i++){
+        ret.push_back(hits[i].first);
     }
 }
 
