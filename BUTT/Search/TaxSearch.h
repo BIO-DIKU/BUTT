@@ -88,7 +88,7 @@ public:
      * TaxSearch::readDatabases has been called. The values in the set are
      * indices of nodes in the node-tree.
      */
-    std::set<int> searchNodes(std::string &sequence);
+    std::vector<int> searchNodes(std::string &sequence);
 
 private:
     const SeqToKMers seq_splitter;
@@ -134,7 +134,7 @@ private:
         return a.second > b.second;
     }
 
-    void pickBestHits(std::set<int> &ret, int kmer_size);
+    void pickBestHits(std::vector<int> &ret, int kmer_size);
 
     void readTaxLevelNames();
 };

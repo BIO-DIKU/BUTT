@@ -114,7 +114,7 @@ Hit TaxSearch::search(std::string &seqName, std::string &sequence)
 //    int levels = level_vector.size()-1;
     vector< vector< string > > node_tax_table;
 
-    set<int> node_hits = searchNodes(sequence);
+    vector<int> node_hits = searchNodes(sequence);
 
     for(auto hit_it = node_hits.begin(); hit_it!=node_hits.end(); ++hit_it){
         vector<string> node_tax_row;
@@ -163,27 +163,23 @@ void TaxSearch::fill_node_tax_row(int node_id, vector<string> &node_tax_row)
  * TaxSearch::readDatabases has been called. The values in the set are
  * indices of nodes in the node-tree.
  */
-std::set<int> TaxSearch::searchNodes(std::string &sequence)
+std::vector<int> TaxSearch::searchNodes(std::string &sequence)
 {
+    std::vector<int> ret;
     KMerSet kmer_set = seq_splitter.sequenceToKMers(sequence);
 
-    auto level_it = level_vector.end();
-    level_it--;
-    
-    for(; level_it!=level_vector.begin(); level_it--){
+    for(auto level_it = level_vector.rbegin(); level_it!=level_vector.rend(); level_it++){
         std::fill(node_counts.begin(), node_counts.end(), 0); // Reset histogram.
         level_it->update_nodes_hist(node_counts, kmer_set);
-        std::set<int> ret;
         pickBestHits(ret, kmer_set.size());
         if(ret.size()>0)
             return ret;
     }
 
-    std::set<int> ret;
     return ret;
 }
 
-void TaxSearch::pickBestHits(std::set<int> &ret, int kmer_size)
+void TaxSearch::pickBestHits(std::vector<int> &ret, int kmer_size)
 {
     vector< pair<int, int> > hits;
     int i = 0;
@@ -199,7 +195,7 @@ void TaxSearch::pickBestHits(std::set<int> &ret, int kmer_size)
     sort(hits.begin(), hits.end(), descendingPairSortOrder);
 
     for(int i=0;i<hits_max;i++){
-        ret.insert(hits[i].first);
+        ret.push_back(hits[i].first);
     }
 }
 
