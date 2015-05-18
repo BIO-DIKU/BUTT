@@ -121,8 +121,6 @@ private:
      */
     bool test9();
 
-
-
     /*
      * test-cases for testSearch.
      * The following tree-layout is used for test1-test8

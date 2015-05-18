@@ -196,7 +196,7 @@ void TaxSearch::pickBestHits(std::vector<int> &ret, int kmer_size)
     if (best_only)
     {
         for(int i=0;i<hits_max && hits[i].second == hits[0].second;i++){
-            ret.push_back(hits[i].first);  // TODO What if hits.size < hits_max ???
+            ret.push_back(hits[i].first);
         }
 
         return;

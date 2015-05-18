@@ -85,7 +85,7 @@ bool TestTaxSearch::testIOExceptions()
 
 /*
  * test-cases for testSearchNodes.
- * The following tree-layout is used for test1-test8
+ * The following tree-layout is used for test1-test9
  *               I
  *            /
  *          G
@@ -457,11 +457,10 @@ bool TestTaxSearch::test6()
     return true;
 }
 
-
 /**
  * Tests hits_max > hits return OK. 
  * hits_max = 5
- * best_only = true
+ * best_only = false
  * Query hits only: A, B, C, E, G, I
  * hits(A)=hits(B)=hits(C)
  * Expected: 3 hits
@@ -523,10 +522,6 @@ bool TestTaxSearch::test7()
  */
 bool TestTaxSearch::test8()
 {
-    return false;
-
-}
-/*
     //"#NODE_ID	PARENT_ID	LEVEL	NAME"
     string taxIndexContents = "";
     taxIndexContents += "0\t-1\t0\ti\n";
@@ -547,7 +542,7 @@ bool TestTaxSearch::test8()
     kmerIndexContents += "0\t0\t0\n";
     kmerIndexContents += "1\t0\t1\n";
     kmerIndexContents += "2\t0\t4\n";
-    kmerIndexContents += "3\t0\t5;6;7\n";
+    kmerIndexContents += "3\t1\t5;6;7\n";
 
     output = ofstream("temp_kmerIndex.txt");
     output<<kmerIndexContents;
@@ -555,26 +550,25 @@ bool TestTaxSearch::test8()
 
     string file1("temp_kmerIndex.txt");
     string file2("temp_taxIndex.txt");
-    TaxSearch searcher(SeqToKMers(4, 1), 2, true, 0, new SimpleTaxConsensus(LEVEL_NAMES), file1, file2);
+    TaxSearch searcher(SeqToKMers(4, 1), 2, false, 0, new SimpleTaxConsensus(LEVEL_NAMES), file1, file2);
     remove("temp_kmerIndex.txt");
     remove("temp_taxIndex.txt");
 
     string seq_name = "seqname";
-    string seq = "AAAAC";
+    string seq = "AAAA";
 
     vector< int > nodes = searcher.searchNodes(seq);
 
-    BUTT_ASSERT_EQUALS(2, nodes.size(), "Should have hit 2 nodes, got "+to_string(nodes.size()));
+    BUTT_ASSERT_EQUALS(1, nodes.size(), "Should have hit 1 node, got "+to_string(nodes.size()));
 
     Hit h = searcher.search(seq_name, seq);
 
-    BUTT_ASSERT_EQUALS(2, get<2>(h), "Should have hit 2 node");
+    BUTT_ASSERT_EQUALS(1, get<2>(h), "Should have hit 1 node");
     BUTT_ASSERT_EQUALS(seq_name, get<0>(h), "Sequence name should be "+seq_name+" but is "+get<0>(h));
     BUTT_ASSERT_EQUALS("K#g;P#e;C#;O#;F#;G#;S#", get<1>(h), "Consensus should be K#g;P#e;C#;O#;F#;G#;S# but is "+get<1>(h));
 
     return true;
 }
-*/
 
 /**
  * Tests that empty vector is returned if no hits
@@ -585,8 +579,5 @@ bool TestTaxSearch::test8()
  */
 bool TestTaxSearch::test9()
 {
-
     return false;
 }
-
-
