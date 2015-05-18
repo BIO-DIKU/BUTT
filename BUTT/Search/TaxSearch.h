@@ -119,6 +119,12 @@ private:
      */
     void readKMerIndex(std::string &file_path);
 
+    /**
+     * @brief Given a node ID find the node in the taxonomy tree and collect 
+     * node names from the node ID to the root.
+     * @param node_id
+     * @param node_tax_row Vector for returning names.
+     */
     void fill_node_tax_row(int node_id, std::vector<std::string> &node_tax_row);
 
     static bool descendingSortOrder(unsigned int a, unsigned int b){ return a > b; }
