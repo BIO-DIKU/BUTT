@@ -283,17 +283,63 @@ bool TestTaxSearch::test3()
  * hits_max = 2
  * best_only = true
  * Query hits only: A, B, C, E, G, I
- * hits(A)>hits(B)>hits(C)
- * Expected: {A}
+ * hits(B)>hits(A)>hits(C)
+ * Expected: {B}
  */
 bool TestTaxSearch::test4()
 {
+    //"#NODE_ID	PARENT_ID	LEVEL	NAME"
+    string taxIndexContents = "";
+    taxIndexContents += "0\t-1\t0\ti\n";
+    taxIndexContents += "1\t0\t1\tK#g\n";
+    taxIndexContents += "2\t1\t2\tP#d\n";
+    taxIndexContents += "3\t1\t2\tP#f\n";
+    taxIndexContents += "4\t1\t2\tP#e\n";
+    taxIndexContents += "5\t4\t3\tC#a\n";
+    taxIndexContents += "6\t4\t3\tC#b\n";
+    taxIndexContents += "7\t4\t3\tC#c\n";
 
-    return false;
+    ofstream output("temp_taxIndex.txt");
+    output<<taxIndexContents;
+    output.close();
+
+    //"#LEVEL	KMER	NODES"
+    string kmerIndexContents = "";
+    kmerIndexContents += "0\t0\t0\n";
+    kmerIndexContents += "1\t0\t1\n";
+    kmerIndexContents += "2\t0\t4\n";
+    kmerIndexContents += "3\t0\t5;6;7\n";
+    kmerIndexContents += "3\t1\t6\n";
+
+    output = ofstream("temp_kmerIndex.txt");
+    output<<kmerIndexContents;
+    output.close();
+
+    string file1("temp_kmerIndex.txt");
+    string file2("temp_taxIndex.txt");
+    TaxSearch searcher(SeqToKMers(4, 1), 2, true, 0, new SimpleTaxConsensus(LEVEL_NAMES), file1, file2);
+    remove("temp_kmerIndex.txt");
+    remove("temp_taxIndex.txt");
+
+    string seq_name = "seqname";
+    string seq = "AAAAC";
+
+    vector< int > nodes = searcher.searchNodes(seq);
+
+    BUTT_ASSERT_EQUALS(1, nodes.size(), "Should have hit 1 nodes, got "+to_string(nodes.size()));
+    BUTT_ASSERT_TRUE(nodes[0] == 6, "Node 6 not found in nodes");
+
+    Hit h = searcher.search(seq_name, seq);
+
+    BUTT_ASSERT_EQUALS(1, get<2>(h), "Should have hit 1 node");
+    BUTT_ASSERT_EQUALS(seq_name, get<0>(h), "Sequence name should be "+seq_name+" but is "+get<0>(h));
+    BUTT_ASSERT_EQUALS("K#g;P#e;C#b;O#;F#;G#;S#", get<1>(h), "Consensus should be K#g;P#e;C#b;O#;F#;G#;S# but is "+get<1>(h));
+
+    return true;
 }
 
 /**
- * Tests best_only with more than one hit
+ * Tests best_only with multple best hits.
  * hits_max = 2
  * best_only = true
  * Query hits only: A, B, C, E, G, I

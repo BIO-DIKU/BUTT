@@ -11,7 +11,6 @@
 using namespace std;
 
 TaxLevel::TaxLevel(int k)
-    //:kmer_to_node_vec((int) pow(4, k))
     :kmer_to_node_vec((int) pow(4, k))
 {
 }
