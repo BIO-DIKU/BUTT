@@ -52,6 +52,11 @@ public:
      */
     void addKMersToSet(std::string &sequence, KMerSet &set) const;
 
+    /**
+     * @brief Return the kmer_size.
+     */
+    unsigned int get_kmer_size() const;
+
 private:
     const unsigned int kmer_size;
     const unsigned int step_size;

@@ -11,6 +11,7 @@
 #include "Search/NameNode.h"
 #include "Search/TaxConsensus.h"
 #include "SeqToKMers.h"
+#include "Search/TaxLevel.h"
 
 /**
  * @brief Exception thrown by TaxSearch class
@@ -98,8 +99,8 @@ private:
     std::vector<NameNode> nodes;
     std::vector< std::string > level_names;
 
-    /// First vector indexes LEVEL, second the KMER and the third is a list of nodes
-    std::vector< std::vector< std::list<int> > > kmer_node_indices;
+    /// Vector with levels.
+    std::vector< TaxLevel > level_vector;
 
     /// Working memory for building histograms in search. Arrays are used in the hope
     /// that memset will be faster than vector::assign.

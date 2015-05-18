@@ -6,6 +6,7 @@
 #include <algorithm>
 #include "TaxSearch.h"
 #include "Common.h"
+#include "Search/TaxLevel.h"
 
 using namespace std;
 
@@ -66,13 +67,13 @@ void TaxSearch::readKMerIndex(std::string &file_path)
     std::string line;
     while (std::getline(input, line))
     {
-        //#LEVEL	KMER	NODES
-        //0	0	0;
-        //0	1	0;
-        //0	2	0;
-        //1	0	1;2;
-        //1	1	1;
-        //1	2	1;2;4;
+        // #LEVEL	KMER	NODES
+        // 0	0	0;
+        // 0	1	0;
+        // 0	2	0;
+        // 1	0	1;2;
+        // 1	1	1;
+        // 1	2	1;2;4;
         if(line[0]=='#') continue;
 
         vector<string> tokens = split(line, '\t');
@@ -80,17 +81,13 @@ void TaxSearch::readKMerIndex(std::string &file_path)
         KMer kmer = stoul(tokens[1]);
         vector<string> nodeTokens = split(tokens[2],';');
 
-        while(kmer_node_indices.size()<=level){
-            kmer_node_indices.push_back( vector< list<int> >() );
-        }
-
-        while(kmer_node_indices[level].size()<=kmer){
-            kmer_node_indices[level].push_back( list<int>() );
+        while(level_vector.size()<=level){
+            level_vector.push_back(TaxLevel(seq_splitter.get_kmer_size()));
         }
 
         for(auto node_it = nodeTokens.begin(); node_it!=nodeTokens.end(); ++node_it){
             int node_id = atoi(node_it->c_str());
-            kmer_node_indices[level][kmer].push_back(node_id);
+            level_vector[level].add_node_to_kmer(node_id, kmer);
 
             if(node_id>max_node_id)
                 max_node_id = node_id;
@@ -101,7 +98,6 @@ void TaxSearch::readKMerIndex(std::string &file_path)
     node_counts.resize(node_counts_size);
 
     input.close();
-
 }
 
 /**
@@ -115,7 +111,7 @@ Hit TaxSearch::search(std::string &&seqName, std::string &&sequence){
 
 Hit TaxSearch::search(std::string &seqName, std::string &sequence)
 {
-    int levels = kmer_node_indices.size()-1;
+//    int levels = level_vector.size()-1;
     vector< vector< string > > node_tax_table;
 
     set<int> node_hits = searchNodes(sequence);
@@ -129,7 +125,6 @@ Hit TaxSearch::search(std::string &seqName, std::string &sequence)
 
     string consensus = consensus_builder->buildConsensus(node_tax_table);
     return make_tuple(seqName, consensus, node_hits.size());
-
 }
 
 void TaxSearch::fill_node_tax_row(int node_id, vector<string> &node_tax_row)
@@ -172,17 +167,12 @@ std::set<int> TaxSearch::searchNodes(std::string &sequence)
 {
     KMerSet kmer_set = seq_splitter.sequenceToKMers(sequence);
 
-    std::fill(node_counts.begin(), node_counts.end(), 0);
-
-    for(int level=kmer_node_indices.size()-1; level>0; level--){
-        for(auto kmer_it = kmer_set.begin(); kmer_it!=kmer_set.end(); ++kmer_it){
-
-            list<int> &node_list = kmer_node_indices[level][*kmer_it];
-
-            for(auto node_it=node_list.begin(); node_it!=node_list.end(); ++node_it){
-                node_counts[*node_it]++;
-            }
-        }
+    auto level_it = level_vector.end();
+    level_it--;
+    
+    for(; level_it!=level_vector.begin(); level_it--){
+        std::fill(node_counts.begin(), node_counts.end(), 0); // Reset histogram.
+        level_it->update_nodes_hist(node_counts, kmer_set);
         std::set<int> ret;
         pickBestHits(ret, kmer_set.size());
         if(ret.size()>0)
@@ -215,8 +205,8 @@ void TaxSearch::pickBestHits(std::set<int> &ret, int kmer_size)
 
 void TaxSearch::readTaxLevelNames()
 {
-    int         level = 0;
-    int         pos   = 0;
+    unsigned int level = 0;
+    int          pos   = 0;
     std::string level_name;
 
     for(auto node_it=nodes.begin(); node_it!=nodes.end(); ++node_it ){
