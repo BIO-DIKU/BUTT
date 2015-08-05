@@ -1,16 +1,18 @@
-#ifndef TESTTAXSEARCH_H
-#define TESTTAXSEARCH_H
+/* Copyright 2015 BIO-DIKU */
+
+#ifndef BUTT_TESTS_TESTTAXSEARCH_H_
+#define BUTT_TESTS_TESTTAXSEARCH_H_
 
 /**
  * @brief The TestTaxSearch class
  */
-class TestTaxSearch
-{
-public:
+class TestTaxSearch {
+ public:
     TestTaxSearch();
 
     bool runTests();
-private:
+
+ private:
     bool testTaxSearch();
 
     bool testSearchNodes();
@@ -206,4 +208,4 @@ private:
     bool testSearchNodes10();
 };
 
-#endif // TESTTAXSEARCH_H
+#endif   // BUTT_TESTS_TESTTAXSEARCH_H_
