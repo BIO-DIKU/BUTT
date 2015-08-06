@@ -19,5 +19,5 @@ namespace BUTTTest{
 #define BUTT_RUN_TEST(message, function) \
     testStatus = function; \
     status&=testStatus; \
-    std::cerr<<message<<": "<<(testStatus?"succesful":"failed")<<std::endl;
+    std::cerr<<message<<": "<<(testStatus?"successful":"failed")<<std::endl;
 #endif // TESTHELPER_H
