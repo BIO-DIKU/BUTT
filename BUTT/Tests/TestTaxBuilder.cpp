@@ -5,7 +5,7 @@
 #include <string>
 #include <cstdio>
 
-#include "TaxBuilder.h"
+#include "Index/TaxBuilder.h"
 #include "SeqToKMers.h"
 #include "TestHelper.h"
 

@@ -46,7 +46,7 @@ OBJECTS_DIR   = ./
 
 SOURCES       = main.cpp \
 		TaxNode.cpp \
-		TaxBuilder.cpp \
+		Index/TaxBuilder.cpp \
 		SeqToKMers.cpp \
 		Search/NameNode.cpp \
 		Search/TaxSearch.cpp \
@@ -248,7 +248,7 @@ compiler_clean:
 
 main.o: main.cpp Tests/TestAll.h \
 		Fasta.h \
-		TaxBuilder.h \
+		Index/TaxBuilder.h \
 		SeqToKMers.h \
 		Common.h \
 		TaxNode.h
@@ -258,11 +258,11 @@ TaxNode.o: TaxNode.cpp TaxNode.h \
 		Common.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TaxNode.o TaxNode.cpp
 
-TaxBuilder.o: TaxBuilder.cpp TaxBuilder.h \
+TaxBuilder.o: Index/TaxBuilder.cpp Index/TaxBuilder.h \
 		SeqToKMers.h \
 		Common.h \
 		TaxNode.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TaxBuilder.o TaxBuilder.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TaxBuilder.o Index/TaxBuilder.cpp
 
 SeqToKMers.o: SeqToKMers.cpp SeqToKMers.h \
 		Common.h
@@ -279,7 +279,7 @@ TaxSearch.o: Search/TaxSearch.cpp Search/TaxSearch.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TaxSearch.o Search/TaxSearch.cpp
 
 TestTaxBuilder.o: Tests/TestTaxBuilder.cpp Tests/TestTaxBuilder.h \
-		TaxBuilder.h \
+		Index/TaxBuilder.h \
 		SeqToKMers.h \
 		Common.h \
 		TaxNode.h \
@@ -315,7 +315,7 @@ TestAll.o: Tests/TestAll.cpp Tests/TestAll.h \
 		Tests/TestSeqToKMers.h \
 		Common.h \
 		Tests/TestTaxBuilder.h \
-		TaxBuilder.h \
+		Index/TaxBuilder.h \
 		SeqToKMers.h \
 		TaxNode.h \
 		Tests/TestSimpleConsensus.h \

@@ -1,10 +1,9 @@
-#include "TaxBuilder.h"
-
 #include <vector>
 #include <string>
 #include <iostream>
 #include <list>
 
+#include "TaxBuilder.h"
 #include "Common.h"
 
 TaxBuilder::TaxBuilder(SeqToKMers seqSplitter):

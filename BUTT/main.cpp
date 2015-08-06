@@ -3,9 +3,9 @@
 #include <iostream>
 #include <string>
 
-#include "Tests/TestAll.h"
 #include "Fasta.h"
-#include "TaxBuilder.h"
+#include "Tests/TestAll.h"
+#include "Index/TaxBuilder.h"
 
 using namespace std;
 

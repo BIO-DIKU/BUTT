@@ -1,7 +1,7 @@
 #ifndef TESTTAXBUILDER_H
 #define TESTTAXBUILDER_H
 
-#include "TaxBuilder.h"
+#include "Index/TaxBuilder.h"
 
 /**
  * @brief The TestTaxBuilder class
