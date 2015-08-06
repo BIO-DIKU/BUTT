@@ -1,5 +1,7 @@
-#ifndef TAXNODE_H
-#define TAXNODE_H
+/* Copyright 2015 BIO-DIKU */
+
+#ifndef BUTT_INDEX_TAXNODE_H_
+#define BUTT_INDEX_TAXNODE_H_
 
 #include <string>
 #include <vector>
@@ -9,19 +11,18 @@
 
 /**
  * @brief The TaxNode class
- * A node in a taxonomic tree. Holds and provides access to parent and children-pointers,
- * a set of K-mers associated with this node and a node id.
+ * A node in a taxonomic tree. Holds and provides access to parent and
+ * children-pointers, a set of K-mers associated with this node and a node id.
  */
-class TaxNode
-{
-public:
-    const unsigned int node_id; ///< Node id
+class TaxNode {
+ public:
+    const unsigned int node_id;   ///< Node id
 
     /**
      * @brief TaxNode constructor.
      * Store constructor arguments and add itself to parents child list.
      */
-    TaxNode(TaxNode *parent, std::string &name, unsigned int node_id );
+    TaxNode(TaxNode *parent, std::string &name, unsigned int node_id);
 
     /** Access parent node */
     TaxNode &getParent();
@@ -39,10 +40,10 @@ public:
     void addKMers(KMerSet &kmers_);
 
     /** Access child nodes */
-    //std::vector<TaxNode*> &getChildren();
+    // std::vector<TaxNode*> &getChildren();
     TaxNode* getChild(std::string &child_name);
 
-private:
+ private:
     TaxNode* parent;
     std::map<std::string, TaxNode*> children;
     const std::string name;
@@ -53,7 +54,6 @@ private:
 
     friend class TaxBuilder;
     TaxNode* findNode(int id);
-
 };
 
-#endif // TAXNODE_H
+#endif   // BUTT_INDEX_TAXNODE_H_
