@@ -7,8 +7,8 @@
 #include <map>
 #include <set>
 
-#include "TaxBuilder.h"
 #include "Common.h"
+#include "Index/TaxBuilder.h"
 
 TaxBuilder::TaxBuilder(SeqToKMers seqSplitter):
     sequenceSplitter(seqSplitter),

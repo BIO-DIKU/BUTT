@@ -45,7 +45,7 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = main.cpp \
-		TaxNode.cpp \
+		Index/TaxNode.cpp \
 		Index/TaxBuilder.cpp \
 		SeqToKMers.cpp \
 		Search/NameNode.cpp \
@@ -251,17 +251,17 @@ main.o: main.cpp Tests/TestAll.h \
 		Index/TaxBuilder.h \
 		SeqToKMers.h \
 		Common.h \
-		TaxNode.h
+		Index/TaxNode.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
-TaxNode.o: TaxNode.cpp TaxNode.h \
+TaxNode.o: Index/TaxNode.cpp Index/TaxNode.h \
 		Common.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TaxNode.o TaxNode.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TaxNode.o Index/TaxNode.cpp
 
 TaxBuilder.o: Index/TaxBuilder.cpp Index/TaxBuilder.h \
 		SeqToKMers.h \
 		Common.h \
-		TaxNode.h
+		Index/TaxNode.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TaxBuilder.o Index/TaxBuilder.cpp
 
 SeqToKMers.o: SeqToKMers.cpp SeqToKMers.h \
@@ -282,7 +282,7 @@ TestTaxBuilder.o: Tests/TestTaxBuilder.cpp Tests/TestTaxBuilder.h \
 		Index/TaxBuilder.h \
 		SeqToKMers.h \
 		Common.h \
-		TaxNode.h \
+		Index/TaxNode.h \
 		Tests/TestHelper.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TestTaxBuilder.o Tests/TestTaxBuilder.cpp
 
@@ -317,7 +317,7 @@ TestAll.o: Tests/TestAll.cpp Tests/TestAll.h \
 		Tests/TestTaxBuilder.h \
 		Index/TaxBuilder.h \
 		SeqToKMers.h \
-		TaxNode.h \
+		Index/TaxNode.h \
 		Tests/TestSimpleConsensus.h \
 		Tests/TestHelper.h \
 		Search/SimpleTaxConsensus.h \

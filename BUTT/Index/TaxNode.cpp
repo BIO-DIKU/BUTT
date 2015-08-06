@@ -1,4 +1,4 @@
-#include "TaxNode.h"
+#include "Index/TaxNode.h"
 
 TaxNode::TaxNode(TaxNode *parent, std::string &name, unsigned int node_id ):
     node_id(node_id),

@@ -10,8 +10,7 @@
 #include <map>
 
 #include "SeqToKMers.h"
-#include "TaxNode.h"
-
+#include "Index/TaxNode.h"
 
 /**
  * @brief Exception thrown by TaxBuilder class
