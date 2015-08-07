@@ -113,11 +113,6 @@ void TaxSearch::readKMerIndex(std::string &file_path) {
     input.close();
 }
 
-/**
- *
- * Debug function where second argument can be a literal "sequence".
- *
- * */
 Hit TaxSearch::search(std::string &&seqName, std::string &&sequence) {
     return search(seqName, sequence);
 }
@@ -155,25 +150,6 @@ void TaxSearch::fill_node_tax_row(int node_id, vector<string> &node_tax_row) {
     } while (n.getParentId() >= 0);
 }
 
-/**
- * @brief Method to search for a given sequence.
- * First the sequence is broken down into unique k-mers using the
- * seqSplitter.  For each taxonomic level starting from the deepest, all
- * nodes containing these k-mers are looked up. The nodes containing at
- * least a ratio of TaxSearch::coverage of the k-mers are considered node-hits.
- * If there are no node-hits at a taxonomic level, we move to the next level.
- *
- * If TaxSearch::best_only is set, only the (at most TaxSearch::hits_max)
- * node-hits with maximum coverage are returned. Otherwise the (at most
- * TaxSearch::hits_max) hits with largest coverage (over
- * TaxSearch::coverage) are returned.
- *
- * If there are no node-hits at the root level an empty set is returned.
- *
- * This function will only return non-empty results after
- * TaxSearch::readDatabases has been called. The values in the set are
- * indices of nodes in the node-tree.
- */
 std::vector<int> TaxSearch::searchNodes(std::string &sequence) {
     std::vector<int> ret;
     KMerSet kmer_set = seq_splitter.sequenceToKMers(sequence);
