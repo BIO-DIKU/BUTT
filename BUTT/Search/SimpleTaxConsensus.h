@@ -1,22 +1,27 @@
-#ifndef SIMPLETAXCONSENSUS_H
-#define SIMPLETAXCONSENSUS_H
+/* Copyright 2015 BIO-DIKU */
 
+#ifndef BUTT_SEARCH_SIMPLETAXCONSENSUS_H_
+#define BUTT_SEARCH_SIMPLETAXCONSENSUS_H_
+
+#include "utility"
+#include "string"
+#include "vector"
 #include "TaxConsensus.h"
 
 /**
  * @brief Exception thrown by SimpleTaxConsensus class
  */
 class SimpleTaxConsensusException: public std::exception {
-public:
-    SimpleTaxConsensusException(std::string &msg): exceptionMsg(msg){}
-    SimpleTaxConsensusException(const SimpleTaxConsensusException &e): exceptionMsg(e.exceptionMsg){}
+ public:
+    SimpleTaxConsensusException(std::string &msg): exceptionMsg(msg) {}
+    SimpleTaxConsensusException(const SimpleTaxConsensusException &e):
+        exceptionMsg(e.exceptionMsg) {}
+
     const std::string exceptionMsg;
 };
 
-
-class SimpleTaxConsensus: public TaxConsensus
-{
-public:
+class SimpleTaxConsensus: public TaxConsensus {
+ public:
     SimpleTaxConsensus(std::vector <std::string> level_names);
 
     /**
@@ -45,12 +50,12 @@ public:
      *
      * Returns bool.
      */
-    static bool descendingSortOrderPair(const std::pair<std::string, int> &a, const std::pair<std::string, int> &b){
-        return a.second>b.second;
+    static bool descendingSortOrderPair(const std::pair<std::string, int> &a,
+                                        const std::pair<std::string, int> &b) {
+        return a.second > b.second;
     }
 
-private:
-
+ private:
     std::vector< std::string > level_names;
 
     std::string buildTaxSuffix(int level);
@@ -61,4 +66,4 @@ private:
     bool columnPerfectConsensus(std::vector< std::vector< std::string > > &tax_table, int col);
 };
 
-#endif // SIMPLETAXCONSENSUS_H
+#endif   // BUTT_SEARCH_SIMPLETAXCONSENSUS_H_

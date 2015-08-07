@@ -128,13 +128,13 @@ class TestTaxSearch {
      * Test-cases for testSearch.
      *
      * The following tree-layout is used for testSearchNodes1-8:
-     *                 r
+     * R               r
      *    		       |
-     *         a_1  a_1  a_2  z_7
+     * K       a_1  a_1  a_2  z_7
      *               |
-     *         b_1  b_1  b_2  y_8
+     * P       b_1  b_1  b_2  y_8
      *               |
-     *         c_1  c_1  c_2  x_9
+     * C       c_1  c_1  c_2  x_9
      *
      */
 

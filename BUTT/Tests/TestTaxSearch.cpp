@@ -597,13 +597,13 @@ bool TestTaxSearch::test9() {
  * Test-cases for testSearch.
  *
  * The following tree-layout is used for testSearchNodes1-8:
- *                 r
+ * R               r
  *    		       |
- *         a_1  a_1  a_2  z_7
+ * K       a_1  a_1  a_2  z_7
  *               |
- *         b_1  b_1  b_2  y_8
+ * P       b_1  b_1  b_2  y_8
  *               |
- *         c_1  c_1  c_2  x_9
+ * C       c_1  c_1  c_2  x_9
  *
  */
 
@@ -792,7 +792,59 @@ bool TestTaxSearch::testSearchNodes3() {
  * Expected: ("query_name", "K#a_1(100/100);P#b_1(100/100);C#;O#;F#;G#;S#", 2)
  */
 bool TestTaxSearch::testSearchNodes4() {
-    return false;
+    // "#NODE_ID   PARENT_ID   LEVEL   NAME"
+    string tax_index_contents = "";
+    tax_index_contents += "0\t-1\t0\ti\n";
+    tax_index_contents += "1\t0\t1\tK#a_1\n";
+    tax_index_contents += "2\t0\t1\tK#a_1\n";
+    tax_index_contents += "3\t0\t1\tK#a_2\n";
+    tax_index_contents += "4\t0\t1\tK#z_7\n";
+    tax_index_contents += "5\t2\t2\tP#b_1\n";
+    tax_index_contents += "6\t2\t2\tP#b_1\n";
+    tax_index_contents += "7\t2\t2\tP#b_2\n";
+    tax_index_contents += "8\t2\t2\tP#y_8\n";
+    tax_index_contents += "9\t6\t3\tC#c_1\n";
+    tax_index_contents += "10\t6\t3\tC#c_1\n";
+    tax_index_contents += "11\t6\t3\tC#c_2\n";
+    tax_index_contents += "12\t6\t3\tC#x_9\n";
+
+    string file1("temp_taxIndex.txt");
+    string file2("temp_kmerIndex.txt");
+
+    ofstream output(file1);
+    output << tax_index_contents;
+    output.close();
+
+    // "#LEVEL   KMER   NODES"
+    string kmer_index_contents = "";
+    kmer_index_contents += "0\t0\t0\n";
+    kmer_index_contents += "1\t0\t1;2;3;4\n";
+    kmer_index_contents += "2\t0\t5;6;7;8\n";    // b_1, b_1, b_2, y_8
+    kmer_index_contents += "3\t0\t9;12\n";       // c_1, x_9
+    kmer_index_contents += "3\t1\t10;11\n";      // c_1, c_2
+
+    output = ofstream(file2);
+    output << kmer_index_contents;
+    output.close();
+
+    TaxSearch searcher(SeqToKMers(4, 1), 2, false, 0,
+                       new SimpleTaxConsensus(LEVEL_NAMES), file2, file1);
+
+    remove(file1.c_str());
+    remove(file2.c_str());
+
+    string seq_name = "query_name";
+    string seq      = "AAAA";
+
+    vector< int > nodes = searcher.searchNodes(seq);
+
+    BUTT_ASSERT_EQUALS(2, nodes.size(), "Should have hit 2 nodes, got " +
+                       to_string(nodes.size()));
+
+    BUTT_ASSERT_TRUE(9  == nodes[0] || 9  == nodes[1], "Failed to match 9");
+    BUTT_ASSERT_TRUE(12 == nodes[0] || 12 == nodes[1], "Failed to match 12");
+
+    return true;
 }
 
 /**
@@ -801,7 +853,60 @@ bool TestTaxSearch::testSearchNodes4() {
  * Expected: ("query_name", "K#a_1(100/100);P#b_1(100/100);C#;O#;F#;G#;S#", 2)
  */
 bool TestTaxSearch::testSearchNodes5() {
-    return false;
+    // "#NODE_ID   PARENT_ID   LEVEL   NAME"
+    string tax_index_contents = "";
+    tax_index_contents += "0\t-1\t0\ti\n";
+    tax_index_contents += "1\t0\t1\tK#a_1\n";
+    tax_index_contents += "2\t0\t1\tK#a_1\n";
+    tax_index_contents += "3\t0\t1\tK#a_2\n";
+    tax_index_contents += "4\t0\t1\tK#z_7\n";
+    tax_index_contents += "5\t2\t2\tP#b_1\n";
+    tax_index_contents += "6\t2\t2\tP#b_1\n";
+    tax_index_contents += "7\t2\t2\tP#b_2\n";
+    tax_index_contents += "8\t2\t2\tP#y_8\n";
+    tax_index_contents += "9\t6\t3\tC#c_1\n";
+    tax_index_contents += "10\t6\t3\tC#c_1\n";
+    tax_index_contents += "11\t6\t3\tC#c_2\n";
+    tax_index_contents += "12\t6\t3\tC#x_9\n";
+
+    string file1("temp_taxIndex.txt");
+    string file2("temp_kmerIndex.txt");
+
+    ofstream output(file1);
+    output << tax_index_contents;
+    output.close();
+
+    // "#LEVEL   KMER   NODES"
+    string kmer_index_contents = "";
+    kmer_index_contents += "0\t0\t0\n";
+    kmer_index_contents += "1\t0\t1;2;3;4\n";
+    kmer_index_contents += "2\t0\t5;6\n";     // b_1, b_1
+    kmer_index_contents += "2\t1\t7;8\n";     // b_2, y_8
+    kmer_index_contents += "3\t1\t9;10\n";    // c_1, c_1
+    kmer_index_contents += "3\t1\t11;12\n";   // c_2, x_9
+
+    output = ofstream(file2);
+    output << kmer_index_contents;
+    output.close();
+
+    TaxSearch searcher(SeqToKMers(4, 1), 2, false, 0,
+                       new SimpleTaxConsensus(LEVEL_NAMES), file2, file1);
+
+    remove(file1.c_str());
+    remove(file2.c_str());
+
+    string seq_name = "query_name";
+    string seq      = "AAAA";
+
+    vector< int > nodes = searcher.searchNodes(seq);
+
+    BUTT_ASSERT_EQUALS(2, nodes.size(), "Should have hit 2 nodes, got " +
+                       to_string(nodes.size()));
+
+    BUTT_ASSERT_TRUE(5 == nodes[0] || 5 == nodes[1], "Failed to match 5");
+    BUTT_ASSERT_TRUE(6 == nodes[0] || 6 == nodes[1], "Failed to match 6");
+
+    return true;
 }
 
 /**
@@ -810,7 +915,60 @@ bool TestTaxSearch::testSearchNodes5() {
  * Expected: ("query_name", "K#a_1(100/100);P#B(100);C#;O#;F#;G#;S#", 2)
  */
 bool TestTaxSearch::testSearchNodes6() {
-    return false;
+    // "#NODE_ID   PARENT_ID   LEVEL   NAME"
+    string tax_index_contents = "";
+    tax_index_contents += "0\t-1\t0\ti\n";
+    tax_index_contents += "1\t0\t1\tK#a_1\n";
+    tax_index_contents += "2\t0\t1\tK#a_1\n";
+    tax_index_contents += "3\t0\t1\tK#a_2\n";
+    tax_index_contents += "4\t0\t1\tK#z_7\n";
+    tax_index_contents += "5\t2\t2\tP#b_1\n";
+    tax_index_contents += "6\t2\t2\tP#b_1\n";
+    tax_index_contents += "7\t2\t2\tP#b_2\n";
+    tax_index_contents += "8\t2\t2\tP#y_8\n";
+    tax_index_contents += "9\t6\t3\tC#c_1\n";
+    tax_index_contents += "10\t6\t3\tC#c_1\n";
+    tax_index_contents += "11\t6\t3\tC#c_2\n";
+    tax_index_contents += "12\t6\t3\tC#x_9\n";
+
+    string file1("temp_taxIndex.txt");
+    string file2("temp_kmerIndex.txt");
+
+    ofstream output(file1);
+    output << tax_index_contents;
+    output.close();
+
+    // "#LEVEL   KMER   NODES"
+    string kmer_index_contents = "";
+    kmer_index_contents += "0\t0\t0\n";
+    kmer_index_contents += "1\t0\t1;2;3;4\n";
+    kmer_index_contents += "2\t0\t5;7\n";     // b_1, b_2
+    kmer_index_contents += "2\t1\t6;8\n";     // b_1, y_8
+    kmer_index_contents += "3\t1\t9;10\n";    // c_1, c_1
+    kmer_index_contents += "3\t1\t11;12\n";   // c_2, x_9
+
+    output = ofstream(file2);
+    output << kmer_index_contents;
+    output.close();
+
+    TaxSearch searcher(SeqToKMers(4, 1), 2, false, 0,
+                       new SimpleTaxConsensus(LEVEL_NAMES), file2, file1);
+
+    remove(file1.c_str());
+    remove(file2.c_str());
+
+    string seq_name = "query_name";
+    string seq      = "AAAA";
+
+    vector< int > nodes = searcher.searchNodes(seq);
+
+    BUTT_ASSERT_EQUALS(2, nodes.size(), "Should have hit 2 nodes, got " +
+                       to_string(nodes.size()));
+
+    BUTT_ASSERT_TRUE(5 == nodes[0] || 5 == nodes[1], "Failed to match 5");
+    BUTT_ASSERT_TRUE(7 == nodes[0] || 7 == nodes[1], "Failed to match 7");
+
+    return true;
 }
 
 /**
@@ -819,7 +977,60 @@ bool TestTaxSearch::testSearchNodes6() {
  * Expected: ("query_name", "K#a_1(100/100);P#;C#;O#;F#;G#;S#", 2)
  */
 bool TestTaxSearch::testSearchNodes7() {
-    return false;
+    // "#NODE_ID   PARENT_ID   LEVEL   NAME"
+    string tax_index_contents = "";
+    tax_index_contents += "0\t-1\t0\ti\n";
+    tax_index_contents += "1\t0\t1\tK#a_1\n";
+    tax_index_contents += "2\t0\t1\tK#a_1\n";
+    tax_index_contents += "3\t0\t1\tK#a_2\n";
+    tax_index_contents += "4\t0\t1\tK#z_7\n";
+    tax_index_contents += "5\t2\t2\tP#b_1\n";
+    tax_index_contents += "6\t2\t2\tP#b_1\n";
+    tax_index_contents += "7\t2\t2\tP#b_2\n";
+    tax_index_contents += "8\t2\t2\tP#y_8\n";
+    tax_index_contents += "9\t6\t3\tC#c_1\n";
+    tax_index_contents += "10\t6\t3\tC#c_1\n";
+    tax_index_contents += "11\t6\t3\tC#c_2\n";
+    tax_index_contents += "12\t6\t3\tC#x_9\n";
+
+    string file1("temp_taxIndex.txt");
+    string file2("temp_kmerIndex.txt");
+
+    ofstream output(file1);
+    output << tax_index_contents;
+    output.close();
+
+    // "#LEVEL   KMER   NODES"
+    string kmer_index_contents = "";
+    kmer_index_contents += "0\t0\t0\n";
+    kmer_index_contents += "1\t0\t1;2;3;4\n";
+    kmer_index_contents += "2\t0\t5;8\n";     // b_1, y_8
+    kmer_index_contents += "2\t1\t6;7\n";     // b_1, b_2
+    kmer_index_contents += "3\t1\t9;10\n";    // c_1, c_1
+    kmer_index_contents += "3\t1\t11;12\n";   // c_2, x_9
+
+    output = ofstream(file2);
+    output << kmer_index_contents;
+    output.close();
+
+    TaxSearch searcher(SeqToKMers(4, 1), 2, false, 0,
+                       new SimpleTaxConsensus(LEVEL_NAMES), file2, file1);
+
+    remove(file1.c_str());
+    remove(file2.c_str());
+
+    string seq_name = "query_name";
+    string seq      = "AAAA";
+
+    vector< int > nodes = searcher.searchNodes(seq);
+
+    BUTT_ASSERT_EQUALS(2, nodes.size(), "Should have hit 2 nodes, got " +
+                       to_string(nodes.size()));
+
+    BUTT_ASSERT_TRUE(5 == nodes[0] || 5 == nodes[1], "Failed to match 5");
+    BUTT_ASSERT_TRUE(8 == nodes[0] || 8 == nodes[1], "Failed to match 8");
+
+    return true;
 }
 
 /**
@@ -828,7 +1039,61 @@ bool TestTaxSearch::testSearchNodes7() {
  * Expected: ("query_name", "K#a_1(100/100);P#;C#;O#;F#;G#;S#", 2)
  */
 bool TestTaxSearch::testSearchNodes8() {
-    return false;
+    // "#NODE_ID   PARENT_ID   LEVEL   NAME"
+    string tax_index_contents = "";
+    tax_index_contents += "0\t-1\t0\ti\n";
+    tax_index_contents += "1\t0\t1\tK#a_1\n";
+    tax_index_contents += "2\t0\t1\tK#a_1\n";
+    tax_index_contents += "3\t0\t1\tK#a_2\n";
+    tax_index_contents += "4\t0\t1\tK#z_7\n";
+    tax_index_contents += "5\t2\t2\tP#b_1\n";
+    tax_index_contents += "6\t2\t2\tP#b_1\n";
+    tax_index_contents += "7\t2\t2\tP#b_2\n";
+    tax_index_contents += "8\t2\t2\tP#y_8\n";
+    tax_index_contents += "9\t6\t3\tC#c_1\n";
+    tax_index_contents += "10\t6\t3\tC#c_1\n";
+    tax_index_contents += "11\t6\t3\tC#c_2\n";
+    tax_index_contents += "12\t6\t3\tC#x_9\n";
+
+    string file1("temp_taxIndex.txt");
+    string file2("temp_kmerIndex.txt");
+
+    ofstream output(file1);
+    output << tax_index_contents;
+    output.close();
+
+    // "#LEVEL   KMER   NODES"
+    string kmer_index_contents = "";
+    kmer_index_contents += "0\t0\t0\n";
+    kmer_index_contents += "1\t0\t1;2\n";     // a_1, a_1
+    kmer_index_contents += "1\t1\t3;4\n";     // a_2, z_7
+    kmer_index_contents += "2\t1\t5;6\n";     // b_1, b_1
+    kmer_index_contents += "2\t1\t7;8\n";     // b_2, y_8
+    kmer_index_contents += "3\t1\t9;10\n";    // c_1, c_1
+    kmer_index_contents += "3\t1\t11;12\n";   // c_2, x_9
+
+    output = ofstream(file2);
+    output << kmer_index_contents;
+    output.close();
+
+    TaxSearch searcher(SeqToKMers(4, 1), 2, false, 0,
+                       new SimpleTaxConsensus(LEVEL_NAMES), file2, file1);
+
+    remove(file1.c_str());
+    remove(file2.c_str());
+
+    string seq_name = "query_name";
+    string seq      = "AAAA";
+
+    vector< int > nodes = searcher.searchNodes(seq);
+
+    BUTT_ASSERT_EQUALS(2, nodes.size(), "Should have hit 2 nodes, got " +
+                       to_string(nodes.size()));
+
+    BUTT_ASSERT_TRUE(1 == nodes[0] || 1 == nodes[1], "Failed to match 1");
+    BUTT_ASSERT_TRUE(2 == nodes[0] || 2 == nodes[1], "Failed to match 2");
+
+    return true;
 }
 
 /**
@@ -837,7 +1102,61 @@ bool TestTaxSearch::testSearchNodes8() {
  * Expected: ("query_name", "K#A(100);P#;C#;O#;F#;G#;S#", 2)
  */
 bool TestTaxSearch::testSearchNodes9() {
-    return false;
+    // "#NODE_ID   PARENT_ID   LEVEL   NAME"
+    string tax_index_contents = "";
+    tax_index_contents += "0\t-1\t0\ti\n";
+    tax_index_contents += "1\t0\t1\tK#a_1\n";
+    tax_index_contents += "2\t0\t1\tK#a_1\n";
+    tax_index_contents += "3\t0\t1\tK#a_2\n";
+    tax_index_contents += "4\t0\t1\tK#z_7\n";
+    tax_index_contents += "5\t2\t2\tP#b_1\n";
+    tax_index_contents += "6\t2\t2\tP#b_1\n";
+    tax_index_contents += "7\t2\t2\tP#b_2\n";
+    tax_index_contents += "8\t2\t2\tP#y_8\n";
+    tax_index_contents += "9\t6\t3\tC#c_1\n";
+    tax_index_contents += "10\t6\t3\tC#c_1\n";
+    tax_index_contents += "11\t6\t3\tC#c_2\n";
+    tax_index_contents += "12\t6\t3\tC#x_9\n";
+
+    string file1("temp_taxIndex.txt");
+    string file2("temp_kmerIndex.txt");
+
+    ofstream output(file1);
+    output << tax_index_contents;
+    output.close();
+
+    // "#LEVEL   KMER   NODES"
+    string kmer_index_contents = "";
+    kmer_index_contents += "0\t0\t0\n";
+    kmer_index_contents += "1\t0\t1;3\n";     // a_1, a_2
+    kmer_index_contents += "1\t1\t2;4\n";     // a_1, z_7
+    kmer_index_contents += "2\t1\t5;6\n";     // b_1, b_1
+    kmer_index_contents += "2\t1\t7;8\n";     // b_2, y_8
+    kmer_index_contents += "3\t1\t9;10\n";    // c_1, c_1
+    kmer_index_contents += "3\t1\t11;12\n";   // c_2, x_9
+
+    output = ofstream(file2);
+    output << kmer_index_contents;
+    output.close();
+
+    TaxSearch searcher(SeqToKMers(4, 1), 2, false, 0,
+                       new SimpleTaxConsensus(LEVEL_NAMES), file2, file1);
+
+    remove(file1.c_str());
+    remove(file2.c_str());
+
+    string seq_name = "query_name";
+    string seq      = "AAAA";
+
+    vector< int > nodes = searcher.searchNodes(seq);
+
+    BUTT_ASSERT_EQUALS(2, nodes.size(), "Should have hit 2 nodes, got " +
+                       to_string(nodes.size()));
+
+    BUTT_ASSERT_TRUE(1 == nodes[0] || 1 == nodes[1], "Failed to match 1");
+    BUTT_ASSERT_TRUE(3 == nodes[0] || 3 == nodes[1], "Failed to match 3");
+
+    return true;
 }
 
 /**
@@ -846,5 +1165,59 @@ bool TestTaxSearch::testSearchNodes9() {
  * Expected: ("query_name", "K#;P#;C#;O#;F#;G#;S#", 2)
  */
 bool TestTaxSearch::testSearchNodes10() {
-    return false;
+    // "#NODE_ID   PARENT_ID   LEVEL   NAME"
+    string tax_index_contents = "";
+    tax_index_contents += "0\t-1\t0\ti\n";
+    tax_index_contents += "1\t0\t1\tK#a_1\n";
+    tax_index_contents += "2\t0\t1\tK#a_1\n";
+    tax_index_contents += "3\t0\t1\tK#a_2\n";
+    tax_index_contents += "4\t0\t1\tK#z_7\n";
+    tax_index_contents += "5\t2\t2\tP#b_1\n";
+    tax_index_contents += "6\t2\t2\tP#b_1\n";
+    tax_index_contents += "7\t2\t2\tP#b_2\n";
+    tax_index_contents += "8\t2\t2\tP#y_8\n";
+    tax_index_contents += "9\t6\t3\tC#c_1\n";
+    tax_index_contents += "10\t6\t3\tC#c_1\n";
+    tax_index_contents += "11\t6\t3\tC#c_2\n";
+    tax_index_contents += "12\t6\t3\tC#x_9\n";
+
+    string file1("temp_taxIndex.txt");
+    string file2("temp_kmerIndex.txt");
+
+    ofstream output(file1);
+    output << tax_index_contents;
+    output.close();
+
+    // "#LEVEL   KMER   NODES"
+    string kmer_index_contents = "";
+    kmer_index_contents += "0\t0\t0\n";
+    kmer_index_contents += "1\t0\t1;4\n";     // a_1, z_7
+    kmer_index_contents += "1\t1\t2;3\n";     // a_1, a_2
+    kmer_index_contents += "2\t1\t5;6\n";     // b_1, b_1
+    kmer_index_contents += "2\t1\t7;8\n";     // b_2, y_8
+    kmer_index_contents += "3\t1\t9;10\n";    // c_1, c_1
+    kmer_index_contents += "3\t1\t11;12\n";   // c_2, x_9
+
+    output = ofstream(file2);
+    output << kmer_index_contents;
+    output.close();
+
+    TaxSearch searcher(SeqToKMers(4, 1), 2, false, 0,
+                       new SimpleTaxConsensus(LEVEL_NAMES), file2, file1);
+
+    remove(file1.c_str());
+    remove(file2.c_str());
+
+    string seq_name = "query_name";
+    string seq      = "AAAA";
+
+    vector< int > nodes = searcher.searchNodes(seq);
+
+    BUTT_ASSERT_EQUALS(2, nodes.size(), "Should have hit 2 nodes, got " +
+                       to_string(nodes.size()));
+
+    BUTT_ASSERT_TRUE(1 == nodes[0] || 1 == nodes[1], "Failed to match 1");
+    BUTT_ASSERT_TRUE(4 == nodes[0] || 4 == nodes[1], "Failed to match 4");
+
+    return true;
 }
