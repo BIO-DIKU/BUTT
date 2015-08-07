@@ -134,17 +134,35 @@ class TaxSearch {
      */
     void fill_node_tax_row(int node_id, std::vector<std::string> &node_tax_row);
 
+    /**
+     * @brief Sort function for the sort of unsigned integers in descending
+     * order.
+     * @param a First unsigned integer.
+     * @param b Second unsigned integer.
+     */
     static bool descendingSortOrder(unsigned int a, unsigned int b) {
         return a > b;
     }
 
+    /**
+     * @brief Sort function for the sort of the second value in a pair of
+     * integers in descending order.
+     * @param a First pair.
+     * @param b Second pair.
+     */
     static bool descendingPairSortOrder(const std::pair<int, int> &a,
                                         const std::pair<int, int> &b) {
         return a.second > b.second;
     }
 
+    /**
+     *  TODO: write me!
+     */
     void pickBestHits(std::vector<int> &ret, int kmer_size);
 
+    /**
+     *  TODO: write me!
+     */
     void readTaxLevelNames();
 };
 
