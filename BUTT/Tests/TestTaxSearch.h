@@ -36,6 +36,7 @@ class TestTaxSearch {
      *        / | \
      *       A  B  C
      */
+    
     /**
      * Test that more than one hit can be returned
      * hits_max = 2
