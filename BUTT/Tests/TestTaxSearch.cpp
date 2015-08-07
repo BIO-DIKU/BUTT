@@ -19,8 +19,7 @@
 
 using namespace std;
 
-TestTaxSearch::TestTaxSearch() {
-}
+TestTaxSearch::TestTaxSearch() {}
 
 bool TestTaxSearch::runTests() {
     BUTT_PRE_TESTS();
@@ -34,6 +33,8 @@ bool TestTaxSearch::runTests() {
     BUTT_RUN_TEST("TestTaxSearch test 7", test7());
     BUTT_RUN_TEST("TestTaxSearch test 8", test8());
     BUTT_RUN_TEST("TestTaxSearch test 9", test9());
+    BUTT_RUN_TEST("TestTaxSearch testSeachNode 1", testSearchNodes1());
+    BUTT_RUN_TEST("TestTaxSearch testSeachNode 2", testSearchNodes2());
     BUTT_POST_TESTS();
 }
 
@@ -583,3 +584,194 @@ bool TestTaxSearch::test9() {
 
     return true;
 }
+
+/*
+ * Test-cases for testSearch.
+ *
+ * The following tree-layout is used for testSearchNodes1-8:
+ *                 r
+ *    		       |
+ *         a_1  a_1  a_2  z_7
+ *               |
+ *         b_1  b_1  b_2  y_8
+ *               |
+ *         c_1  c_1  c_2  x_9
+ *
+ */
+
+/**
+ * Tests that empty search for non-existing taxonomy gives consensus
+ * taxonomy with all levels empty.
+ * Input: Kmers not corresponding to any node
+ * Expected: ("query_name", "K#;P#;C#;O#;F#;G#;S#", 0)
+ * Expected: ("query_name", "Unclassified", 0) TODO: fix in doc
+ */
+bool TestTaxSearch::testSearchNodes1() {
+    // "#NODE_ID   PARENT_ID   LEVEL   NAME"
+    string tax_index_contents = "";
+    tax_index_contents += "0\t-1\t0\ti\n";
+    tax_index_contents += "1\t0\t1\tK#a_1\n";
+    tax_index_contents += "2\t0\t1\tK#a_1\n";
+    tax_index_contents += "3\t0\t1\tK#a_2\n";
+    tax_index_contents += "4\t0\t1\tK#z_7\n";
+    tax_index_contents += "5\t2\t2\tP#b_1\n";
+    tax_index_contents += "6\t2\t2\tP#b_1\n";
+    tax_index_contents += "7\t2\t2\tP#b_2\n";
+    tax_index_contents += "8\t2\t2\tP#y_8\n";
+    tax_index_contents += "9\t6\t3\tC#c_1\n";
+    tax_index_contents += "10\t6\t3\tC#c_1\n";
+    tax_index_contents += "11\t6\t3\tC#c_2\n";
+    tax_index_contents += "12\t6\t3\tC#x_9\n";
+
+    string file1("temp_taxIndex.txt");
+    string file2("temp_kmerIndex.txt");
+
+    ofstream output(file1);
+    output << tax_index_contents;
+    output.close();
+
+    // "#LEVEL   KMER   NODES"
+    string kmer_index_contents = "";
+    kmer_index_contents += "0\t0\t0\n";
+    kmer_index_contents += "1\t0\t1;2;3;4\n";
+    kmer_index_contents += "2\t0\t5;6;7;8\n";
+    kmer_index_contents += "3\t0\t9;10;11;12\n";
+
+    output = ofstream(file2);
+    output << kmer_index_contents;
+    output.close();
+
+    TaxSearch searcher(SeqToKMers(4, 1), 2, false, 0,
+                       new SimpleTaxConsensus(LEVEL_NAMES), file2, file1);
+
+    remove(file1.c_str());
+    remove(file2.c_str());
+
+    string seq_name = "query_name";
+    string seq      = "GGGG";
+
+    vector< int > nodes = searcher.searchNodes(seq);
+
+    BUTT_ASSERT_EQUALS(0, nodes.size(), "Should have hit 0 nodes, got " +
+                       to_string(nodes.size()));
+    return true;
+}
+
+/**
+ * Tests consensus of perfect hit
+ * Input: kmers matching: c_1, c_1
+ * Expected: ("Q", "K#a_1(100/100);P#b_1(100/100);C#c_1(100/100);O#;F#;G#;S#", 2)
+ */
+bool TestTaxSearch::testSearchNodes2() {
+    // "#NODE_ID   PARENT_ID   LEVEL   NAME"
+    string tax_index_contents = "";
+    tax_index_contents += "0\t-1\t0\ti\n";
+    tax_index_contents += "1\t0\t1\tK#a_1\n";
+    tax_index_contents += "2\t0\t1\tK#a_1\n";
+    tax_index_contents += "3\t0\t1\tK#a_2\n";
+    tax_index_contents += "4\t0\t1\tK#z_7\n";
+    tax_index_contents += "5\t2\t2\tP#b_1\n";
+    tax_index_contents += "6\t2\t2\tP#b_1\n";
+    tax_index_contents += "7\t2\t2\tP#b_2\n";
+    tax_index_contents += "8\t2\t2\tP#y_8\n";
+    tax_index_contents += "9\t6\t3\tC#c_1\n";
+    tax_index_contents += "10\t6\t3\tC#c_1\n";
+    tax_index_contents += "11\t6\t3\tC#c_2\n";
+    tax_index_contents += "12\t6\t3\tC#x_9\n";
+
+    string file1("temp_taxIndex.txt");
+    string file2("temp_kmerIndex.txt");
+
+    ofstream output(file1);
+    output << tax_index_contents;
+    output.close();
+
+    // "#LEVEL   KMER   NODES"
+    string kmer_index_contents = "";
+    kmer_index_contents += "0\t0\t0\n";
+    kmer_index_contents += "1\t0\t1;2;3;4\n";
+    kmer_index_contents += "2\t0\t5;6;7;8\n";
+    kmer_index_contents += "3\t0\t9;10\n";    // c_1, c_1
+    kmer_index_contents += "3\t1\t11;12\n";   // c_2, x_9
+
+    output = ofstream(file2);
+    output << kmer_index_contents;
+    output.close();
+
+    TaxSearch searcher(SeqToKMers(4, 1), 2, false, 0,
+                       new SimpleTaxConsensus(LEVEL_NAMES), file2, file1);
+
+    remove(file1.c_str());
+    remove(file2.c_str());
+
+    string seq_name = "query_name";
+    string seq      = "AAAA";
+
+    vector< int > nodes = searcher.searchNodes(seq);
+
+    BUTT_ASSERT_EQUALS(2, nodes.size(), "Should have hit 2 nodes, got " +
+                       to_string(nodes.size()));
+
+    BUTT_ASSERT_TRUE(10 == nodes[0] || 10 == nodes[1], "Failed to match 10");
+    BUTT_ASSERT_TRUE(9  == nodes[0] || 9  == nodes[1], "Failed to match 9");
+
+    return true;
+}
+
+
+
+// /**
+//  * Tests consensus of hit down to C-level, first word
+//  * Input: kmers matching: c_1, c_2
+//  * Expected: ("Q", "K#a_1(100/100);P#b_1(100/100);C#C(100);O#;F#;G#;S#", 2)
+//  */
+// bool testSearchNodes3();
+// 
+// /**
+//  * Tests consensus of hit down to P-level, second word
+//  * Input: kmers matching: c_1, x_9
+//  * Expected: ("Q", "K#a_1(100/100);P#b_1(100/100);C#;O#;F#;G#;S#", 2)
+//  */
+// bool testSearchNodes4();
+// 
+// /**
+//  * Tests consensus of hit down to P-level, second word
+//  * Input: kmers matching: b_1, b_1
+//  * Expected: ("Q", "K#a_1(100/100);P#b_1(100/100);C#;O#;F#;G#;S#", 2)
+//  */
+// bool testSearchNodes5();
+// 
+// /**
+//  * Tests consensus of hit down to P-level, first word
+//  * Input: kmers matching: b_1, b_2
+//  * Expected: ("Q", "K#a_1(100/100);P#B(100);C#;O#;F#;G#;S#", 2)
+//  */
+// bool testSearchNodes6();
+// 
+// /**
+//  * Tests consensus of hit down to K-level, second word
+//  * Input: kmers matching: b_1, y_8
+//  * Expected: ("Q", "K#a_1(100/100);P#;C#;O#;F#;G#;S#", 2)
+//  */
+// bool testSearchNodes7();
+// 
+// /**
+//  * Tests consensus of hit down to K-level, second word
+//  * Input: kmers matching: a_1, a_1
+//  * Expected: ("Q", "K#a_1(100/100);P#;C#;O#;F#;G#;S#", 2)
+//  */
+// bool testSearchNodes8();
+// 
+// /**
+//  * Tests consensus of hit down to K-level, first word
+//  * Input: kmers matching: a_1, a_2
+//  * Expected: ("Q", "K#A(100);P#;C#;O#;F#;G#;S#", 2)
+//  */
+// bool testSearchNodes9();
+// 
+// /**
+//  * Tests no consensus, but with hits
+//  * Input: kmers matching: a_1, z_7
+//  * Expected: ("Q", "K#;P#;C#;O#;F#;G#;S#", 2)
+//  */
+// bool testSearchNodes10();
