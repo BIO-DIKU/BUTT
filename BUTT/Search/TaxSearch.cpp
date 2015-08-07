@@ -131,6 +131,11 @@ Hit TaxSearch::search(std::string &seqName, std::string &sequence) {
     }
 
     string consensus = consensus_builder->buildConsensus(node_tax_table);
+
+    if (consensus.length() == 0) {
+        consensus = "Unclassified";
+    }
+
     return make_tuple(seqName, consensus, node_hits.size());
 }
 

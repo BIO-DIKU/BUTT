@@ -657,9 +657,10 @@ bool TestTaxSearch::test9() {
 
     BUTT_ASSERT_EQUALS(0, get<2>(h), "Should have hit 0 nodes");
     BUTT_ASSERT_EQUALS(seq_name, get<0>(h), "Sequence name should be " +
-                       seq_name+" but is "+get<0>(h));
+                       seq_name+" but is " + get<0>(h));
     BUTT_ASSERT_EQUALS("Unclassified", get<1>(h),
-                       "Consensus should be 'Unclassified' but is "+get<1>(h));
+                       "Consensus should be 'Unclassified' but is "
+                       + get<1>(h));
 
     return true;
 }
