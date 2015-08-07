@@ -28,21 +28,21 @@ class TestTaxSearch {
     /*
      * test-cases for testSearchNodes.
      * The following tree-layout is used for test1-test8
-     *               I
+     *               i
      *            /
-     *          G
+     *          g
      *       /  |  \
-     *     D    E    F
+     *     d    e    f
      *        / | \
-     *       A  B  C
+     *       a  b  c
      */
     
     /**
      * Test that more than one hit can be returned
      * hits_max = 2
      * best_only = false
-     * Query hits only: A, B, E, G, I
-     * Expected: {A,B}
+     * Query hits only: a, b, e, g, i
+     * Expected: {a,b}
      */
     bool test1();
 
@@ -50,9 +50,9 @@ class TestTaxSearch {
      * Test that only hits_max are returned
      * hits_max = 2
      * best_only = false
-     * Query hits only: A, B, C, E, G, I
-     * hits(A)>hits(B)>hits(C)
-     * Expected: {A,B}
+     * Query hits only: a, b, c, e, g, i
+     * hits(a)>hits(b)>hits(c)
+     * Expected: {a,b}
      */
     bool test2();
 
@@ -60,9 +60,9 @@ class TestTaxSearch {
      * Tests that hits are sorted (together with test2)
      * hits_max = 2
      * best_only = false
-     * Query hits only: A, B, C, E, G, I
-     * hits(B)>hits(A)>hits(C)
-     * Expected: {B,A}
+     * Query hits only: a, b, c, e, g, i
+     * hits(b)>hits(a)>hits(c)
+     * Expected: {b,a}
      */
     bool test3();
 
@@ -70,9 +70,9 @@ class TestTaxSearch {
      * Tests best_only
      * hits_max = 2
      * best_only = true
-     * Query hits only: A, B, C, E, G, I
-     * hits(A)>hits(B)>hits(C)
-     * Expected: {A}
+     * Query hits only: a, b, c, e, g, i
+     * hits(a)>hits(b)>hits(c)
+     * Expected: {a}
      */
     bool test4();
 
@@ -80,9 +80,9 @@ class TestTaxSearch {
      * Tests best_only with more than one hit
      * hits_max = 2
      * best_only = true
-     * Query hits only: A, B, C, E, G, I
-     * hits(A)=hits(B)>hits(C)
-     * Expected: {A,B}
+     * Query hits only: a, b, c, e, g, i
+     * hits(a)=hits(b)>hits(c)
+     * Expected: {a,b}
      */
     bool test5();
 
@@ -90,9 +90,9 @@ class TestTaxSearch {
      * Tests best_only when there are more than hits_max hits
      * hits_max = 2
      * best_only = true
-     * Query hits only: A, B, C, E, G, I
-     * hits(A)=hits(B)=hits(C)
-     * Expected: {A,B}|{A,C}|{B,C}
+     * Query hits only: a, b, c, e, g, i
+     * hits(a)=hits(b)=hits(c)
+     * Expected: {a,b}|{a,c}|{b,c}
      */
     bool test6();
 
@@ -100,8 +100,8 @@ class TestTaxSearch {
      * Tests hits_max > hits return OK. 
      * hits_max = 5
      * best_only = true
-     * Query hits only: A, B, C, E, G, I
-     * hits(A)=hits(B)=hits(C)
+     * Query hits only: a, b, c, e, g, i
+     * hits(a)=hits(b)=hits(c)
      * Expected: 3 hits
      */
     bool test7();
@@ -110,8 +110,8 @@ class TestTaxSearch {
      * Tests hits on second level
      * hits_max = 2
      * best_only = false
-     * Query hits only: E, G, I
-     * Expected: {E}
+     * Query hits only: e, g, i
+     * Expected: {e}
      */
     bool test8();
 
@@ -120,7 +120,7 @@ class TestTaxSearch {
      * hits_max = 2
      * best_only = false
      * Query hits only: {}
-     * Expected: {}
+     * Expected: {}  / "Unclassified"
      */
     bool test9();
 
@@ -129,11 +129,11 @@ class TestTaxSearch {
      * The following tree-layout is used for test1-test8
      *                 r
      *    		       |
-     *         A_1  A_1  A_2  Z_7
+     *         a_1  a_1  a_2  z_7
      *               |
-     *         B_1  B_1  B_2  Y_8
+     *         b_1  b_1  b_2  y_8
      *               |
-     *      C_1  C_1  C_2  X_9
+     *      c_1  c_1  c_2  x_9
      *
      */
 
@@ -147,63 +147,63 @@ class TestTaxSearch {
 
     /**
      * Tests consensus of perfect hit
-     * Input: kmers matching: C_1, C_1
-     * Expected: ("Q", "K#A_1(100/100);P#B_1(100/100);C#C_1(100/100);O#;F#;G#;S#", 2)
+     * Input: kmers matching: c_1, c_1
+     * Expected: ("Q", "K#a_1(100/100);P#b_1(100/100);C#c_1(100/100);O#;F#;G#;S#", 2)
      */
     bool testSearchNodes2();
 
     /**
      * Tests consensus of hit down to C-level, first word
-     * Input: kmers matching: C_1, C_2
-     * Expected: ("Q", "K#A_1(100/100);P#B_1(100/100);C#C(100);O#;F#;G#;S#", 2)
+     * Input: kmers matching: c_1, c_2
+     * Expected: ("Q", "K#a_1(100/100);P#b_1(100/100);C#C(100);O#;F#;G#;S#", 2)
      */
     bool testSearchNodes3();
 
     /**
      * Tests consensus of hit down to P-level, second word
-     * Input: kmers matching: C_1, X_9
-     * Expected: ("Q", "K#A_1(100/100);P#B_1(100/100);C#;O#;F#;G#;S#", 2)
+     * Input: kmers matching: c_1, x_9
+     * Expected: ("Q", "K#a_1(100/100);P#b_1(100/100);C#;O#;F#;G#;S#", 2)
      */
     bool testSearchNodes4();
 
     /**
      * Tests consensus of hit down to P-level, second word
-     * Input: kmers matching: B_1, B_1
-     * Expected: ("Q", "K#A_1(100/100);P#B_1(100/100);C#;O#;F#;G#;S#", 2)
+     * Input: kmers matching: b_1, b_1
+     * Expected: ("Q", "K#a_1(100/100);P#b_1(100/100);C#;O#;F#;G#;S#", 2)
      */
     bool testSearchNodes5();
 
     /**
      * Tests consensus of hit down to P-level, first word
-     * Input: kmers matching: B_1, B_2
-     * Expected: ("Q", "K#A_1(100/100);P#B(100);C#;O#;F#;G#;S#", 2)
+     * Input: kmers matching: b_1, b_2
+     * Expected: ("Q", "K#a_1(100/100);P#B(100);C#;O#;F#;G#;S#", 2)
      */
     bool testSearchNodes6();
 
     /**
      * Tests consensus of hit down to K-level, second word
-     * Input: kmers matching: B_1, Y_8
-     * Expected: ("Q", "K#A_1(100/100);P#;C#;O#;F#;G#;S#", 2)
+     * Input: kmers matching: b_1, y_8
+     * Expected: ("Q", "K#a_1(100/100);P#;C#;O#;F#;G#;S#", 2)
      */
     bool testSearchNodes7();
 
     /**
      * Tests consensus of hit down to K-level, second word
-     * Input: kmers matching: A_1, A_1
-     * Expected: ("Q", "K#A_1(100/100);P#;C#;O#;F#;G#;S#", 2)
+     * Input: kmers matching: a_1, a_1
+     * Expected: ("Q", "K#a_1(100/100);P#;C#;O#;F#;G#;S#", 2)
      */
     bool testSearchNodes8();
 
     /**
      * Tests consensus of hit down to K-level, first word
-     * Input: kmers matching: A_1, A_2
+     * Input: kmers matching: a_1, a_2
      * Expected: ("Q", "K#A(100);P#;C#;O#;F#;G#;S#", 2)
      */
     bool testSearchNodes9();
 
     /**
      * Tests no consensus, but with hits
-     * Input: kmers matching: A_1, Z_7
+     * Input: kmers matching: a_1, z_7
      * Expected: ("Q", "K#;P#;C#;O#;F#;G#;S#", 2)
      */
     bool testSearchNodes10();
