@@ -1,3 +1,5 @@
+/* Copyright 2015 BIO-DIKU */
+
 #include <map>
 #include <iostream>
 #include <vector>
