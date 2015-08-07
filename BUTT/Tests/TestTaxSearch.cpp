@@ -88,25 +88,6 @@ bool TestTaxSearch::testIOExceptions() {
     return true;
 }
 
-/*
- * test-cases for testSearchNodes.
- * The following tree-layout is used for test1-test9
- *               I
- *            /
- *          G
- *       /  |  \
- *     D    E    F
- *        / | \
- *       A  B  C
- */
-
-/**
- * Test that more than one hit can be returned
- * hits_max = 2
- * best_only = false
- * Query hits only: A, B, E, G, I
- * Expected: {A,B}
- */
 bool TestTaxSearch::test1() {
     // "#NODE_ID   PARENT_ID   LEVEL   NAME"
     string tax_index_contents = "";
@@ -163,14 +144,6 @@ bool TestTaxSearch::test1() {
     return true;
 }
 
-/**
- * Test that only hits_max are returned
- * hits_max = 2
- * best_only = false
- * Query hits only: A, B, C, E, G, I
- * hits(A)>hits(B)>hits(C)
- * Expected: {A,B}
- */
 bool TestTaxSearch::test2() {
     // "#NODE_ID   PARENT_ID   LEVEL   NAME"
     string tax_index_contents = "";
@@ -228,14 +201,6 @@ bool TestTaxSearch::test2() {
     return true;
 }
 
-/**
- * Tests that hits are sorted (together with test2)
- * hits_max = 2
- * best_only = false
- * Query hits only: A, B, C, E, G, I
- * hits(B)>hits(A)>hits(C)
- * Expected: {B,A}
- */
 bool TestTaxSearch::test3() {
     // "#NODE_ID   PARENT_ID   LEVEL   NAME"
     string tax_index_contents = "";
@@ -295,14 +260,6 @@ bool TestTaxSearch::test3() {
     return true;
 }
 
-/**
- * Tests best_only
- * hits_max = 2
- * best_only = true
- * Query hits only: A, B, C, E, G, I
- * hits(B)>hits(A)>hits(C)
- * Expected: {B}
- */
 bool TestTaxSearch::test4() {
     // "#NODE_ID   PARENT_I   LEVEL   NAME"
     string tax_index_contents = "";
@@ -359,14 +316,6 @@ bool TestTaxSearch::test4() {
     return true;
 }
 
-/**
- * Tests best_only with multple best hits.
- * hits_max = 2
- * best_only = true
- * Query hits only: A, B, C, E, G, I
- * hits(A)=hits(B)>hits(C)
- * Expected: {A,B}
- */
 bool TestTaxSearch::test5() {
     // "#NODE_ID   PARENT_ID   LEVEL   NAME"
     string tax_index_contents = "";
@@ -424,14 +373,6 @@ bool TestTaxSearch::test5() {
     return true;
 }
 
-/**
- * Tests best_only when there are more than hits_max hits
- * hits_max = 2
- * best_only = true
- * Query hits only: A, B, C, E, G, I
- * hits(A)=hits(B)=hits(C)
- * Expected: {A,B}|{A,C}|{B,C} (2 nodes only tested)
- */
 bool TestTaxSearch::test6() {
     // "#NODE_ID   PARENT_ID   LEVEL   NAME"
     string tax_index_contents = "";
@@ -486,14 +427,6 @@ bool TestTaxSearch::test6() {
     return true;
 }
 
-/**
- * Tests hits_max > hits return OK.
- * hits_max = 5
- * best_only = false
- * Query hits only: A, B, C, E, G, I
- * hits(A)=hits(B)=hits(C)
- * Expected: 3 hits
- */
 bool TestTaxSearch::test7() {
     // "#NODE_ID   PARENT_ID   LEVEL   NAME"
     string tax_index_contents = "";
@@ -543,13 +476,6 @@ bool TestTaxSearch::test7() {
     return true;
 }
 
-/**
- * Tests hits on second level
- * hits_max = 2
- * best_only = false
- * Query hits only: E, G, I
- * Expected: {E}
- */
 bool TestTaxSearch::test8() {
     // "#NODE_ID   PARENT_ID   LEVEL   NAME"
     string tax_index_contents = "";
@@ -604,13 +530,6 @@ bool TestTaxSearch::test8() {
     return true;
 }
 
-/**
- * Tests that empty vector is returned if no hits
- * hits_max = 2
- * best_only = false
- * Query hits only: {}
- * Expected: {}
- */
 bool TestTaxSearch::test9() {
     // "#NODE_ID   PARENT_ID   LEVEL   NAME"
     string tax_index_contents = "";
