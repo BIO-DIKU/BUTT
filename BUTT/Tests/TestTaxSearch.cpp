@@ -21,6 +21,28 @@ using namespace std;
 
 TestTaxSearch::TestTaxSearch() {}
 
+void TestTaxSearch::setupTaxTree(string file) {
+    // "#NODE_ID   PARENT_ID   LEVEL   NAME"
+    string tax_index_contents = "";
+    tax_index_contents += "0\t-1\t0\ti\n";
+    tax_index_contents += "1\t0\t1\tK#a_1\n";
+    tax_index_contents += "2\t0\t1\tK#a_1\n";
+    tax_index_contents += "3\t0\t1\tK#a_2\n";
+    tax_index_contents += "4\t0\t1\tK#z_7\n";
+    tax_index_contents += "5\t2\t2\tP#b_1\n";
+    tax_index_contents += "6\t2\t2\tP#b_1\n";
+    tax_index_contents += "7\t2\t2\tP#b_2\n";
+    tax_index_contents += "8\t2\t2\tP#y_8\n";
+    tax_index_contents += "9\t6\t3\tC#c_1\n";
+    tax_index_contents += "10\t6\t3\tC#c_1\n";
+    tax_index_contents += "11\t6\t3\tC#c_2\n";
+    tax_index_contents += "12\t6\t3\tC#x_9\n";
+
+    ofstream output(file);
+    output << tax_index_contents;
+    output.close();
+}
+
 bool TestTaxSearch::runTests() {
     BUTT_PRE_TESTS();
     BUTT_RUN_TEST("TestTaxSearch test IO", testIOExceptions());
@@ -615,28 +637,10 @@ bool TestTaxSearch::test9() {
  * Expected: ("query_name", "Unclassified", 0) TODO: fix in doc
  */
 bool TestTaxSearch::testSearchNodes1() {
-    // "#NODE_ID   PARENT_ID   LEVEL   NAME"
-    string tax_index_contents = "";
-    tax_index_contents += "0\t-1\t0\ti\n";
-    tax_index_contents += "1\t0\t1\tK#a_1\n";
-    tax_index_contents += "2\t0\t1\tK#a_1\n";
-    tax_index_contents += "3\t0\t1\tK#a_2\n";
-    tax_index_contents += "4\t0\t1\tK#z_7\n";
-    tax_index_contents += "5\t2\t2\tP#b_1\n";
-    tax_index_contents += "6\t2\t2\tP#b_1\n";
-    tax_index_contents += "7\t2\t2\tP#b_2\n";
-    tax_index_contents += "8\t2\t2\tP#y_8\n";
-    tax_index_contents += "9\t6\t3\tC#c_1\n";
-    tax_index_contents += "10\t6\t3\tC#c_1\n";
-    tax_index_contents += "11\t6\t3\tC#c_2\n";
-    tax_index_contents += "12\t6\t3\tC#x_9\n";
-
     string file1("temp_taxIndex.txt");
     string file2("temp_kmerIndex.txt");
 
-    ofstream output(file1);
-    output << tax_index_contents;
-    output.close();
+    setupTaxTree(file1);
 
     // "#LEVEL   KMER   NODES"
     string kmer_index_contents = "";
@@ -645,7 +649,7 @@ bool TestTaxSearch::testSearchNodes1() {
     kmer_index_contents += "2\t0\t5;6;7;8\n";
     kmer_index_contents += "3\t0\t9;10;11;12\n";
 
-    output = ofstream(file2);
+    ofstream output(file2);
     output << kmer_index_contents;
     output.close();
 
@@ -671,28 +675,10 @@ bool TestTaxSearch::testSearchNodes1() {
  * Expected: ("query_name", "K#a_1(100/100);P#b_1(100/100);C#c_1(100/100);O#;F#;G#;S#", 2)
  */
 bool TestTaxSearch::testSearchNodes2() {
-    // "#NODE_ID   PARENT_ID   LEVEL   NAME"
-    string tax_index_contents = "";
-    tax_index_contents += "0\t-1\t0\ti\n";
-    tax_index_contents += "1\t0\t1\tK#a_1\n";
-    tax_index_contents += "2\t0\t1\tK#a_1\n";
-    tax_index_contents += "3\t0\t1\tK#a_2\n";
-    tax_index_contents += "4\t0\t1\tK#z_7\n";
-    tax_index_contents += "5\t2\t2\tP#b_1\n";
-    tax_index_contents += "6\t2\t2\tP#b_1\n";
-    tax_index_contents += "7\t2\t2\tP#b_2\n";
-    tax_index_contents += "8\t2\t2\tP#y_8\n";
-    tax_index_contents += "9\t6\t3\tC#c_1\n";
-    tax_index_contents += "10\t6\t3\tC#c_1\n";
-    tax_index_contents += "11\t6\t3\tC#c_2\n";
-    tax_index_contents += "12\t6\t3\tC#x_9\n";
-
     string file1("temp_taxIndex.txt");
     string file2("temp_kmerIndex.txt");
 
-    ofstream output(file1);
-    output << tax_index_contents;
-    output.close();
+    setupTaxTree(file1);
 
     // "#LEVEL   KMER   NODES"
     string kmer_index_contents = "";
@@ -702,7 +688,7 @@ bool TestTaxSearch::testSearchNodes2() {
     kmer_index_contents += "3\t0\t9;10\n";    // c_1, c_1
     kmer_index_contents += "3\t1\t11;12\n";   // c_2, x_9
 
-    output = ofstream(file2);
+    ofstream output(file2);
     output << kmer_index_contents;
     output.close();
 
@@ -732,28 +718,10 @@ bool TestTaxSearch::testSearchNodes2() {
  * Expected: ("query_name", "K#a_1(100/100);P#b_1(100/100);C#C(100);O#;F#;G#;S#", 2)
  */
 bool TestTaxSearch::testSearchNodes3() {
-    // "#NODE_ID   PARENT_ID   LEVEL   NAME"
-    string tax_index_contents = "";
-    tax_index_contents += "0\t-1\t0\ti\n";
-    tax_index_contents += "1\t0\t1\tK#a_1\n";
-    tax_index_contents += "2\t0\t1\tK#a_1\n";
-    tax_index_contents += "3\t0\t1\tK#a_2\n";
-    tax_index_contents += "4\t0\t1\tK#z_7\n";
-    tax_index_contents += "5\t2\t2\tP#b_1\n";
-    tax_index_contents += "6\t2\t2\tP#b_1\n";
-    tax_index_contents += "7\t2\t2\tP#b_2\n";
-    tax_index_contents += "8\t2\t2\tP#y_8\n";
-    tax_index_contents += "9\t6\t3\tC#c_1\n";
-    tax_index_contents += "10\t6\t3\tC#c_1\n";
-    tax_index_contents += "11\t6\t3\tC#c_2\n";
-    tax_index_contents += "12\t6\t3\tC#x_9\n";
-
     string file1("temp_taxIndex.txt");
     string file2("temp_kmerIndex.txt");
 
-    ofstream output(file1);
-    output << tax_index_contents;
-    output.close();
+    setupTaxTree(file1);
 
     // "#LEVEL   KMER   NODES"
     string kmer_index_contents = "";
@@ -763,7 +731,7 @@ bool TestTaxSearch::testSearchNodes3() {
     kmer_index_contents += "3\t0\t9\n";       // c_1
     kmer_index_contents += "3\t1\t10;11;12\n";   // c_1, c_2, x_9
 
-    output = ofstream(file2);
+    ofstream output(file2);
     output << kmer_index_contents;
     output.close();
 
@@ -792,28 +760,10 @@ bool TestTaxSearch::testSearchNodes3() {
  * Expected: ("query_name", "K#a_1(100/100);P#b_1(100/100);C#;O#;F#;G#;S#", 2)
  */
 bool TestTaxSearch::testSearchNodes4() {
-    // "#NODE_ID   PARENT_ID   LEVEL   NAME"
-    string tax_index_contents = "";
-    tax_index_contents += "0\t-1\t0\ti\n";
-    tax_index_contents += "1\t0\t1\tK#a_1\n";
-    tax_index_contents += "2\t0\t1\tK#a_1\n";
-    tax_index_contents += "3\t0\t1\tK#a_2\n";
-    tax_index_contents += "4\t0\t1\tK#z_7\n";
-    tax_index_contents += "5\t2\t2\tP#b_1\n";
-    tax_index_contents += "6\t2\t2\tP#b_1\n";
-    tax_index_contents += "7\t2\t2\tP#b_2\n";
-    tax_index_contents += "8\t2\t2\tP#y_8\n";
-    tax_index_contents += "9\t6\t3\tC#c_1\n";
-    tax_index_contents += "10\t6\t3\tC#c_1\n";
-    tax_index_contents += "11\t6\t3\tC#c_2\n";
-    tax_index_contents += "12\t6\t3\tC#x_9\n";
-
     string file1("temp_taxIndex.txt");
     string file2("temp_kmerIndex.txt");
 
-    ofstream output(file1);
-    output << tax_index_contents;
-    output.close();
+    setupTaxTree(file1);
 
     // "#LEVEL   KMER   NODES"
     string kmer_index_contents = "";
@@ -823,7 +773,7 @@ bool TestTaxSearch::testSearchNodes4() {
     kmer_index_contents += "3\t0\t9;12\n";       // c_1, x_9
     kmer_index_contents += "3\t1\t10;11\n";      // c_1, c_2
 
-    output = ofstream(file2);
+    ofstream output(file2);
     output << kmer_index_contents;
     output.close();
 
@@ -853,28 +803,10 @@ bool TestTaxSearch::testSearchNodes4() {
  * Expected: ("query_name", "K#a_1(100/100);P#b_1(100/100);C#;O#;F#;G#;S#", 2)
  */
 bool TestTaxSearch::testSearchNodes5() {
-    // "#NODE_ID   PARENT_ID   LEVEL   NAME"
-    string tax_index_contents = "";
-    tax_index_contents += "0\t-1\t0\ti\n";
-    tax_index_contents += "1\t0\t1\tK#a_1\n";
-    tax_index_contents += "2\t0\t1\tK#a_1\n";
-    tax_index_contents += "3\t0\t1\tK#a_2\n";
-    tax_index_contents += "4\t0\t1\tK#z_7\n";
-    tax_index_contents += "5\t2\t2\tP#b_1\n";
-    tax_index_contents += "6\t2\t2\tP#b_1\n";
-    tax_index_contents += "7\t2\t2\tP#b_2\n";
-    tax_index_contents += "8\t2\t2\tP#y_8\n";
-    tax_index_contents += "9\t6\t3\tC#c_1\n";
-    tax_index_contents += "10\t6\t3\tC#c_1\n";
-    tax_index_contents += "11\t6\t3\tC#c_2\n";
-    tax_index_contents += "12\t6\t3\tC#x_9\n";
-
     string file1("temp_taxIndex.txt");
     string file2("temp_kmerIndex.txt");
 
-    ofstream output(file1);
-    output << tax_index_contents;
-    output.close();
+    setupTaxTree(file1);
 
     // "#LEVEL   KMER   NODES"
     string kmer_index_contents = "";
@@ -885,7 +817,7 @@ bool TestTaxSearch::testSearchNodes5() {
     kmer_index_contents += "3\t1\t9;10\n";    // c_1, c_1
     kmer_index_contents += "3\t1\t11;12\n";   // c_2, x_9
 
-    output = ofstream(file2);
+    ofstream output(file2);
     output << kmer_index_contents;
     output.close();
 
@@ -915,28 +847,10 @@ bool TestTaxSearch::testSearchNodes5() {
  * Expected: ("query_name", "K#a_1(100/100);P#B(100);C#;O#;F#;G#;S#", 2)
  */
 bool TestTaxSearch::testSearchNodes6() {
-    // "#NODE_ID   PARENT_ID   LEVEL   NAME"
-    string tax_index_contents = "";
-    tax_index_contents += "0\t-1\t0\ti\n";
-    tax_index_contents += "1\t0\t1\tK#a_1\n";
-    tax_index_contents += "2\t0\t1\tK#a_1\n";
-    tax_index_contents += "3\t0\t1\tK#a_2\n";
-    tax_index_contents += "4\t0\t1\tK#z_7\n";
-    tax_index_contents += "5\t2\t2\tP#b_1\n";
-    tax_index_contents += "6\t2\t2\tP#b_1\n";
-    tax_index_contents += "7\t2\t2\tP#b_2\n";
-    tax_index_contents += "8\t2\t2\tP#y_8\n";
-    tax_index_contents += "9\t6\t3\tC#c_1\n";
-    tax_index_contents += "10\t6\t3\tC#c_1\n";
-    tax_index_contents += "11\t6\t3\tC#c_2\n";
-    tax_index_contents += "12\t6\t3\tC#x_9\n";
-
     string file1("temp_taxIndex.txt");
     string file2("temp_kmerIndex.txt");
 
-    ofstream output(file1);
-    output << tax_index_contents;
-    output.close();
+    setupTaxTree(file1);
 
     // "#LEVEL   KMER   NODES"
     string kmer_index_contents = "";
@@ -947,7 +861,7 @@ bool TestTaxSearch::testSearchNodes6() {
     kmer_index_contents += "3\t1\t9;10\n";    // c_1, c_1
     kmer_index_contents += "3\t1\t11;12\n";   // c_2, x_9
 
-    output = ofstream(file2);
+    ofstream output(file2);
     output << kmer_index_contents;
     output.close();
 
@@ -977,28 +891,10 @@ bool TestTaxSearch::testSearchNodes6() {
  * Expected: ("query_name", "K#a_1(100/100);P#;C#;O#;F#;G#;S#", 2)
  */
 bool TestTaxSearch::testSearchNodes7() {
-    // "#NODE_ID   PARENT_ID   LEVEL   NAME"
-    string tax_index_contents = "";
-    tax_index_contents += "0\t-1\t0\ti\n";
-    tax_index_contents += "1\t0\t1\tK#a_1\n";
-    tax_index_contents += "2\t0\t1\tK#a_1\n";
-    tax_index_contents += "3\t0\t1\tK#a_2\n";
-    tax_index_contents += "4\t0\t1\tK#z_7\n";
-    tax_index_contents += "5\t2\t2\tP#b_1\n";
-    tax_index_contents += "6\t2\t2\tP#b_1\n";
-    tax_index_contents += "7\t2\t2\tP#b_2\n";
-    tax_index_contents += "8\t2\t2\tP#y_8\n";
-    tax_index_contents += "9\t6\t3\tC#c_1\n";
-    tax_index_contents += "10\t6\t3\tC#c_1\n";
-    tax_index_contents += "11\t6\t3\tC#c_2\n";
-    tax_index_contents += "12\t6\t3\tC#x_9\n";
-
     string file1("temp_taxIndex.txt");
     string file2("temp_kmerIndex.txt");
 
-    ofstream output(file1);
-    output << tax_index_contents;
-    output.close();
+    setupTaxTree(file1);
 
     // "#LEVEL   KMER   NODES"
     string kmer_index_contents = "";
@@ -1009,7 +905,7 @@ bool TestTaxSearch::testSearchNodes7() {
     kmer_index_contents += "3\t1\t9;10\n";    // c_1, c_1
     kmer_index_contents += "3\t1\t11;12\n";   // c_2, x_9
 
-    output = ofstream(file2);
+    ofstream output(file2);
     output << kmer_index_contents;
     output.close();
 
@@ -1039,28 +935,10 @@ bool TestTaxSearch::testSearchNodes7() {
  * Expected: ("query_name", "K#a_1(100/100);P#;C#;O#;F#;G#;S#", 2)
  */
 bool TestTaxSearch::testSearchNodes8() {
-    // "#NODE_ID   PARENT_ID   LEVEL   NAME"
-    string tax_index_contents = "";
-    tax_index_contents += "0\t-1\t0\ti\n";
-    tax_index_contents += "1\t0\t1\tK#a_1\n";
-    tax_index_contents += "2\t0\t1\tK#a_1\n";
-    tax_index_contents += "3\t0\t1\tK#a_2\n";
-    tax_index_contents += "4\t0\t1\tK#z_7\n";
-    tax_index_contents += "5\t2\t2\tP#b_1\n";
-    tax_index_contents += "6\t2\t2\tP#b_1\n";
-    tax_index_contents += "7\t2\t2\tP#b_2\n";
-    tax_index_contents += "8\t2\t2\tP#y_8\n";
-    tax_index_contents += "9\t6\t3\tC#c_1\n";
-    tax_index_contents += "10\t6\t3\tC#c_1\n";
-    tax_index_contents += "11\t6\t3\tC#c_2\n";
-    tax_index_contents += "12\t6\t3\tC#x_9\n";
-
     string file1("temp_taxIndex.txt");
     string file2("temp_kmerIndex.txt");
 
-    ofstream output(file1);
-    output << tax_index_contents;
-    output.close();
+    setupTaxTree(file1);
 
     // "#LEVEL   KMER   NODES"
     string kmer_index_contents = "";
@@ -1072,7 +950,7 @@ bool TestTaxSearch::testSearchNodes8() {
     kmer_index_contents += "3\t1\t9;10\n";    // c_1, c_1
     kmer_index_contents += "3\t1\t11;12\n";   // c_2, x_9
 
-    output = ofstream(file2);
+    ofstream output(file2);
     output << kmer_index_contents;
     output.close();
 
@@ -1102,28 +980,10 @@ bool TestTaxSearch::testSearchNodes8() {
  * Expected: ("query_name", "K#A(100);P#;C#;O#;F#;G#;S#", 2)
  */
 bool TestTaxSearch::testSearchNodes9() {
-    // "#NODE_ID   PARENT_ID   LEVEL   NAME"
-    string tax_index_contents = "";
-    tax_index_contents += "0\t-1\t0\ti\n";
-    tax_index_contents += "1\t0\t1\tK#a_1\n";
-    tax_index_contents += "2\t0\t1\tK#a_1\n";
-    tax_index_contents += "3\t0\t1\tK#a_2\n";
-    tax_index_contents += "4\t0\t1\tK#z_7\n";
-    tax_index_contents += "5\t2\t2\tP#b_1\n";
-    tax_index_contents += "6\t2\t2\tP#b_1\n";
-    tax_index_contents += "7\t2\t2\tP#b_2\n";
-    tax_index_contents += "8\t2\t2\tP#y_8\n";
-    tax_index_contents += "9\t6\t3\tC#c_1\n";
-    tax_index_contents += "10\t6\t3\tC#c_1\n";
-    tax_index_contents += "11\t6\t3\tC#c_2\n";
-    tax_index_contents += "12\t6\t3\tC#x_9\n";
-
     string file1("temp_taxIndex.txt");
     string file2("temp_kmerIndex.txt");
 
-    ofstream output(file1);
-    output << tax_index_contents;
-    output.close();
+    setupTaxTree(file1);
 
     // "#LEVEL   KMER   NODES"
     string kmer_index_contents = "";
@@ -1135,7 +995,7 @@ bool TestTaxSearch::testSearchNodes9() {
     kmer_index_contents += "3\t1\t9;10\n";    // c_1, c_1
     kmer_index_contents += "3\t1\t11;12\n";   // c_2, x_9
 
-    output = ofstream(file2);
+    ofstream output(file2);
     output << kmer_index_contents;
     output.close();
 
@@ -1165,28 +1025,10 @@ bool TestTaxSearch::testSearchNodes9() {
  * Expected: ("query_name", "K#;P#;C#;O#;F#;G#;S#", 2)
  */
 bool TestTaxSearch::testSearchNodes10() {
-    // "#NODE_ID   PARENT_ID   LEVEL   NAME"
-    string tax_index_contents = "";
-    tax_index_contents += "0\t-1\t0\ti\n";
-    tax_index_contents += "1\t0\t1\tK#a_1\n";
-    tax_index_contents += "2\t0\t1\tK#a_1\n";
-    tax_index_contents += "3\t0\t1\tK#a_2\n";
-    tax_index_contents += "4\t0\t1\tK#z_7\n";
-    tax_index_contents += "5\t2\t2\tP#b_1\n";
-    tax_index_contents += "6\t2\t2\tP#b_1\n";
-    tax_index_contents += "7\t2\t2\tP#b_2\n";
-    tax_index_contents += "8\t2\t2\tP#y_8\n";
-    tax_index_contents += "9\t6\t3\tC#c_1\n";
-    tax_index_contents += "10\t6\t3\tC#c_1\n";
-    tax_index_contents += "11\t6\t3\tC#c_2\n";
-    tax_index_contents += "12\t6\t3\tC#x_9\n";
-
     string file1("temp_taxIndex.txt");
     string file2("temp_kmerIndex.txt");
 
-    ofstream output(file1);
-    output << tax_index_contents;
-    output.close();
+    setupTaxTree(file1);
 
     // "#LEVEL   KMER   NODES"
     string kmer_index_contents = "";
@@ -1198,7 +1040,7 @@ bool TestTaxSearch::testSearchNodes10() {
     kmer_index_contents += "3\t1\t9;10\n";    // c_1, c_1
     kmer_index_contents += "3\t1\t11;12\n";   // c_2, x_9
 
-    output = ofstream(file2);
+    ofstream output(file2);
     output << kmer_index_contents;
     output.close();
 

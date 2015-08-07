@@ -13,6 +13,11 @@ class TestTaxSearch {
     bool runTests();
 
  private:
+    /**
+     * Save a specific TaxTree to a given file name.
+     */
+    void setupTaxTree(std::string file);
+
     bool testTaxSearch();
 
     bool testSearchNodes();
