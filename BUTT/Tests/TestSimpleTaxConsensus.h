@@ -22,7 +22,7 @@ public:
      *
      * Expected: "K#;P#;C#;O#;F#;G#;S#"
      */
-    bool testSearchNodes1();
+    bool testBuildConsensus1();
 
     /**
      * Tests consensus of perfect hit.
@@ -32,7 +32,7 @@ public:
      *
      * Expected: "K#a_1;P#b_1;C#c_1;O#;F#;G#;S#"
      */
-    bool testSearchNodes2();
+    bool testBuildConsensus2();
 
     /**
      * Tests consensus of hit down to C-level: first word OK, second word bad.
@@ -42,7 +42,7 @@ public:
      *
      * Expected: "K#a_1;P#b_1;C#c;O#;F#;G#;S#"
      */
-    bool testSearchNodes3();
+    bool testBuildConsensus3();
 
     /**
      * Tests consensus of hit down to P-level: first word OK, second word OK.
@@ -52,7 +52,7 @@ public:
      *
      * Expected: "K#a_1;P#b_1;C#;O#;F#;G#;S#"
      */
-    bool testSearchNodes4();
+    bool testBuildConsensus4();
 
     /**
      * Tests consensus of hit down to P-level: first word OK, second word bad.
@@ -62,7 +62,7 @@ public:
      *
      * Expected: "K#a_1;P#b;C#;O#;F#;G#;S#"
      */
-    bool testSearchNodes5();
+    bool testBuildConsensus5();
 
     /**
      * Tests consensus of hit down to K-level, first word OK, second word OK.
@@ -72,7 +72,7 @@ public:
      *
      * Expected: "K#a_1;P#;C#;O#;F#;G#;S#"
      */
-    bool testSearchNodes6();
+    bool testBuildConsensus6();
 
     /**
      * Tests consensus of hit down to K-level, first word OK, second word bad.
@@ -82,7 +82,7 @@ public:
      *
      * Expected: "K#a;P#;C#;O#;F#;G#;S#"
      */
-    bool testSearchNodes7();
+    bool testBuildConsensus7();
 };
 
 #endif // TESTSIMPLECONSENSUS_H

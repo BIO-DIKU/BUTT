@@ -14,13 +14,13 @@ TestSimpleTaxConsensus::TestSimpleTaxConsensus(): consensus({"K", "P", "C", "O",
 bool TestSimpleTaxConsensus::runTests()
 {
     BUTT_PRE_TESTS();
-    BUTT_RUN_TEST("TestSimpleTaxConsensus testSearchNodes 1", testSearchNodes1());
-    BUTT_RUN_TEST("TestSimpleTaxConsensus testSearchNodes 2", testSearchNodes2());
-    BUTT_RUN_TEST("TestSimpleTaxConsensus testSearchNodes 3", testSearchNodes3());
-    BUTT_RUN_TEST("TestSimpleTaxConsensus testSearchNodes 4", testSearchNodes4());
-    BUTT_RUN_TEST("TestSimpleTaxConsensus testSearchNodes 5", testSearchNodes5());
-    BUTT_RUN_TEST("TestSimpleTaxConsensus testSearchNodes 6", testSearchNodes6());
-    BUTT_RUN_TEST("TestSimpleTaxConsensus testSearchNodes 7", testSearchNodes7());
+    BUTT_RUN_TEST("TestSimpleTaxConsensus testBuildConsensus 1", testBuildConsensus1());
+    BUTT_RUN_TEST("TestSimpleTaxConsensus testBuildConsensus 2", testBuildConsensus2());
+    BUTT_RUN_TEST("TestSimpleTaxConsensus testBuildConsensus 3", testBuildConsensus3());
+    BUTT_RUN_TEST("TestSimpleTaxConsensus testBuildConsensus 4", testBuildConsensus4());
+    BUTT_RUN_TEST("TestSimpleTaxConsensus testBuildConsensus 5", testBuildConsensus5());
+    BUTT_RUN_TEST("TestSimpleTaxConsensus testBuildConsensus 6", testBuildConsensus6());
+    BUTT_RUN_TEST("TestSimpleTaxConsensus testBuildConsensus 7", testBuildConsensus7());
     BUTT_POST_TESTS();
 }
 
@@ -32,7 +32,7 @@ bool TestSimpleTaxConsensus::runTests()
  *
  * Expected: "K#;P#;C#;O#;F#;G#;S#"
  */
-bool TestSimpleTaxConsensus::testSearchNodes1()
+bool TestSimpleTaxConsensus::testBuildConsensus1()
 {
     vector< vector< string> > tax_table = {
         {"K#a"},
@@ -44,7 +44,7 @@ bool TestSimpleTaxConsensus::testSearchNodes1()
     return true;
 }
 
-bool TestSimpleTaxConsensus::testSearchNodes2()
+bool TestSimpleTaxConsensus::testBuildConsensus2()
 {
     vector< vector< string> > tax_table = {
         {"K#a", "1", "P#b", "1", "C#c", "1"},
@@ -56,7 +56,7 @@ bool TestSimpleTaxConsensus::testSearchNodes2()
     return true;
 }
 
-bool TestSimpleTaxConsensus::testSearchNodes3()
+bool TestSimpleTaxConsensus::testBuildConsensus3()
 {
     vector< vector< string> > tax_table = {
         {"K#a", "1", "P#b", "1", "C#c", "1"},
@@ -68,7 +68,7 @@ bool TestSimpleTaxConsensus::testSearchNodes3()
     return true;
 }
 
-bool TestSimpleTaxConsensus::testSearchNodes4()
+bool TestSimpleTaxConsensus::testBuildConsensus4()
 {
     vector< vector< string> > tax_table = {
         {"K#a", "1", "P#b", "1", "C#c", "1"},
@@ -80,7 +80,7 @@ bool TestSimpleTaxConsensus::testSearchNodes4()
     return true;
 }
 
-bool TestSimpleTaxConsensus::testSearchNodes5()
+bool TestSimpleTaxConsensus::testBuildConsensus5()
 {
     vector< vector< string> > tax_table = {
         {"K#a", "1", "P#b", "1", "C#c", "1"},
@@ -92,7 +92,7 @@ bool TestSimpleTaxConsensus::testSearchNodes5()
     return true;
 }
 
-bool TestSimpleTaxConsensus::testSearchNodes6()
+bool TestSimpleTaxConsensus::testBuildConsensus6()
 {
     vector< vector< string> > tax_table = {
         {"K#a", "1", "P#b", "1", "C#c", "1"},
@@ -104,7 +104,7 @@ bool TestSimpleTaxConsensus::testSearchNodes6()
     return true;
 }
 
-bool TestSimpleTaxConsensus::testSearchNodes7()
+bool TestSimpleTaxConsensus::testBuildConsensus7()
 {
     vector< vector< string> > tax_table = {
         {"K#a", "1", "P#b", "1", "C#c", "1"},
