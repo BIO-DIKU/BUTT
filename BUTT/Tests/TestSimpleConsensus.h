@@ -12,7 +12,7 @@ private:
 public:
     TestSimpleConsensus();
 
-   bool runTests();
+    bool runTests();
 
     /**
      * Tests that no consensus at all returns empty taxonomy string.
