@@ -4,7 +4,7 @@
 #include "TestFasta.h"
 #include "TestSeqToKMers.h"
 #include "TestTaxBuilder.h"
-#include "TestSimpleConsensus.h"
+#include "TestSimpleTaxConsensus.h"
 #include "TestCleverTaxConsensus.h"
 #include "TestTaxSearch.h"
 #include "TestHelper.h"
@@ -20,7 +20,7 @@ bool TestAll::runTests() {
         runTests());
     BUTT_RUN_TEST("TestAll: TestSeqToKMers", TestSeqToKMers().runTests());
     BUTT_RUN_TEST("TestAll: TestTaxBuilder", TestTaxBuilder().runTests());
-    BUTT_RUN_TEST("TestAll: TestSimpleConsensus", TestSimpleConsensus().
+    BUTT_RUN_TEST("TestAll: TestSimpleTaxConsensus", TestSimpleTaxConsensus().
         runTests());
     BUTT_RUN_TEST("TestAll: TestCleverTaxConsensus", TestCleverTaxConsensus().
         runTests());

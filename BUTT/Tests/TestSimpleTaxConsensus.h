@@ -4,13 +4,13 @@
 #include "TestHelper.h"
 #include "Search/SimpleTaxConsensus.h"
 
-class TestSimpleConsensus
+class TestSimpleTaxConsensus
 {
 private:
     SimpleTaxConsensus consensus;
 
 public:
-    TestSimpleConsensus();
+    TestSimpleTaxConsensus();
 
     bool runTests();
 

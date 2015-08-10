@@ -62,7 +62,7 @@ SOURCES       = main.cpp \
 		Search/TaxLevel.cpp \
 		Search/SimpleTaxConsensus.cpp \
 		Search/CleverTaxConsensus.cpp \
-		Tests/TestSimpleConsensus.cpp \
+		Tests/TestSimpleTaxConsensus.cpp \
 		Tests/TestCleverTaxConsensus.cpp 
 OBJECTS       = main.o \
 		TaxNode.o \
@@ -81,7 +81,7 @@ OBJECTS       = main.o \
 		TaxLevel.o \
 		SimpleTaxConsensus.o \
 		CleverTaxConsensus.o \
-		TestSimpleConsensus.o \
+		TestSimpleTaxConsensus.o \
 		TestCleverTaxConsensus.o
 DIST          = /usr/local/Cellar/qt/4.8.6/mkspecs/common/unix.conf \
 		/usr/local/Cellar/qt/4.8.6/mkspecs/common/mac.conf \
@@ -321,7 +321,7 @@ TestAll.o: Tests/TestAll.cpp Tests/TestAll.h \
 		Index/TaxBuilder.h \
 		SeqToKMers.h \
 		Index/TaxNode.h \
-		Tests/TestSimpleConsensus.h \
+		Tests/TestSimpleTaxConsensus.h \
 		Tests/TestHelper.h \
 		Search/SimpleTaxConsensus.h \
 		Search/TaxConsensus.h \
@@ -345,11 +345,11 @@ CleverTaxConsensus.o: Search/CleverTaxConsensus.cpp Search/CleverTaxConsensus.h 
 		Search/TaxConsensus.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o CleverTaxConsensus.o Search/CleverTaxConsensus.cpp
 
-TestSimpleConsensus.o: Tests/TestSimpleConsensus.cpp Tests/TestSimpleConsensus.h \
+TestSimpleTaxConsensus.o: Tests/TestSimpleTaxConsensus.cpp Tests/TestSimpleTaxConsensus.h \
 		Tests/TestHelper.h \
 		Search/SimpleTaxConsensus.h \
 		Search/TaxConsensus.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TestSimpleConsensus.o Tests/TestSimpleConsensus.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TestSimpleTaxConsensus.o Tests/TestSimpleTaxConsensus.cpp
 
 TestCleverTaxConsensus.o: Tests/TestCleverTaxConsensus.cpp Tests/TestCleverTaxConsensus.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TestCleverTaxConsensus.o Tests/TestCleverTaxConsensus.cpp
