@@ -24,7 +24,7 @@ string CleverTaxConsensus::buildConsensus(vector< vector< string > > &tax_table)
         }
     }
 
-    for(unsigned int col = 0; col<min_row_length; ++col) {
+    for (unsigned int col = 0; col < min_row_length; ++col) {
         if (columnPerfectConsensus(tax_table, col)) {
             if (tax_table[0][col][1] == '#') {
                 if (level > 0) {
@@ -32,9 +32,9 @@ string CleverTaxConsensus::buildConsensus(vector< vector< string > > &tax_table)
                 }
 
                 level++;
-            }
-            else
+            } else {
                 ret += "_";
+            }
 
             ret += tax_table[0][col];
         } else {
@@ -46,7 +46,7 @@ string CleverTaxConsensus::buildConsensus(vector< vector< string > > &tax_table)
 }
 
 bool CleverTaxConsensus::columnPerfectConsensus(vector< vector< string > > &tax_table, int col) {
-    for(unsigned int row = 1; row<tax_table.size(); row++) {
+    for (unsigned int row = 1; row<tax_table.size(); row++) {
         if (tax_table[row][col] != tax_table[0][col]) {
             return false;
         }
