@@ -1,0 +1,2 @@
+CleverTaxConsensus	/Users/maasha/install/src/BUTT/BUTT/Search/CleverTaxConsensus.cpp	/^CleverTaxConsensus::CleverTaxConsensus(vector < string > _level_names) {$/;"	function	line:9	class:CleverTaxConsensus	signature:(vector < string > _level_names)
+buildConsensus	/Users/maasha/install/src/BUTT/BUTT/Search/CleverTaxConsensus.cpp	/^string CleverTaxConsensus::buildConsensus(vector< vector< string > > &tax_table) {$/;"	function	line:13	class:CleverTaxConsensus	signature:(vector< vector< string > > &tax_table)

@@ -1,0 +1,8 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	0	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+CleverTaxConsensus	/Users/maasha/install/src/BUTT/BUTT/Search/CleverTaxConsensus.cpp	/^CleverTaxConsensus::CleverTaxConsensus(vector < string > _level_names) {$/;"	function	line:9	class:CleverTaxConsensus	signature:(vector < string > _level_names)
+buildConsensus	/Users/maasha/install/src/BUTT/BUTT/Search/CleverTaxConsensus.cpp	/^string CleverTaxConsensus::buildConsensus(vector< vector< string > > &tax_table) {$/;"	function	line:13	class:CleverTaxConsensus	signature:(vector< vector< string > > &tax_table)
