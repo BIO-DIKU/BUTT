@@ -37,7 +37,7 @@ string CleverTaxConsensus::buildConsensus(vector< vector< string > > &tax_table)
                 ret+="_";
 
             ret+=tax_table[0][col];
-        } else {    
+        } else {
             break;
         }
     }
@@ -48,8 +48,9 @@ string CleverTaxConsensus::buildConsensus(vector< vector< string > > &tax_table)
 bool CleverTaxConsensus::columnPerfectConsensus(vector< vector< string > > &tax_table, int col)
 {
     for(unsigned int row=1;row<tax_table.size();row++){
-        if (tax_table[row][col] != tax_table[0][col])
+        if (tax_table[row][col] != tax_table[0][col]) {
             return false;
+        }
     }
 
     return true;

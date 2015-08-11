@@ -1,0 +1,309 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+AR	BUTT/Makefile	/^AR            = ar cq$/;"	m
+BUTTTest	BUTT/Tests/TestHelper.h	/^namespace BUTTTest {$/;"	n
+BUTT_ASSERT_EQUALS	BUTT/Tests/TestHelper.h	/^#define BUTT_ASSERT_EQUALS(/;"	d
+BUTT_ASSERT_FALSE	BUTT/Tests/TestHelper.h	/^#define BUTT_ASSERT_FALSE(/;"	d
+BUTT_ASSERT_TRUE	BUTT/Tests/TestHelper.h	/^#define BUTT_ASSERT_TRUE(/;"	d
+BUTT_FASTA_H_	BUTT/Fasta.h	/^#define BUTT_FASTA_H_$/;"	d
+BUTT_INDEX_TAXBUILDER_H_	BUTT/Index/TaxBuilder.h	/^#define BUTT_INDEX_TAXBUILDER_H_$/;"	d
+BUTT_INDEX_TAXNODE_H_	BUTT/Index/TaxNode.h	/^#define BUTT_INDEX_TAXNODE_H_$/;"	d
+BUTT_POST_TESTS	BUTT/Tests/TestHelper.h	/^#define BUTT_POST_TESTS(/;"	d
+BUTT_PRE_TESTS	BUTT/Tests/TestHelper.h	/^#define BUTT_PRE_TESTS(/;"	d
+BUTT_RUN_TEST	BUTT/Tests/TestHelper.h	/^#define BUTT_RUN_TEST(/;"	d
+BUTT_SEARCH_CLEVERTAXCONSENSUS_H_	BUTT/Search/CleverTaxConsensus.h	/^#define BUTT_SEARCH_CLEVERTAXCONSENSUS_H_$/;"	d
+BUTT_SEARCH_SIMPLETAXCONSENSUS_H_	BUTT/Search/SimpleTaxConsensus.h	/^#define BUTT_SEARCH_SIMPLETAXCONSENSUS_H_$/;"	d
+BUTT_SEARCH_TAXSEARCH_H_	BUTT/Search/TaxSearch.h	/^#define BUTT_SEARCH_TAXSEARCH_H_$/;"	d
+BUTT_TESTS_TESTCLEVERTAXCONSENSUS_H_	BUTT/Tests/TestCleverTaxConsensus.h	/^#define BUTT_TESTS_TESTCLEVERTAXCONSENSUS_H_$/;"	d
+BUTT_TESTS_TESTHELPER_H_	BUTT/Tests/TestHelper.h	/^#define BUTT_TESTS_TESTHELPER_H_$/;"	d
+BUTT_TESTS_TESTTAXSEARCH_H_	BUTT/Tests/TestTaxSearch.h	/^#define BUTT_TESTS_TESTTAXSEARCH_H_$/;"	d
+CC	BUTT/Makefile	/^CC            = clang$/;"	m
+CFLAGS	BUTT/Makefile	/^CFLAGS        = -pipe -mmacosx-version-min=10.7 -O2 -arch x86_64 -Wall -W $(DEFINES)$/;"	m
+CHK_DIR_EXISTS	BUTT/Makefile	/^CHK_DIR_EXISTS= test -d$/;"	m
+COMMON_H	BUTT/Common.h	/^#define COMMON_H$/;"	d
+COMPRESS	BUTT/Makefile	/^COMPRESS      = gzip -9f$/;"	m
+COPY	BUTT/Makefile	/^COPY          = cp -f$/;"	m
+COPY_DIR	BUTT/Makefile	/^COPY_DIR      = cp -f -R$/;"	m
+COPY_FILE	BUTT/Makefile	/^COPY_FILE     = cp -f$/;"	m
+CXX	BUTT/Makefile	/^CXX           = clang++$/;"	m
+CXXFLAGS	BUTT/Makefile	/^CXXFLAGS      = -pipe -stdlib=libc++ -mmacosx-version-min=10.7 -std=c++11 -g -arch x86_64 -Wall -W $(DEFINES)$/;"	m
+CleverTaxConsensus	BUTT/Search/CleverTaxConsensus.cpp	/^CleverTaxConsensus::CleverTaxConsensus(vector < string > _level_names)$/;"	f	class:CleverTaxConsensus
+CleverTaxConsensus	BUTT/Search/CleverTaxConsensus.h	/^class CleverTaxConsensus: public TaxConsensus {$/;"	c
+CleverTaxConsensusException	BUTT/Search/CleverTaxConsensus.h	/^    CleverTaxConsensusException(const CleverTaxConsensusException &e):$/;"	f	class:CleverTaxConsensusException
+CleverTaxConsensusException	BUTT/Search/CleverTaxConsensus.h	/^    CleverTaxConsensusException(std::string &msg): exceptionMsg(msg) {}$/;"	f	class:CleverTaxConsensusException
+CleverTaxConsensusException	BUTT/Search/CleverTaxConsensus.h	/^class CleverTaxConsensusException: public std::exception {$/;"	c
+DEFINES	BUTT/Makefile	/^DEFINES       = $/;"	m
+DEL_DIR	BUTT/Makefile	/^DEL_DIR       = rmdir$/;"	m
+DEL_FILE	BUTT/Makefile	/^DEL_FILE      = rm -f$/;"	m
+DESTDIR	BUTT/Makefile	/^DESTDIR       = $/;"	m
+DIST	BUTT/Makefile	/^DIST          = \/usr\/local\/Cellar\/qt\/4.8.6\/mkspecs\/common\/unix.conf \\$/;"	m
+Fasta	BUTT/Fasta.cpp	/^Fasta::Fasta(const std::string &filePath): inputStream(filePath.c_str(), std::ifstream::in) {$/;"	f	class:Fasta
+Fasta	BUTT/Fasta.h	/^class Fasta {$/;"	c
+FastaEntry	BUTT/Fasta.h	/^struct FastaEntry{$/;"	s
+FastaException	BUTT/Fasta.h	/^    FastaException(const FastaException &e): exceptionMsg(e.exceptionMsg) {}$/;"	f	class:FastaException
+FastaException	BUTT/Fasta.h	/^    FastaException(std::string &msg): exceptionMsg(msg) {}$/;"	f	class:FastaException
+FastaException	BUTT/Fasta.h	/^class FastaException: public std::exception {$/;"	c
+Hit	BUTT/Search/TaxSearch.h	/^typedef std::tuple<std::string, std::string, int> Hit;$/;"	t
+INCPATH	BUTT/Makefile	/^INCPATH       = -I\/usr\/local\/Cellar\/qt\/4.8.6\/mkspecs\/unsupported\/macx-clang-libc++ -I.$/;"	m
+INSTALL_DIR	BUTT/Makefile	/^INSTALL_DIR   = $(COPY_DIR)$/;"	m
+INSTALL_FILE	BUTT/Makefile	/^INSTALL_FILE  = $(COPY_FILE)$/;"	m
+INSTALL_PROGRAM	BUTT/Makefile	/^INSTALL_PROGRAM = $(COPY_FILE)$/;"	m
+KMer	BUTT/Common.h	/^typedef uint32_t KMer;$/;"	t
+KMerSet	BUTT/Common.h	/^typedef std::set<KMer> KMerSet;$/;"	t
+LEVEL_NAMES	BUTT/Tests/TestTaxSearch.cpp	/^#define LEVEL_NAMES /;"	d	file:
+LFLAGS	BUTT/Makefile	/^LFLAGS        = -headerpad_max_install_names -stdlib=libc++ -mmacosx-version-min=10.7 -arch x86_64$/;"	m
+LIBS	BUTT/Makefile	/^LIBS          = $(SUBLIBS)    $/;"	m
+LINK	BUTT/Makefile	/^LINK          = clang++$/;"	m
+MACOSX_DEPLOYMENT_TARGET	BUTT/Makefile	/^export MACOSX_DEPLOYMENT_TARGET = 10.7$/;"	m
+MKDIR	BUTT/Makefile	/^MKDIR         = mkdir -p$/;"	m
+MOVE	BUTT/Makefile	/^MOVE          = mv -f$/;"	m
+NAMENODE_H	BUTT/Search/NameNode.h	/^#define NAMENODE_H$/;"	d
+NODES_FIND	BUTT/Tests/TestTaxSearch.cpp	/^#define NODES_FIND(/;"	d	file:
+NUCL_A	BUTT/Common.h	/^#define NUCL_A /;"	d
+NUCL_BIT	BUTT/Common.h	/^#define NUCL_BIT /;"	d
+NUCL_C	BUTT/Common.h	/^#define NUCL_C /;"	d
+NUCL_G	BUTT/Common.h	/^#define NUCL_G /;"	d
+NUCL_T	BUTT/Common.h	/^#define NUCL_T /;"	d
+NUCL_U	BUTT/Common.h	/^#define NUCL_U /;"	d
+NameNode	BUTT/Search/NameNode.cpp	/^NameNode::NameNode(const NameNode& node):$/;"	f	class:NameNode
+NameNode	BUTT/Search/NameNode.cpp	/^NameNode::NameNode(std::string name, int level, int parent, unsigned int node_id):$/;"	f	class:NameNode
+NameNode	BUTT/Search/NameNode.h	/^class NameNode$/;"	c
+OBJECTS	BUTT/Makefile	/^OBJECTS       = main.o \\$/;"	m
+OBJECTS_DIR	BUTT/Makefile	/^OBJECTS_DIR   = .\/$/;"	m
+QMAKE	BUTT/Makefile	/^QMAKE         = \/usr\/local\/bin\/qmake$/;"	m
+QMAKE_COMP_QMAKE_OBJECTIVE_CFLAGS	BUTT/Makefile	/^QMAKE_COMP_QMAKE_OBJECTIVE_CFLAGS = -pipe \\$/;"	m
+QMAKE_TARGET	BUTT/Makefile	/^QMAKE_TARGET  = BUTT$/;"	m
+RANLIB	BUTT/Makefile	/^RANLIB        = ranlib -s$/;"	m
+SED	BUTT/Makefile	/^SED           = sed$/;"	m
+SEQTOKMERS_H	BUTT/SeqToKMers.h	/^#define SEQTOKMERS_H$/;"	d
+SOURCES	BUTT/Makefile	/^SOURCES       = main.cpp \\$/;"	m
+STRIP	BUTT/Makefile	/^STRIP         = $/;"	m
+SYMLINK	BUTT/Makefile	/^SYMLINK       = ln -f -s$/;"	m
+SeqToKMerException	BUTT/SeqToKMers.h	/^    SeqToKMerException(const SeqToKMerException &e): exceptionMsg(e.exceptionMsg){}$/;"	f	class:SeqToKMerException
+SeqToKMerException	BUTT/SeqToKMers.h	/^    SeqToKMerException(std::string &msg): exceptionMsg(msg){}$/;"	f	class:SeqToKMerException
+SeqToKMerException	BUTT/SeqToKMers.h	/^class SeqToKMerException: public std::exception {$/;"	c
+SeqToKMers	BUTT/SeqToKMers.cpp	/^SeqToKMers::SeqToKMers(unsigned int kmer_size, unsigned int step_size):$/;"	f	class:SeqToKMers
+SeqToKMers	BUTT/SeqToKMers.h	/^class SeqToKMers$/;"	c
+SimpleTaxConsensus	BUTT/Search/SimpleTaxConsensus.cpp	/^SimpleTaxConsensus::SimpleTaxConsensus(vector < string > _level_names)$/;"	f	class:SimpleTaxConsensus
+SimpleTaxConsensus	BUTT/Search/SimpleTaxConsensus.h	/^class SimpleTaxConsensus: public TaxConsensus {$/;"	c
+SimpleTaxConsensusException	BUTT/Search/SimpleTaxConsensus.h	/^    SimpleTaxConsensusException(const SimpleTaxConsensusException &e):$/;"	f	class:SimpleTaxConsensusException
+SimpleTaxConsensusException	BUTT/Search/SimpleTaxConsensus.h	/^    SimpleTaxConsensusException(std::string &msg): exceptionMsg(msg) {}$/;"	f	class:SimpleTaxConsensusException
+SimpleTaxConsensusException	BUTT/Search/SimpleTaxConsensus.h	/^class SimpleTaxConsensusException: public std::exception {$/;"	c
+TAR	BUTT/Makefile	/^TAR           = tar -cf$/;"	m
+TARGET	BUTT/Makefile	/^TARGET        = BUTT$/;"	m
+TAXCONSENSUS_H	BUTT/Search/TaxConsensus.h	/^#define TAXCONSENSUS_H$/;"	d
+TAXLEVEL_H	BUTT/Search/TaxLevel.h	/^#define TAXLEVEL_H$/;"	d
+TESTALL_H	BUTT/Tests/TestAll.h	/^#define TESTALL_H$/;"	d
+TESTFASTA_H	BUTT/Tests/TestFasta.h	/^#define TESTFASTA_H$/;"	d
+TESTSEQTOKMERS_H	BUTT/Tests/TestSeqToKMers.h	/^#define TESTSEQTOKMERS_H$/;"	d
+TESTSIMPLECONSENSUS_H	BUTT/Tests/TestSimpleTaxConsensus.h	/^#define TESTSIMPLECONSENSUS_H$/;"	d
+TESTTAXBUILDER_H	BUTT/Tests/TestTaxBuilder.h	/^#define TESTTAXBUILDER_H$/;"	d
+TaxBuilder	BUTT/Index/TaxBuilder.cpp	/^TaxBuilder::TaxBuilder(SeqToKMers seqSplitter):$/;"	f	class:TaxBuilder
+TaxBuilder	BUTT/Index/TaxBuilder.h	/^class TaxBuilder {$/;"	c
+TaxConsensus	BUTT/Search/TaxConsensus.h	/^class TaxConsensus$/;"	c
+TaxLevel	BUTT/Search/TaxLevel.cpp	/^TaxLevel::TaxLevel(int k)$/;"	f	class:TaxLevel
+TaxLevel	BUTT/Search/TaxLevel.h	/^class TaxLevel$/;"	c
+TaxNode	BUTT/Index/TaxNode.cpp	/^TaxNode::TaxNode():$/;"	f	class:TaxNode
+TaxNode	BUTT/Index/TaxNode.cpp	/^TaxNode::TaxNode(TaxNode *parent, std::string &name, unsigned int node_id):$/;"	f	class:TaxNode
+TaxNode	BUTT/Index/TaxNode.h	/^class TaxNode {$/;"	c
+TaxSearch	BUTT/Search/TaxSearch.cpp	/^TaxSearch::TaxSearch(SeqToKMers seqSplitter, int hits_max, bool best_only,$/;"	f	class:TaxSearch
+TaxSearch	BUTT/Search/TaxSearch.h	/^class TaxSearch {$/;"	c
+TaxSearchException	BUTT/Search/TaxSearch.h	/^    TaxSearchException(const TaxSearchException &e):$/;"	f	class:TaxSearchException
+TaxSearchException	BUTT/Search/TaxSearch.h	/^    TaxSearchException(std::string &&msg): exceptionMsg(msg) {}$/;"	f	class:TaxSearchException
+TaxSearchException	BUTT/Search/TaxSearch.h	/^class TaxSearchException: public std::exception {$/;"	c
+TaxonomyStringException	BUTT/Index/TaxBuilder.h	/^    TaxonomyStringException(const TaxonomyStringException &e):$/;"	f	class:TaxonomyStringException
+TaxonomyStringException	BUTT/Index/TaxBuilder.h	/^    TaxonomyStringException(std::string &msg): exceptionMsg(msg) {}$/;"	f	class:TaxonomyStringException
+TaxonomyStringException	BUTT/Index/TaxBuilder.h	/^class TaxonomyStringException: public std::exception {$/;"	c
+TestAll	BUTT/Tests/TestAll.cpp	/^TestAll::TestAll() {$/;"	f	class:TestAll
+TestAll	BUTT/Tests/TestAll.h	/^class TestAll$/;"	c
+TestCleverTaxConsensus	BUTT/Tests/TestCleverTaxConsensus.cpp	/^TestCleverTaxConsensus::TestCleverTaxConsensus(): consensus({"K", "P", "C", "O", "F", "G", "S"}) {}$/;"	f	class:TestCleverTaxConsensus
+TestCleverTaxConsensus	BUTT/Tests/TestCleverTaxConsensus.h	/^class TestCleverTaxConsensus {$/;"	c
+TestFasta	BUTT/Tests/TestFasta.cpp	/^TestFasta::TestFasta(const string &fasta_test_directory): fastaDirectory(fasta_test_directory)$/;"	f	class:TestFasta
+TestFasta	BUTT/Tests/TestFasta.h	/^class TestFasta$/;"	c
+TestSeqToKMers	BUTT/Tests/TestSeqToKMers.cpp	/^TestSeqToKMers::TestSeqToKMers()$/;"	f	class:TestSeqToKMers
+TestSeqToKMers	BUTT/Tests/TestSeqToKMers.h	/^class TestSeqToKMers$/;"	c
+TestSimpleTaxConsensus	BUTT/Tests/TestSimpleTaxConsensus.cpp	/^TestSimpleTaxConsensus::TestSimpleTaxConsensus(): consensus({"K", "P", "C", "O", "F", "G", "S"})$/;"	f	class:TestSimpleTaxConsensus
+TestSimpleTaxConsensus	BUTT/Tests/TestSimpleTaxConsensus.h	/^class TestSimpleTaxConsensus$/;"	c
+TestTaxBuilder	BUTT/Tests/TestTaxBuilder.cpp	/^TestTaxBuilder::TestTaxBuilder():$/;"	f	class:TestTaxBuilder
+TestTaxBuilder	BUTT/Tests/TestTaxBuilder.h	/^class TestTaxBuilder$/;"	c
+TestTaxSearch	BUTT/Tests/TestTaxSearch.cpp	/^TestTaxSearch::TestTaxSearch() {}$/;"	f	class:TestTaxSearch
+TestTaxSearch	BUTT/Tests/TestTaxSearch.h	/^class TestTaxSearch {$/;"	c
+addKMers	BUTT/Index/TaxNode.cpp	/^void TaxNode::addKMers(KMerSet &&kmers_) {$/;"	f	class:TaxNode
+addKMers	BUTT/Index/TaxNode.cpp	/^void TaxNode::addKMers(KMerSet &kmers_) {$/;"	f	class:TaxNode
+addKMersToSet	BUTT/SeqToKMers.cpp	/^void SeqToKMers::addKMersToSet(std::string &sequence, KMerSet &set) const$/;"	f	class:SeqToKMers
+addTaxEntry	BUTT/Index/TaxBuilder.cpp	/^void TaxBuilder::addTaxEntry(std::string &&taxonomyString,$/;"	f	class:TaxBuilder
+addTaxEntry	BUTT/Index/TaxBuilder.cpp	/^void TaxBuilder::addTaxEntry(std::string &taxonomyString,$/;"	f	class:TaxBuilder
+add_node_to_kmer	BUTT/Search/TaxLevel.cpp	/^void TaxLevel::add_node_to_kmer(int node, KMer kmer)$/;"	f	class:TaxLevel
+assertEquals	BUTT/Tests/TestHelper.cpp	/^bool BUTTTest::assertEquals(const std::string &expected,$/;"	f	class:BUTTTest
+assertEquals	BUTT/Tests/TestHelper.cpp	/^bool BUTTTest::assertEquals(int expected, int actual, std::string message) {$/;"	f	class:BUTTTest
+assertFalse	BUTT/Tests/TestHelper.cpp	/^bool BUTTTest::assertFalse(const bool &actual, std::string message) {$/;"	f	class:BUTTTest
+assertTrue	BUTT/Tests/TestHelper.cpp	/^bool BUTTTest::assertTrue(const bool &actual, std::string message) {$/;"	f	class:BUTTTest
+benchmarkBuilder	BUTT/main.cpp	/^void benchmarkBuilder(int argc, char** argv) {$/;"	f
+best_only	BUTT/Search/TaxSearch.h	/^    const bool best_only;$/;"	m	class:TaxSearch
+buildConsensus	BUTT/Search/CleverTaxConsensus.cpp	/^string CleverTaxConsensus::buildConsensus(vector< vector< string > > &tax_table)$/;"	f	class:CleverTaxConsensus
+buildConsensus	BUTT/Search/SimpleTaxConsensus.cpp	/^string SimpleTaxConsensus::buildConsensus(vector< vector< string > > &tax_table)$/;"	f	class:SimpleTaxConsensus
+buildKMerIndex	BUTT/Index/TaxBuilder.cpp	/^void TaxBuilder::buildKMerIndex(TaxNode* n, int depth,$/;"	f	class:TaxBuilder
+buildTaxSuffix	BUTT/Search/CleverTaxConsensus.cpp	/^string CleverTaxConsensus::buildTaxSuffix(int level)$/;"	f	class:CleverTaxConsensus
+buildTaxSuffix	BUTT/Search/SimpleTaxConsensus.cpp	/^string SimpleTaxConsensus::buildTaxSuffix(int level)$/;"	f	class:SimpleTaxConsensus
+builder	BUTT/Tests/TestTaxBuilder.h	/^    TaxBuilder builder;$/;"	m	class:TestTaxBuilder
+checkTaxEntry	BUTT/Index/TaxBuilder.cpp	/^bool TaxBuilder::checkTaxEntry(std::string &taxonomyString,$/;"	f	class:TaxBuilder
+children	BUTT/Index/TaxNode.h	/^    std::map<std::string, TaxNode*> children;$/;"	m	class:TaxNode
+columnPerfectConsensus	BUTT/Search/CleverTaxConsensus.cpp	/^bool CleverTaxConsensus::columnPerfectConsensus(vector< vector< string > > &tax_table, int col)$/;"	f	class:CleverTaxConsensus
+columnPerfectConsensus	BUTT/Search/SimpleTaxConsensus.cpp	/^bool SimpleTaxConsensus::columnPerfectConsensus(vector< vector< string > > &tax_table, int col)$/;"	f	class:SimpleTaxConsensus
+consensus	BUTT/Tests/TestCleverTaxConsensus.h	/^    CleverTaxConsensus consensus;$/;"	m	class:TestCleverTaxConsensus
+consensus	BUTT/Tests/TestSimpleTaxConsensus.h	/^    SimpleTaxConsensus consensus;$/;"	m	class:TestSimpleTaxConsensus
+consensus_builder	BUTT/Search/TaxSearch.h	/^    TaxConsensus* consensus_builder;$/;"	m	class:TaxSearch
+coverage	BUTT/Search/TaxSearch.h	/^    const double coverage;$/;"	m	class:TaxSearch
+decode	BUTT/SeqToKMers.cpp	/^int decode(char nucl){$/;"	f
+decodeKMer	BUTT/SeqToKMers.cpp	/^unsigned int SeqToKMers::decodeKMer(std::string &sequence, unsigned int pos, KMer &buffer, int suffixSz) const$/;"	f	class:SeqToKMers
+descendingPairSortOrder	BUTT/Search/TaxSearch.h	/^    static bool descendingPairSortOrder(const std::pair<int, int> &a,$/;"	f	class:TaxSearch
+descendingSortOrder	BUTT/Search/TaxSearch.h	/^    static bool descendingSortOrder(unsigned int a, unsigned int b) {$/;"	f	class:TaxSearch
+descendingSortOrderPair	BUTT/Search/CleverTaxConsensus.h	/^    static bool descendingSortOrderPair(const std::pair<std::string, int> &a,$/;"	f	class:CleverTaxConsensus
+descendingSortOrderPair	BUTT/Search/SimpleTaxConsensus.h	/^    static bool descendingSortOrderPair(const std::pair<std::string, int> &a,$/;"	f	class:SimpleTaxConsensus
+exceptionMsg	BUTT/Fasta.h	/^    const std::string exceptionMsg;$/;"	m	class:FastaException
+exceptionMsg	BUTT/Index/TaxBuilder.h	/^    const std::string exceptionMsg;$/;"	m	class:TaxonomyStringException
+exceptionMsg	BUTT/Search/CleverTaxConsensus.h	/^    const std::string exceptionMsg;$/;"	m	class:CleverTaxConsensusException
+exceptionMsg	BUTT/Search/SimpleTaxConsensus.h	/^    const std::string exceptionMsg;$/;"	m	class:SimpleTaxConsensusException
+exceptionMsg	BUTT/Search/TaxSearch.h	/^    const std::string exceptionMsg;$/;"	m	class:TaxSearchException
+exceptionMsg	BUTT/SeqToKMers.h	/^    const std::string exceptionMsg;$/;"	m	class:SeqToKMerException
+fastaDirectory	BUTT/Tests/TestFasta.h	/^    std::string fastaDirectory;$/;"	m	class:TestFasta
+fill_node_tax_row	BUTT/Search/TaxSearch.cpp	/^void TaxSearch::fill_node_tax_row(int node_id, vector<string> &node_tax_row) {$/;"	f	class:TaxSearch
+findNode	BUTT/Index/TaxNode.cpp	/^TaxNode* TaxNode::findNode(int id) {$/;"	f	class:TaxNode
+get	BUTT/Tests/TestSeqToKMers.cpp	/^const KMer &TestSeqToKMers::get(KMerSet &set, int elem)$/;"	f	class:TestSeqToKMers
+getChild	BUTT/Index/TaxNode.cpp	/^TaxNode* TaxNode::getChild(std::string &child_name) {$/;"	f	class:TaxNode
+getKMers	BUTT/Index/TaxNode.cpp	/^KMerSet& TaxNode::getKMers() {$/;"	f	class:TaxNode
+getLevel	BUTT/Search/NameNode.cpp	/^int NameNode::getLevel(){ return level; }$/;"	f	class:NameNode
+getName	BUTT/Index/TaxNode.cpp	/^const std::string& TaxNode::getName() {$/;"	f	class:TaxNode
+getName	BUTT/Search/NameNode.cpp	/^std::string &NameNode::getName(){ return name; }$/;"	f	class:NameNode
+getNode	BUTT/Index/TaxBuilder.cpp	/^TaxNode& TaxBuilder::getNode(unsigned int id) {$/;"	f	class:TaxBuilder
+getNodeId	BUTT/Search/NameNode.cpp	/^unsigned int NameNode::getNodeId(){ return node_id; }$/;"	f	class:NameNode
+getParent	BUTT/Index/TaxNode.cpp	/^TaxNode& TaxNode::getParent() {$/;"	f	class:TaxNode
+getParentId	BUTT/Search/NameNode.cpp	/^int NameNode::getParentId(){ return parent; }$/;"	f	class:NameNode
+get_kmer_size	BUTT/SeqToKMers.cpp	/^unsigned int SeqToKMers::get_kmer_size() const$/;"	f	class:SeqToKMers
+hasNextEntry	BUTT/Fasta.cpp	/^bool Fasta::hasNextEntry() {$/;"	f	class:Fasta
+header	BUTT/Fasta.h	/^    std::string header;$/;"	m	struct:FastaEntry
+hits_max	BUTT/Search/TaxSearch.h	/^    const int hits_max;$/;"	m	class:TaxSearch
+inputStream	BUTT/Fasta.h	/^    std::ifstream inputStream;$/;"	m	class:Fasta
+isLeaf	BUTT/Index/TaxBuilder.cpp	/^bool TaxBuilder::isLeaf(std::vector<std::string> &tax_path, unsigned int t) {$/;"	f	class:TaxBuilder
+kmer_size	BUTT/SeqToKMers.h	/^    const unsigned int kmer_size;$/;"	m	class:SeqToKMers
+kmer_to_node_vec	BUTT/Search/TaxLevel.h	/^    std::vector< std::list<int> > kmer_to_node_vec;$/;"	m	class:TaxLevel
+kmers	BUTT/Index/TaxNode.h	/^    KMerSet kmers;$/;"	m	class:TaxNode
+level	BUTT/Search/NameNode.h	/^    int level;$/;"	m	class:NameNode
+level_names	BUTT/Index/TaxBuilder.h	/^    std::vector<char> level_names;$/;"	m	class:TaxBuilder
+level_names	BUTT/Search/CleverTaxConsensus.h	/^    std::vector< std::string > level_names;$/;"	m	class:CleverTaxConsensus
+level_names	BUTT/Search/SimpleTaxConsensus.h	/^    std::vector< std::string > level_names;$/;"	m	class:SimpleTaxConsensus
+level_names	BUTT/Search/TaxSearch.h	/^    std::vector< std::string > level_names;$/;"	m	class:TaxSearch
+level_vector	BUTT/Search/TaxSearch.h	/^    std::vector< TaxLevel > level_vector;$/;"	m	class:TaxSearch
+main	BUTT/main.cpp	/^int main(int argc, char** argv) {$/;"	f
+name	BUTT/Index/TaxNode.h	/^    const std::string name;$/;"	m	class:TaxNode
+name	BUTT/Search/NameNode.h	/^    std::string name;$/;"	m	class:NameNode
+nextEntry	BUTT/Fasta.cpp	/^FastaEntry Fasta::nextEntry() {$/;"	f	class:Fasta
+nextHeader	BUTT/Fasta.h	/^    std::string nextHeader;$/;"	m	class:Fasta
+node_counts	BUTT/Search/TaxSearch.h	/^    std::vector<unsigned int> node_counts;$/;"	m	class:TaxSearch
+node_id	BUTT/Index/TaxNode.h	/^    const unsigned int node_id;   \/\/\/< Node id$/;"	m	class:TaxNode
+node_id	BUTT/Search/NameNode.h	/^    unsigned int node_id;$/;"	m	class:NameNode
+nodes	BUTT/Search/TaxSearch.h	/^    std::vector<NameNode> nodes;$/;"	m	class:TaxSearch
+operator <<	BUTT/Common.h	/^std::ostream & operator<<(std::ostream & os, std::pair<T,R> pair)$/;"	f
+operator <<	BUTT/Common.h	/^std::ostream & operator<<(std::ostream & os, std::vector<T> vec)$/;"	f
+operator <<	BUTT/Search/TaxSearch.cpp	/^std::ostream & operator<<(std::ostream & os, Hit hit) {$/;"	f
+parent	BUTT/Index/TaxNode.h	/^    TaxNode* parent;$/;"	m	class:TaxNode
+parent	BUTT/Search/NameNode.h	/^    int parent;$/;"	m	class:NameNode
+pickBestHits	BUTT/Search/TaxSearch.cpp	/^void TaxSearch::pickBestHits(std::vector<int> &ret, int kmer_size) {$/;"	f	class:TaxSearch
+pullUnions	BUTT/Index/TaxBuilder.cpp	/^void TaxBuilder::pullUnions(TaxNode &n) {$/;"	f	class:TaxBuilder
+readKMerIndex	BUTT/Search/TaxSearch.cpp	/^void TaxSearch::readKMerIndex(std::string &file_path) {$/;"	f	class:TaxSearch
+readTaxIndex	BUTT/Search/TaxSearch.cpp	/^void TaxSearch::readTaxIndex(std::string &file_path) {$/;"	f	class:TaxSearch
+readTaxLevelNames	BUTT/Search/TaxSearch.cpp	/^void TaxSearch::readTaxLevelNames() {$/;"	f	class:TaxSearch
+root	BUTT/Index/TaxBuilder.h	/^    TaxNode* root;$/;"	m	class:TaxBuilder
+runTests	BUTT/Tests/TestAll.cpp	/^bool TestAll::runTests() {$/;"	f	class:TestAll
+runTests	BUTT/Tests/TestCleverTaxConsensus.cpp	/^bool TestCleverTaxConsensus::runTests() {$/;"	f	class:TestCleverTaxConsensus
+runTests	BUTT/Tests/TestFasta.cpp	/^bool TestFasta::runTests()$/;"	f	class:TestFasta
+runTests	BUTT/Tests/TestSeqToKMers.cpp	/^bool TestSeqToKMers::runTests()$/;"	f	class:TestSeqToKMers
+runTests	BUTT/Tests/TestSimpleTaxConsensus.cpp	/^bool TestSimpleTaxConsensus::runTests()$/;"	f	class:TestSimpleTaxConsensus
+runTests	BUTT/Tests/TestTaxBuilder.cpp	/^bool TestTaxBuilder::runTests()$/;"	f	class:TestTaxBuilder
+runTests	BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::runTests() {$/;"	f	class:TestTaxSearch
+saveKMerIndex	BUTT/Index/TaxBuilder.cpp	/^void TaxBuilder::saveKMerIndex(std::string &file_path) {$/;"	f	class:TaxBuilder
+saveTaxIndex	BUTT/Index/TaxBuilder.cpp	/^void TaxBuilder::saveTaxIndex(TaxNode* n, int depth, std::ofstream &ostream) {$/;"	f	class:TaxBuilder
+saveTaxIndex	BUTT/Index/TaxBuilder.cpp	/^void TaxBuilder::saveTaxIndex(std::string &file_path) {$/;"	f	class:TaxBuilder
+search	BUTT/Search/TaxSearch.cpp	/^Hit TaxSearch::search(std::string &&seqName, std::string &&sequence) {$/;"	f	class:TaxSearch
+search	BUTT/Search/TaxSearch.cpp	/^Hit TaxSearch::search(std::string &seqName, std::string &sequence) {$/;"	f	class:TaxSearch
+searchNodes	BUTT/Search/TaxSearch.cpp	/^std::vector<int> TaxSearch::searchNodes(std::string &sequence) {$/;"	f	class:TaxSearch
+seq_splitter	BUTT/Search/TaxSearch.h	/^    const SeqToKMers seq_splitter;$/;"	m	class:TaxSearch
+sequence	BUTT/Fasta.h	/^    std::string sequence;$/;"	m	struct:FastaEntry
+sequenceSplitter	BUTT/Index/TaxBuilder.h	/^    const SeqToKMers sequenceSplitter;$/;"	m	class:TaxBuilder
+sequenceToKMers	BUTT/SeqToKMers.cpp	/^KMerSet SeqToKMers::sequenceToKMers(std::string &sequence) const$/;"	f	class:SeqToKMers
+setupTaxTree	BUTT/Tests/TestTaxSearch.cpp	/^void TestTaxSearch::setupTaxTree(string file) {$/;"	f	class:TestTaxSearch
+split	BUTT/Common.h	/^static std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems) {$/;"	f
+split	BUTT/Common.h	/^static std::vector<std::string> split(const std::string &s, char delim) {$/;"	f
+step_size	BUTT/SeqToKMers.h	/^    const unsigned int step_size;$/;"	m	class:SeqToKMers
+test1	BUTT/Tests/TestFasta.cpp	/^bool TestFasta::test1()$/;"	f	class:TestFasta
+test1	BUTT/Tests/TestSeqToKMers.cpp	/^bool TestSeqToKMers::test1()$/;"	f	class:TestSeqToKMers
+test1	BUTT/Tests/TestTaxBuilder.cpp	/^bool TestTaxBuilder::test1()$/;"	f	class:TestTaxBuilder
+test1	BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::test1() {$/;"	f	class:TestTaxSearch
+test10	BUTT/Tests/TestSeqToKMers.cpp	/^bool TestSeqToKMers::test10()$/;"	f	class:TestSeqToKMers
+test2	BUTT/Tests/TestFasta.cpp	/^bool TestFasta::test2()$/;"	f	class:TestFasta
+test2	BUTT/Tests/TestSeqToKMers.cpp	/^bool TestSeqToKMers::test2()$/;"	f	class:TestSeqToKMers
+test2	BUTT/Tests/TestTaxBuilder.cpp	/^bool TestTaxBuilder::test2()$/;"	f	class:TestTaxBuilder
+test2	BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::test2() {$/;"	f	class:TestTaxSearch
+test3	BUTT/Tests/TestFasta.cpp	/^bool TestFasta::test3()$/;"	f	class:TestFasta
+test3	BUTT/Tests/TestSeqToKMers.cpp	/^bool TestSeqToKMers::test3()$/;"	f	class:TestSeqToKMers
+test3	BUTT/Tests/TestTaxBuilder.cpp	/^bool TestTaxBuilder::test3()$/;"	f	class:TestTaxBuilder
+test3	BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::test3() {$/;"	f	class:TestTaxSearch
+test4	BUTT/Tests/TestFasta.cpp	/^bool TestFasta::test4()$/;"	f	class:TestFasta
+test4	BUTT/Tests/TestSeqToKMers.cpp	/^bool TestSeqToKMers::test4(){$/;"	f	class:TestSeqToKMers
+test4	BUTT/Tests/TestTaxBuilder.cpp	/^bool TestTaxBuilder::test4()$/;"	f	class:TestTaxBuilder
+test4	BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::test4() {$/;"	f	class:TestTaxSearch
+test5	BUTT/Tests/TestFasta.cpp	/^bool TestFasta::test5()$/;"	f	class:TestFasta
+test5	BUTT/Tests/TestSeqToKMers.cpp	/^bool TestSeqToKMers::test5()$/;"	f	class:TestSeqToKMers
+test5	BUTT/Tests/TestTaxBuilder.cpp	/^bool TestTaxBuilder::test5()$/;"	f	class:TestTaxBuilder
+test5	BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::test5() {$/;"	f	class:TestTaxSearch
+test6	BUTT/Tests/TestFasta.cpp	/^bool TestFasta::test6()$/;"	f	class:TestFasta
+test6	BUTT/Tests/TestSeqToKMers.cpp	/^bool TestSeqToKMers::test6()$/;"	f	class:TestSeqToKMers
+test6	BUTT/Tests/TestTaxBuilder.cpp	/^bool TestTaxBuilder::test6()$/;"	f	class:TestTaxBuilder
+test6	BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::test6() {$/;"	f	class:TestTaxSearch
+test7	BUTT/Tests/TestFasta.cpp	/^bool TestFasta::test7()$/;"	f	class:TestFasta
+test7	BUTT/Tests/TestSeqToKMers.cpp	/^bool TestSeqToKMers::test7()$/;"	f	class:TestSeqToKMers
+test7	BUTT/Tests/TestTaxBuilder.cpp	/^bool TestTaxBuilder::test7()$/;"	f	class:TestTaxBuilder
+test7	BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::test7() {$/;"	f	class:TestTaxSearch
+test8	BUTT/Tests/TestFasta.cpp	/^bool TestFasta::test8()$/;"	f	class:TestFasta
+test8	BUTT/Tests/TestSeqToKMers.cpp	/^bool TestSeqToKMers::test8()$/;"	f	class:TestSeqToKMers
+test8	BUTT/Tests/TestTaxBuilder.cpp	/^bool TestTaxBuilder::test8()$/;"	f	class:TestTaxBuilder
+test8	BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::test8() {$/;"	f	class:TestTaxSearch
+test9	BUTT/Tests/TestFasta.cpp	/^bool TestFasta::test9()$/;"	f	class:TestFasta
+test9	BUTT/Tests/TestSeqToKMers.cpp	/^bool TestSeqToKMers::test9()$/;"	f	class:TestSeqToKMers
+test9	BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::test9() {$/;"	f	class:TestTaxSearch
+testBuildConsensus1	BUTT/Tests/TestCleverTaxConsensus.cpp	/^bool TestCleverTaxConsensus::testBuildConsensus1() {$/;"	f	class:TestCleverTaxConsensus
+testBuildConsensus1	BUTT/Tests/TestSimpleTaxConsensus.cpp	/^bool TestSimpleTaxConsensus::testBuildConsensus1()$/;"	f	class:TestSimpleTaxConsensus
+testBuildConsensus10	BUTT/Tests/TestCleverTaxConsensus.cpp	/^bool TestCleverTaxConsensus::testBuildConsensus10() {$/;"	f	class:TestCleverTaxConsensus
+testBuildConsensus2	BUTT/Tests/TestCleverTaxConsensus.cpp	/^bool TestCleverTaxConsensus::testBuildConsensus2() {$/;"	f	class:TestCleverTaxConsensus
+testBuildConsensus2	BUTT/Tests/TestSimpleTaxConsensus.cpp	/^bool TestSimpleTaxConsensus::testBuildConsensus2()$/;"	f	class:TestSimpleTaxConsensus
+testBuildConsensus3	BUTT/Tests/TestCleverTaxConsensus.cpp	/^bool TestCleverTaxConsensus::testBuildConsensus3() {$/;"	f	class:TestCleverTaxConsensus
+testBuildConsensus3	BUTT/Tests/TestSimpleTaxConsensus.cpp	/^bool TestSimpleTaxConsensus::testBuildConsensus3()$/;"	f	class:TestSimpleTaxConsensus
+testBuildConsensus4	BUTT/Tests/TestCleverTaxConsensus.cpp	/^bool TestCleverTaxConsensus::testBuildConsensus4() {$/;"	f	class:TestCleverTaxConsensus
+testBuildConsensus4	BUTT/Tests/TestSimpleTaxConsensus.cpp	/^bool TestSimpleTaxConsensus::testBuildConsensus4()$/;"	f	class:TestSimpleTaxConsensus
+testBuildConsensus5	BUTT/Tests/TestCleverTaxConsensus.cpp	/^bool TestCleverTaxConsensus::testBuildConsensus5() {$/;"	f	class:TestCleverTaxConsensus
+testBuildConsensus5	BUTT/Tests/TestSimpleTaxConsensus.cpp	/^bool TestSimpleTaxConsensus::testBuildConsensus5()$/;"	f	class:TestSimpleTaxConsensus
+testBuildConsensus6	BUTT/Tests/TestCleverTaxConsensus.cpp	/^bool TestCleverTaxConsensus::testBuildConsensus6() {$/;"	f	class:TestCleverTaxConsensus
+testBuildConsensus6	BUTT/Tests/TestSimpleTaxConsensus.cpp	/^bool TestSimpleTaxConsensus::testBuildConsensus6()$/;"	f	class:TestSimpleTaxConsensus
+testBuildConsensus7	BUTT/Tests/TestCleverTaxConsensus.cpp	/^bool TestCleverTaxConsensus::testBuildConsensus7() {$/;"	f	class:TestCleverTaxConsensus
+testBuildConsensus7	BUTT/Tests/TestSimpleTaxConsensus.cpp	/^bool TestSimpleTaxConsensus::testBuildConsensus7()$/;"	f	class:TestSimpleTaxConsensus
+testBuildConsensus8	BUTT/Tests/TestCleverTaxConsensus.cpp	/^bool TestCleverTaxConsensus::testBuildConsensus8() {$/;"	f	class:TestCleverTaxConsensus
+testBuildConsensus9	BUTT/Tests/TestCleverTaxConsensus.cpp	/^bool TestCleverTaxConsensus::testBuildConsensus9() {$/;"	f	class:TestCleverTaxConsensus
+testIOExceptions	BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::testIOExceptions() {$/;"	f	class:TestTaxSearch
+testSearchNodes1	BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::testSearchNodes1() {$/;"	f	class:TestTaxSearch
+testSearchNodes10	BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::testSearchNodes10() {$/;"	f	class:TestTaxSearch
+testSearchNodes2	BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::testSearchNodes2() {$/;"	f	class:TestTaxSearch
+testSearchNodes3	BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::testSearchNodes3() {$/;"	f	class:TestTaxSearch
+testSearchNodes4	BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::testSearchNodes4() {$/;"	f	class:TestTaxSearch
+testSearchNodes5	BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::testSearchNodes5() {$/;"	f	class:TestTaxSearch
+testSearchNodes6	BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::testSearchNodes6() {$/;"	f	class:TestTaxSearch
+testSearchNodes7	BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::testSearchNodes7() {$/;"	f	class:TestTaxSearch
+testSearchNodes8	BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::testSearchNodes8() {$/;"	f	class:TestTaxSearch
+testSearchNodes9	BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::testSearchNodes9() {$/;"	f	class:TestTaxSearch
+treeSize	BUTT/Index/TaxBuilder.cpp	/^unsigned int TaxBuilder::treeSize() {$/;"	f	class:TaxBuilder
+tree_size	BUTT/Index/TaxBuilder.h	/^    unsigned int tree_size;$/;"	m	class:TaxBuilder
+update_nodes_hist	BUTT/Search/TaxLevel.cpp	/^void TaxLevel::update_nodes_hist(vector<unsigned int>&hist, KMerSet& kmer_set)$/;"	f	class:TaxLevel
+~TaxBuilder	BUTT/Index/TaxBuilder.cpp	/^TaxBuilder::~TaxBuilder() {$/;"	f	class:TaxBuilder
