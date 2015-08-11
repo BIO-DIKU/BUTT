@@ -11,6 +11,7 @@
 #include "Search/NameNode.h"
 #include "Search/TaxConsensus.h"
 #include "SeqToKMers.h"
+#include "Search/TaxLevel.h"
 
 /**
  * @brief Exception thrown by TaxSearch class
@@ -63,10 +64,8 @@ public:
      */
     Hit search(std::string &seqName, std::string &sequence);
 
-
-    /// R-value version of search function for convenience and tests
+    /// R-value version of search function for convenience and tests.
     Hit search(std::string &&seqName, std::string &&sequence);
-
 
     /**
      * @brief Method to search for a given sequence.
@@ -87,7 +86,7 @@ public:
      * TaxSearch::readDatabases has been called. The values in the set are
      * indices of nodes in the node-tree.
      */
-    std::set<int> searchNodes(std::string &sequence);
+    std::vector<int> searchNodes(std::string &sequence);
 
 private:
     const SeqToKMers seq_splitter;
@@ -98,8 +97,8 @@ private:
     std::vector<NameNode> nodes;
     std::vector< std::string > level_names;
 
-    /// First vector indexes LEVEL, second the KMER and the third is a list of nodes
-    std::vector< std::vector< std::list<int> > > kmer_node_indices;
+    /// Vector with levels.
+    std::vector< TaxLevel > level_vector;
 
     /// Working memory for building histograms in search. Arrays are used in the hope
     /// that memset will be faster than vector::assign.
@@ -133,7 +132,7 @@ private:
         return a.second > b.second;
     }
 
-    void pickBestHits(std::set<int> &ret, int kmer_size);
+    void pickBestHits(std::vector<int> &ret, int kmer_size);
 
     void readTaxLevelNames();
 };

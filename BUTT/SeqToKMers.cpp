@@ -49,7 +49,6 @@ unsigned int SeqToKMers::decodeKMer(std::string &sequence, unsigned int pos, KMe
         char nuclChar = sequence[ pos+kmer_size-i-1 ];
         int nucl = decode(nuclChar);
         if(nucl<0) {
-            unsigned int ret = kmer_size-i;
             return kmer_size-i;
         }
         buffer |= (nucl<<(2*i));
@@ -130,4 +129,9 @@ KMerSet SeqToKMers::sequenceToKMers(std::string &sequence) const
     }
 
     return ret;
+}
+
+unsigned int SeqToKMers::get_kmer_size() const
+{
+    return kmer_size;
 }

@@ -9,8 +9,11 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <algorithm>
 
 #define LEVEL_NAMES {"K", "P", "C", "O", "F", "G", "S"}
+
+#define NODES_FIND(x) (find(nodes.begin(), nodes.end(), x) != nodes.end())
 
 using namespace std;
 
@@ -31,6 +34,7 @@ bool TestTaxSearch::runTests()
     BUTT_RUN_TEST("TestTaxSearch test 6", test6());
     BUTT_RUN_TEST("TestTaxSearch test 7", test7());
     BUTT_RUN_TEST("TestTaxSearch test 8", test8());
+    BUTT_RUN_TEST("TestTaxSearch test 9", test9());
     BUTT_POST_TESTS();
 }
 
@@ -82,7 +86,7 @@ bool TestTaxSearch::testIOExceptions()
 
 /*
  * test-cases for testSearchNodes.
- * The following tree-layout is used for test1-test8
+ * The following tree-layout is used for test1-test9
  *               I
  *            /
  *          G
@@ -136,11 +140,11 @@ bool TestTaxSearch::test1()
     string seq_name = "seqname";
     string seq = "AAAA";
 
-    set< int > nodes = searcher.searchNodes(seq);
+    vector< int > nodes = searcher.searchNodes(seq);
 
     BUTT_ASSERT_EQUALS(2, nodes.size(), "Should have hit 2 nodes, got "+to_string(nodes.size()));
-    BUTT_ASSERT_TRUE(nodes.find(5) != nodes.end(), "Node 5 not found in nodes");
-    BUTT_ASSERT_TRUE(nodes.find(6) != nodes.end(), "Node 6 not found in nodes");
+    BUTT_ASSERT_TRUE(NODES_FIND(5), "Node 5 not found in nodes");
+    BUTT_ASSERT_TRUE(NODES_FIND(6), "Node 6 not found in nodes");
 
     Hit h = searcher.search(seq_name, seq);
 
@@ -195,19 +199,19 @@ bool TestTaxSearch::test2()
     remove("temp_taxIndex.txt");
 
     string seq_name = "seqname";
-    string seq = "AAAAG";
+    string seq = "AAAAC";
 
-    set< int > nodes = searcher.searchNodes(seq);
+    vector< int > nodes = searcher.searchNodes(seq);
 
     BUTT_ASSERT_EQUALS(2, nodes.size(), "Should have hit 2 nodes, got "+to_string(nodes.size()));
-//    BUTT_ASSERT_TRUE(nodes.find(5) != nodes.end(), "Node 5 not found in nodes");
-    BUTT_ASSERT_TRUE(nodes.find(6) != nodes.end(), "Node 6 not found in nodes");
-//
-//    Hit h = searcher.search(seq_name, seq);
-//
-//    BUTT_ASSERT_EQUALS(2, get<2>(h), "Should have hit 2 nodes");
-//    BUTT_ASSERT_EQUALS(seq_name, get<0>(h), "Sequence name should be "+seq_name+" but is "+get<0>(h));
-//    BUTT_ASSERT_EQUALS("K#g;P#e;C#;O#;F#;G#;S#", get<1>(h), "Consensus should be K#g;P#e;C#;O#;F#;G#;S# but is "+get<1>(h));
+    BUTT_ASSERT_TRUE(NODES_FIND(5), "Node 5 not found in nodes");
+    BUTT_ASSERT_TRUE(NODES_FIND(7), "Node 7 not found in nodes");
+
+    Hit h = searcher.search(seq_name, seq);
+
+    BUTT_ASSERT_EQUALS(2, get<2>(h), "Should have hit 2 nodes");
+    BUTT_ASSERT_EQUALS(seq_name, get<0>(h), "Sequence name should be "+seq_name+" but is "+get<0>(h));
+    BUTT_ASSERT_EQUALS("K#g;P#e;C#;O#;F#;G#;S#", get<1>(h), "Consensus should be K#g;P#e;C#;O#;F#;G#;S# but is "+get<1>(h));
 
     return true;
 }
@@ -220,9 +224,58 @@ bool TestTaxSearch::test2()
  * hits(B)>hits(A)>hits(C)
  * Expected: {B,A}
  */
-bool TestTaxSearch::test3(){
+bool TestTaxSearch::test3()
+{
+    //"#NODE_ID	PARENT_ID	LEVEL	NAME"
+    string taxIndexContents = "";
+    taxIndexContents += "0\t-1\t0\ti\n";
+    taxIndexContents += "1\t0\t1\tK#g\n";
+    taxIndexContents += "2\t1\t2\tP#d\n";
+    taxIndexContents += "3\t1\t2\tP#f\n";
+    taxIndexContents += "4\t1\t2\tP#e\n";
+    taxIndexContents += "5\t4\t3\tC#a\n";
+    taxIndexContents += "6\t4\t3\tC#b\n";
+    taxIndexContents += "7\t4\t3\tC#c\n";
 
-    return false;
+    ofstream output("temp_taxIndex.txt");
+    output<<taxIndexContents;
+    output.close();
+
+    //"#LEVEL	KMER	NODES"
+    string kmerIndexContents = "";
+    kmerIndexContents += "0\t0\t0\n";
+    kmerIndexContents += "1\t0\t1\n";
+    kmerIndexContents += "2\t0\t4\n";
+    kmerIndexContents += "3\t0\t5;6;7\n";
+    kmerIndexContents += "3\t1\t5;6\n";
+    kmerIndexContents += "3\t9\t6\n";
+
+    output = ofstream("temp_kmerIndex.txt");
+    output<<kmerIndexContents;
+    output.close();
+
+    string file1("temp_kmerIndex.txt");
+    string file2("temp_taxIndex.txt");
+    TaxSearch searcher(SeqToKMers(4, 1), 2, false, 0, new SimpleTaxConsensus(LEVEL_NAMES), file1, file2);
+    remove("temp_kmerIndex.txt");
+    remove("temp_taxIndex.txt");
+
+    string seq_name = "seqname";
+    string seq = "AAAACC";
+
+    vector< int > nodes = searcher.searchNodes(seq);
+
+    BUTT_ASSERT_EQUALS(2, nodes.size(), "Should have hit 2 nodes, got "+to_string(nodes.size()));
+    BUTT_ASSERT_TRUE(nodes[0] == 6, "Node 6 not first hit");
+    BUTT_ASSERT_TRUE(nodes[1] == 5, "Node 5 not second hit");
+
+    Hit h = searcher.search(seq_name, seq);
+
+    BUTT_ASSERT_EQUALS(2, get<2>(h), "Should have hit 2 nodes");
+    BUTT_ASSERT_EQUALS(seq_name, get<0>(h), "Sequence name should be "+seq_name+" but is "+get<0>(h));
+    BUTT_ASSERT_EQUALS("K#g;P#e;C#;O#;F#;G#;S#", get<1>(h), "Consensus should be K#g;P#e;C#;O#;F#;G#;S# but is "+get<1>(h));
+
+    return true;
 }
 
 /**
@@ -230,17 +283,63 @@ bool TestTaxSearch::test3(){
  * hits_max = 2
  * best_only = true
  * Query hits only: A, B, C, E, G, I
- * hits(A)>hits(B)>hits(C)
- * Expected: {A}
+ * hits(B)>hits(A)>hits(C)
+ * Expected: {B}
  */
 bool TestTaxSearch::test4()
 {
+    //"#NODE_ID	PARENT_ID	LEVEL	NAME"
+    string taxIndexContents = "";
+    taxIndexContents += "0\t-1\t0\ti\n";
+    taxIndexContents += "1\t0\t1\tK#g\n";
+    taxIndexContents += "2\t1\t2\tP#d\n";
+    taxIndexContents += "3\t1\t2\tP#f\n";
+    taxIndexContents += "4\t1\t2\tP#e\n";
+    taxIndexContents += "5\t4\t3\tC#a\n";
+    taxIndexContents += "6\t4\t3\tC#b\n";
+    taxIndexContents += "7\t4\t3\tC#c\n";
 
-    return false;
+    ofstream output("temp_taxIndex.txt");
+    output<<taxIndexContents;
+    output.close();
+
+    //"#LEVEL	KMER	NODES"
+    string kmerIndexContents = "";
+    kmerIndexContents += "0\t0\t0\n";
+    kmerIndexContents += "1\t0\t1\n";
+    kmerIndexContents += "2\t0\t4\n";
+    kmerIndexContents += "3\t0\t5;6;7\n";
+    kmerIndexContents += "3\t1\t6\n";
+
+    output = ofstream("temp_kmerIndex.txt");
+    output<<kmerIndexContents;
+    output.close();
+
+    string file1("temp_kmerIndex.txt");
+    string file2("temp_taxIndex.txt");
+    TaxSearch searcher(SeqToKMers(4, 1), 2, true, 0, new SimpleTaxConsensus(LEVEL_NAMES), file1, file2);
+    remove("temp_kmerIndex.txt");
+    remove("temp_taxIndex.txt");
+
+    string seq_name = "seqname";
+    string seq = "AAAAC";
+
+    vector< int > nodes = searcher.searchNodes(seq);
+
+    BUTT_ASSERT_EQUALS(1, nodes.size(), "Should have hit 1 nodes, got "+to_string(nodes.size()));
+    BUTT_ASSERT_TRUE(nodes[0] == 6, "Node 6 not found in nodes");
+
+    Hit h = searcher.search(seq_name, seq);
+
+    BUTT_ASSERT_EQUALS(1, get<2>(h), "Should have hit 1 node");
+    BUTT_ASSERT_EQUALS(seq_name, get<0>(h), "Sequence name should be "+seq_name+" but is "+get<0>(h));
+    BUTT_ASSERT_EQUALS("K#g;P#e;C#b;O#;F#;G#;S#", get<1>(h), "Consensus should be K#g;P#e;C#b;O#;F#;G#;S# but is "+get<1>(h));
+
+    return true;
 }
 
 /**
- * Tests best_only with more than one hit
+ * Tests best_only with multple best hits.
  * hits_max = 2
  * best_only = true
  * Query hits only: A, B, C, E, G, I
@@ -249,8 +348,55 @@ bool TestTaxSearch::test4()
  */
 bool TestTaxSearch::test5()
 {
+    //"#NODE_ID	PARENT_ID	LEVEL	NAME"
+    string taxIndexContents = "";
+    taxIndexContents += "0\t-1\t0\ti\n";
+    taxIndexContents += "1\t0\t1\tK#g\n";
+    taxIndexContents += "2\t1\t2\tP#d\n";
+    taxIndexContents += "3\t1\t2\tP#f\n";
+    taxIndexContents += "4\t1\t2\tP#e\n";
+    taxIndexContents += "5\t4\t3\tC#a\n";
+    taxIndexContents += "6\t4\t3\tC#b\n";
+    taxIndexContents += "7\t4\t3\tC#c\n";
 
-    return false;
+    ofstream output("temp_taxIndex.txt");
+    output<<taxIndexContents;
+    output.close();
+
+    //"#LEVEL	KMER	NODES"
+    string kmerIndexContents = "";
+    kmerIndexContents += "0\t0\t0\n";
+    kmerIndexContents += "1\t0\t1\n";
+    kmerIndexContents += "2\t0\t4\n";
+    kmerIndexContents += "3\t0\t5;6;7\n";
+    kmerIndexContents += "3\t1\t6;7\n";
+
+    output = ofstream("temp_kmerIndex.txt");
+    output<<kmerIndexContents;
+    output.close();
+
+    string file1("temp_kmerIndex.txt");
+    string file2("temp_taxIndex.txt");
+    TaxSearch searcher(SeqToKMers(4, 1), 2, true, 0, new SimpleTaxConsensus(LEVEL_NAMES), file1, file2);
+    remove("temp_kmerIndex.txt");
+    remove("temp_taxIndex.txt");
+
+    string seq_name = "seqname";
+    string seq = "AAAAC";
+
+    vector< int > nodes = searcher.searchNodes(seq);
+
+    BUTT_ASSERT_EQUALS(2, nodes.size(), "Should have hit 2 nodes, got "+to_string(nodes.size()));
+    BUTT_ASSERT_TRUE(NODES_FIND(6), "Node 6 not found in nodes");
+    BUTT_ASSERT_TRUE(NODES_FIND(7), "Node 7 not found in nodes");
+
+    Hit h = searcher.search(seq_name, seq);
+
+    BUTT_ASSERT_EQUALS(2, get<2>(h), "Should have hit 2 node");
+    BUTT_ASSERT_EQUALS(seq_name, get<0>(h), "Sequence name should be "+seq_name+" but is "+get<0>(h));
+    BUTT_ASSERT_EQUALS("K#g;P#e;C#;O#;F#;G#;S#", get<1>(h), "Consensus should be K#g;P#e;C#;O#;F#;G#;S# but is "+get<1>(h));
+
+    return true;
 }
 
 /**
@@ -259,12 +405,112 @@ bool TestTaxSearch::test5()
  * best_only = true
  * Query hits only: A, B, C, E, G, I
  * hits(A)=hits(B)=hits(C)
- * Expected: {A,B}|{A,C}|{B,C}
+ * Expected: {A,B}|{A,C}|{B,C} (2 nodes only tested)
  */
 bool TestTaxSearch::test6()
 {
+    //"#NODE_ID	PARENT_ID	LEVEL	NAME"
+    string taxIndexContents = "";
+    taxIndexContents += "0\t-1\t0\ti\n";
+    taxIndexContents += "1\t0\t1\tK#g\n";
+    taxIndexContents += "2\t1\t2\tP#d\n";
+    taxIndexContents += "3\t1\t2\tP#f\n";
+    taxIndexContents += "4\t1\t2\tP#e\n";
+    taxIndexContents += "5\t4\t3\tC#a\n";
+    taxIndexContents += "6\t4\t3\tC#b\n";
+    taxIndexContents += "7\t4\t3\tC#c\n";
 
-    return false;
+    ofstream output("temp_taxIndex.txt");
+    output<<taxIndexContents;
+    output.close();
+
+    //"#LEVEL	KMER	NODES"
+    string kmerIndexContents = "";
+    kmerIndexContents += "0\t0\t0\n";
+    kmerIndexContents += "1\t0\t1\n";
+    kmerIndexContents += "2\t0\t4\n";
+    kmerIndexContents += "3\t0\t5;6;7\n";
+
+    output = ofstream("temp_kmerIndex.txt");
+    output<<kmerIndexContents;
+    output.close();
+
+    string file1("temp_kmerIndex.txt");
+    string file2("temp_taxIndex.txt");
+    TaxSearch searcher(SeqToKMers(4, 1), 2, true, 0, new SimpleTaxConsensus(LEVEL_NAMES), file1, file2);
+    remove("temp_kmerIndex.txt");
+    remove("temp_taxIndex.txt");
+
+    string seq_name = "seqname";
+    string seq = "AAAAC";
+
+    vector< int > nodes = searcher.searchNodes(seq);
+
+    BUTT_ASSERT_EQUALS(2, nodes.size(), "Should have hit 2 nodes, got "+to_string(nodes.size()));
+
+    Hit h = searcher.search(seq_name, seq);
+
+    BUTT_ASSERT_EQUALS(2, get<2>(h), "Should have hit 2 node");
+    BUTT_ASSERT_EQUALS(seq_name, get<0>(h), "Sequence name should be "+seq_name+" but is "+get<0>(h));
+    BUTT_ASSERT_EQUALS("K#g;P#e;C#;O#;F#;G#;S#", get<1>(h), "Consensus should be K#g;P#e;C#;O#;F#;G#;S# but is "+get<1>(h));
+
+    return true;
+}
+
+/**
+ * Tests hits_max > hits return OK. 
+ * hits_max = 5
+ * best_only = false
+ * Query hits only: A, B, C, E, G, I
+ * hits(A)=hits(B)=hits(C)
+ * Expected: 3 hits
+ */
+bool TestTaxSearch::test7()
+{
+    //"#NODE_ID	PARENT_ID	LEVEL	NAME"
+    string taxIndexContents = "";
+    taxIndexContents += "0\t-1\t0\ti\n";
+    taxIndexContents += "1\t0\t1\tK#g\n";
+    taxIndexContents += "2\t1\t2\tP#d\n";
+    taxIndexContents += "3\t1\t2\tP#f\n";
+    taxIndexContents += "4\t1\t2\tP#e\n";
+    taxIndexContents += "5\t4\t3\tC#a\n";
+    taxIndexContents += "6\t4\t3\tC#b\n";
+    taxIndexContents += "7\t4\t3\tC#c\n";
+
+    ofstream output("temp_taxIndex.txt");
+    output<<taxIndexContents;
+    output.close();
+
+    //"#LEVEL	KMER	NODES"
+    string kmerIndexContents = "";
+    kmerIndexContents += "0\t0\t0\n";
+    kmerIndexContents += "1\t0\t1\n";
+    kmerIndexContents += "2\t0\t4\n";
+    kmerIndexContents += "3\t0\t5;6;7\n";
+
+    output = ofstream("temp_kmerIndex.txt");
+    output<<kmerIndexContents;
+    output.close();
+
+    string file1("temp_kmerIndex.txt");
+    string file2("temp_taxIndex.txt");
+    TaxSearch searcher(SeqToKMers(4, 1), 5, false, 0, new SimpleTaxConsensus(LEVEL_NAMES), file1, file2);
+    remove("temp_kmerIndex.txt");
+    remove("temp_taxIndex.txt");
+
+    string seq_name = "seqname";
+    string seq = "AAAAC";
+
+    vector< int > nodes = searcher.searchNodes(seq);
+
+    BUTT_ASSERT_EQUALS(3, nodes.size(), "Should have hit 3 nodes, got "+to_string(nodes.size()));
+
+    Hit h = searcher.search(seq_name, seq);
+
+    BUTT_ASSERT_EQUALS(3, get<2>(h), "Should have hit 3 nodes");
+
+    return true;
 }
 
 /**
@@ -274,23 +520,109 @@ bool TestTaxSearch::test6()
  * Query hits only: E, G, I
  * Expected: {E}
  */
-bool TestTaxSearch::test7()
+bool TestTaxSearch::test8()
 {
+    //"#NODE_ID	PARENT_ID	LEVEL	NAME"
+    string taxIndexContents = "";
+    taxIndexContents += "0\t-1\t0\ti\n";
+    taxIndexContents += "1\t0\t1\tK#g\n";
+    taxIndexContents += "2\t1\t2\tP#d\n";
+    taxIndexContents += "3\t1\t2\tP#f\n";
+    taxIndexContents += "4\t1\t2\tP#e\n";
+    taxIndexContents += "5\t4\t3\tC#a\n";
+    taxIndexContents += "6\t4\t3\tC#b\n";
+    taxIndexContents += "7\t4\t3\tC#c\n";
 
-    return false;
+    ofstream output("temp_taxIndex.txt");
+    output<<taxIndexContents;
+    output.close();
+
+    //"#LEVEL	KMER	NODES"
+    string kmerIndexContents = "";
+    kmerIndexContents += "0\t0\t0\n";
+    kmerIndexContents += "1\t0\t1\n";
+    kmerIndexContents += "2\t0\t4\n";
+    kmerIndexContents += "3\t1\t5;6;7\n";
+
+    output = ofstream("temp_kmerIndex.txt");
+    output<<kmerIndexContents;
+    output.close();
+
+    string file1("temp_kmerIndex.txt");
+    string file2("temp_taxIndex.txt");
+    TaxSearch searcher(SeqToKMers(4, 1), 2, false, 0, new SimpleTaxConsensus(LEVEL_NAMES), file1, file2);
+    remove("temp_kmerIndex.txt");
+    remove("temp_taxIndex.txt");
+
+    string seq_name = "seqname";
+    string seq = "AAAA";
+
+    vector< int > nodes = searcher.searchNodes(seq);
+
+    BUTT_ASSERT_EQUALS(1, nodes.size(), "Should have hit 1 node, got "+to_string(nodes.size()));
+
+    Hit h = searcher.search(seq_name, seq);
+
+    BUTT_ASSERT_EQUALS(1, get<2>(h), "Should have hit 1 node");
+    BUTT_ASSERT_EQUALS(seq_name, get<0>(h), "Sequence name should be "+seq_name+" but is "+get<0>(h));
+    BUTT_ASSERT_EQUALS("K#g;P#e;C#;O#;F#;G#;S#", get<1>(h), "Consensus should be K#g;P#e;C#;O#;F#;G#;S# but is "+get<1>(h));
+
+    return true;
 }
 
 /**
- * Tests that empty set is returned if no hits
+ * Tests that empty vector is returned if no hits
  * hits_max = 2
  * best_only = false
  * Query hits only: {}
  * Expected: {}
  */
-bool TestTaxSearch::test8()
+bool TestTaxSearch::test9()
 {
+    //"#NODE_ID	PARENT_ID	LEVEL	NAME"
+    string taxIndexContents = "";
+    taxIndexContents += "0\t-1\t0\ti\n";
+    taxIndexContents += "1\t0\t1\tK#g\n";
+    taxIndexContents += "2\t1\t2\tP#d\n";
+    taxIndexContents += "3\t1\t2\tP#f\n";
+    taxIndexContents += "4\t1\t2\tP#e\n";
+    taxIndexContents += "5\t4\t3\tC#a\n";
+    taxIndexContents += "6\t4\t3\tC#b\n";
+    taxIndexContents += "7\t4\t3\tC#c\n";
 
-    return false;
+    ofstream output("temp_taxIndex.txt");
+    output<<taxIndexContents;
+    output.close();
+
+    //"#LEVEL	KMER	NODES"
+    string kmerIndexContents = "";
+    kmerIndexContents += "0\t0\t0\n";
+    kmerIndexContents += "1\t0\t1\n";
+    kmerIndexContents += "2\t0\t4\n";
+    kmerIndexContents += "3\t0\t5;6;7\n";
+
+    output = ofstream("temp_kmerIndex.txt");
+    output<<kmerIndexContents;
+    output.close();
+
+    string file1("temp_kmerIndex.txt");
+    string file2("temp_taxIndex.txt");
+    TaxSearch searcher(SeqToKMers(4, 1), 2, false, 0, new SimpleTaxConsensus(LEVEL_NAMES), file1, file2);
+    remove("temp_kmerIndex.txt");
+    remove("temp_taxIndex.txt");
+
+    string seq_name = "seqname";
+    string seq = "GGGG";
+
+    vector< int > nodes = searcher.searchNodes(seq);
+
+    BUTT_ASSERT_EQUALS(0, nodes.size(), "Should have hit 0 nodes, got "+to_string(nodes.size()));
+
+    Hit h = searcher.search(seq_name, seq);
+
+    BUTT_ASSERT_EQUALS(0, get<2>(h), "Should have hit 0 nodes");
+    BUTT_ASSERT_EQUALS(seq_name, get<0>(h), "Sequence name should be "+seq_name+" but is "+get<0>(h));
+    BUTT_ASSERT_EQUALS("Unclassified", get<1>(h), "Consensus should be 'Unclassified' but is "+get<1>(h));
+
+    return true;
 }
-
-

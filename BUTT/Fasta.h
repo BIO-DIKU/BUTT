@@ -1,5 +1,7 @@
-#ifndef FASTA_H
-#define FASTA_H
+/* Copyright 2015 BIO-DIKU */
+
+#ifndef BUTT_FASTA_H_
+#define BUTT_FASTA_H_
 
 #include <string>
 #include <vector>
@@ -12,7 +14,8 @@
 struct FastaEntry{
     /** Header info contained between '>' character and end-of-line */
     std::string header;
-    /** Sequence info is all printable characters between two header-lines or a header-line and eof. */
+    /** Sequence info is all printable characters between two header-lines or a
+     * header-line and eof. */
     std::string sequence;
 };
 
@@ -20,18 +23,17 @@ struct FastaEntry{
  * @brief Exception thrown by Fasta class
  */
 class FastaException: public std::exception {
-public:
-    FastaException(std::string &msg): exceptionMsg(msg){}
-    FastaException(const FastaException &e): exceptionMsg(e.exceptionMsg){}
+ public:
+    FastaException(std::string &msg): exceptionMsg(msg) {}
+    FastaException(const FastaException &e): exceptionMsg(e.exceptionMsg) {}
     const std::string exceptionMsg;
 };
 
 /**
  * @brief Class for parsing fasta-files
  */
-class Fasta
-{
-public:
+class Fasta {
+ public:
     /**
      * @brief Set up a fasta-file for reading from the specified file.
      * Throws an exception if the first entry has empty header.
@@ -52,9 +54,9 @@ public:
      */
     bool hasNextEntry();
 
-private:
+ private:
     std::ifstream inputStream;
     std::string nextHeader;
 };
 
-#endif // FASTA_H
+#endif   // BUTT_FASTA_H_

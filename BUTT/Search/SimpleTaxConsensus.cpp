@@ -15,7 +15,7 @@ string SimpleTaxConsensus::buildConsensus(vector< vector< string > > &tax_table)
 {
     int rows           = tax_table.size();
     int level          = 0;
-    int min_row_length = 999999;
+    unsigned int min_row_length = 999999;
     string ret;
 
     if(rows==0) return "";
@@ -25,7 +25,7 @@ string SimpleTaxConsensus::buildConsensus(vector< vector< string > > &tax_table)
             min_row_length = tax_table[row].size();
     }
 
-    for(int col=0;col<min_row_length;++col){
+    for(unsigned int col=0;col<min_row_length;++col){
         if (columnPerfectConsensus(tax_table, col)) {
             if (tax_table[0][col][1] == '#') {
                 if (level > 0)
@@ -47,7 +47,7 @@ string SimpleTaxConsensus::buildConsensus(vector< vector< string > > &tax_table)
 
 bool SimpleTaxConsensus::columnPerfectConsensus(vector< vector< string > > &tax_table, int col)
 {
-    for(int row=1;row<tax_table.size();row++){
+    for(unsigned int row=1;row<tax_table.size();row++){
         if (tax_table[row][col] != tax_table[0][col])
             return false;
     }
@@ -59,7 +59,7 @@ string SimpleTaxConsensus::buildTaxSuffix(int level)
 {
     string suffix = "";
 
-    for(int i=level;i < level_names.size(); ++i){
+    for(unsigned int i=level;i < level_names.size(); ++i){
         if (i > 0)
             suffix += ";";
         suffix += level_names[i] + "#";

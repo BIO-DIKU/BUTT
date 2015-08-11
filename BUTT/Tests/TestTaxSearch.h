@@ -94,13 +94,23 @@ private:
     bool test6();
 
     /**
+     * Tests hits_max > hits return OK. 
+     * hits_max = 5
+     * best_only = true
+     * Query hits only: A, B, C, E, G, I
+     * hits(A)=hits(B)=hits(C)
+     * Expected: 3 hits
+     */
+    bool test7();
+
+    /**
      * Tests hits on second level
      * hits_max = 2
      * best_only = false
      * Query hits only: E, G, I
      * Expected: {E}
      */
-    bool test7();
+    bool test8();
 
     /**
      * Tests that empty set is returned if no hits
@@ -109,9 +119,7 @@ private:
      * Query hits only: {}
      * Expected: {}
      */
-    bool test8();
-
-
+    bool test9();
 
     /*
      * test-cases for testSearch.
