@@ -104,6 +104,8 @@ void TaxSearch::readKMerIndex(std::string &file_path)
 
 }
 
+// Update the histogram so the count for each node reflects the number of kmers in the kmer set for that node
+
 /**
  *
  * Debug function where second argument can be a literal "sequence".
