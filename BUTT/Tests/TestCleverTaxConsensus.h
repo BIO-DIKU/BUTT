@@ -20,70 +20,78 @@ class TestCleverTaxConsensus {
      * Tests that empty search for non-existing taxonomy gives consensus
      * taxonomy with all levels empty.
      * Input: Kmers not corresponding to any node
-     * Expected: ("Q", "K#;P#;C#;O#;F#;G#;S#", 0)
+     *
+     * Input:    (("K#a")
+     *            ("K#x")
+     *
+     * Expected: ("query_name", "K#;P#;C#;O#;F#;G#;S#", 0)
      */
     bool testBuildConsensus1();
 
     /**
      * Tests consensus of perfect hit
      * Input: kmers matching: C_1, C_1
-     * Expected: ("Q", "K#A_1(100/100);P#B_1(100/100);C#C_1(100/100);O#;F#;G#;S#", 2)
+     *
+     * Input:    (("K#a", "1", "P#b", "1", "C#c", "1"),
+     *            ("K#a", "1", "P#b", "1", "C#c", "1")
+     *
+     * Expected: ("query_name", "K#A_1(100/100);P#B_1(100/100);C#C_1(100/100);O#;F#;G#;S#", 2)
      */
     bool testBuildConsensus2();
 
     /**
      * Tests consensus of hit down to C-level, first word
      * Input: kmers matching: C_1, C_2
-     * Expected: ("Q", "K#A_1(100/100);P#B_1(100/100);C#C(100);O#;F#;G#;S#", 2)
+     * Expected: ("query_name", "K#A_1(100/100);P#B_1(100/100);C#C(100);O#;F#;G#;S#", 2)
      */
     bool testBuildConsensus3();
 
     /**
      * Tests consensus of hit down to P-level, second word
      * Input: kmers matching: C_1, X_9
-     * Expected: ("Q", "K#A_1(100/100);P#B_1(100/100);C#;O#;F#;G#;S#", 2)
+     * Expected: ("query_name", "K#A_1(100/100);P#B_1(100/100);C#;O#;F#;G#;S#", 2)
      */
     bool testBuildConsensus4();
 
     /**
      * Tests consensus of hit down to P-level, second word
      * Input: kmers matching: B_1, B_1
-     * Expected: ("Q", "K#A_1(100/100);P#B_1(100/100);C#;O#;F#;G#;S#", 2)
+     * Expected: ("query_name", "K#A_1(100/100);P#B_1(100/100);C#;O#;F#;G#;S#", 2)
      */
     bool testBuildConsensus5();
 
     /**
      * Tests consensus of hit down to P-level, first word
      * Input: kmers matching: B_1, B_2
-     * Expected: ("Q", "K#A_1(100/100);P#B(100);C#;O#;F#;G#;S#", 2)
+     * Expected: ("query_name", "K#A_1(100/100);P#B(100);C#;O#;F#;G#;S#", 2)
      */
     bool testBuildConsensus6();
 
     /**
      * Tests consensus of hit down to K-level, second word
      * Input: kmers matching: B_1, Y_8
-     * Expected: ("Q", "K#A_1(100/100);P#;C#;O#;F#;G#;S#", 2)
+     * Expected: ("query_name", "K#A_1(100/100);P#;C#;O#;F#;G#;S#", 2)
      */
     bool testBuildConsensus7();
 
     /**
      * Tests consensus of hit down to K-level, second word
      * Input: kmers matching: A_1, A_1
-     * Expected: ("Q", "K#A_1(100/100);P#;C#;O#;F#;G#;S#", 2)
+     * Expected: ("query_name", "K#A_1(100/100);P#;C#;O#;F#;G#;S#", 2)
      */
     bool testBuildConsensus8();
 
     /**
      * Tests consensus of hit down to K-level, first word
      * Input: kmers matching: A_1, A_2
-     * Expected: ("Q", "K#A(100);P#;C#;O#;F#;G#;S#", 2)
+     * Expected: ("query_name", "K#A(100);P#;C#;O#;F#;G#;S#", 2)
      */
     bool testBuildConsensus9();
 
     /**
      * Tests no consensus, but with hits
      * Input: kmers matching: A_1, Z_7
-     * Expected: ("Q", "K#;P#;C#;O#;F#;G#;S#", 2)
+     * Expected: ("query_name", "K#;P#;C#;O#;F#;G#;S#", 2)
      */
     bool testBuildConsensus10();
 };

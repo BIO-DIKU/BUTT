@@ -4,5 +4,15 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-CleverTaxConsensus	/Users/maasha/install/src/BUTT/BUTT/Search/CleverTaxConsensus.cpp	/^CleverTaxConsensus::CleverTaxConsensus(vector < string > _level_names) {$/;"	function	line:9	class:CleverTaxConsensus	signature:(vector < string > _level_names)
-buildConsensus	/Users/maasha/install/src/BUTT/BUTT/Search/CleverTaxConsensus.cpp	/^string CleverTaxConsensus::buildConsensus(vector< vector< string > > &tax_table) {$/;"	function	line:13	class:CleverTaxConsensus	signature:(vector< vector< string > > &tax_table)
+TestCleverTaxConsensus	/Users/maasha/install/src/BUTT/BUTT/Tests/TestCleverTaxConsensus.cpp	/^TestCleverTaxConsensus::TestCleverTaxConsensus(): consensus({"K", "P", "C", "O", "F", "G", "S"}) {}$/;"	function	line:13	class:TestCleverTaxConsensus	signature:()
+runTests	/Users/maasha/install/src/BUTT/BUTT/Tests/TestCleverTaxConsensus.cpp	/^bool TestCleverTaxConsensus::runTests() {$/;"	function	line:15	class:TestCleverTaxConsensus	signature:()
+testBuildConsensus1	/Users/maasha/install/src/BUTT/BUTT/Tests/TestCleverTaxConsensus.cpp	/^bool TestCleverTaxConsensus::testBuildConsensus1() {$/;"	function	line:36	class:TestCleverTaxConsensus	signature:()
+testBuildConsensus2	/Users/maasha/install/src/BUTT/BUTT/Tests/TestCleverTaxConsensus.cpp	/^bool TestCleverTaxConsensus::testBuildConsensus2() {$/;"	function	line:52	class:TestCleverTaxConsensus	signature:()
+testBuildConsensus3	/Users/maasha/install/src/BUTT/BUTT/Tests/TestCleverTaxConsensus.cpp	/^bool TestCleverTaxConsensus::testBuildConsensus3() {$/;"	function	line:64	class:TestCleverTaxConsensus	signature:()
+testBuildConsensus4	/Users/maasha/install/src/BUTT/BUTT/Tests/TestCleverTaxConsensus.cpp	/^bool TestCleverTaxConsensus::testBuildConsensus4() {$/;"	function	line:68	class:TestCleverTaxConsensus	signature:()
+testBuildConsensus5	/Users/maasha/install/src/BUTT/BUTT/Tests/TestCleverTaxConsensus.cpp	/^bool TestCleverTaxConsensus::testBuildConsensus5() {$/;"	function	line:72	class:TestCleverTaxConsensus	signature:()
+testBuildConsensus6	/Users/maasha/install/src/BUTT/BUTT/Tests/TestCleverTaxConsensus.cpp	/^bool TestCleverTaxConsensus::testBuildConsensus6() {$/;"	function	line:76	class:TestCleverTaxConsensus	signature:()
+testBuildConsensus7	/Users/maasha/install/src/BUTT/BUTT/Tests/TestCleverTaxConsensus.cpp	/^bool TestCleverTaxConsensus::testBuildConsensus7() {$/;"	function	line:80	class:TestCleverTaxConsensus	signature:()
+testBuildConsensus8	/Users/maasha/install/src/BUTT/BUTT/Tests/TestCleverTaxConsensus.cpp	/^bool TestCleverTaxConsensus::testBuildConsensus8() {$/;"	function	line:84	class:TestCleverTaxConsensus	signature:()
+testBuildConsensus9	/Users/maasha/install/src/BUTT/BUTT/Tests/TestCleverTaxConsensus.cpp	/^bool TestCleverTaxConsensus::testBuildConsensus9() {$/;"	function	line:88	class:TestCleverTaxConsensus	signature:()
+testBuildConsensus10	/Users/maasha/install/src/BUTT/BUTT/Tests/TestCleverTaxConsensus.cpp	/^bool TestCleverTaxConsensus::testBuildConsensus10() {$/;"	function	line:92	class:TestCleverTaxConsensus	signature:()

@@ -31,7 +31,7 @@ COPY_DIR	BUTT/Makefile	/^COPY_DIR      = cp -f -R$/;"	m
 COPY_FILE	BUTT/Makefile	/^COPY_FILE     = cp -f$/;"	m
 CXX	BUTT/Makefile	/^CXX           = clang++$/;"	m
 CXXFLAGS	BUTT/Makefile	/^CXXFLAGS      = -pipe -stdlib=libc++ -mmacosx-version-min=10.7 -std=c++11 -g -arch x86_64 -Wall -W $(DEFINES)$/;"	m
-CleverTaxConsensus	BUTT/Search/CleverTaxConsensus.cpp	/^CleverTaxConsensus::CleverTaxConsensus(vector < string > _level_names)$/;"	f	class:CleverTaxConsensus
+CleverTaxConsensus	BUTT/Search/CleverTaxConsensus.cpp	/^CleverTaxConsensus::CleverTaxConsensus(vector < string > _level_names) {$/;"	f	class:CleverTaxConsensus
 CleverTaxConsensus	BUTT/Search/CleverTaxConsensus.h	/^class CleverTaxConsensus: public TaxConsensus {$/;"	c
 CleverTaxConsensusException	BUTT/Search/CleverTaxConsensus.h	/^    CleverTaxConsensusException(const CleverTaxConsensusException &e):$/;"	f	class:CleverTaxConsensusException
 CleverTaxConsensusException	BUTT/Search/CleverTaxConsensus.h	/^    CleverTaxConsensusException(std::string &msg): exceptionMsg(msg) {}$/;"	f	class:CleverTaxConsensusException
@@ -144,15 +144,13 @@ assertFalse	BUTT/Tests/TestHelper.cpp	/^bool BUTTTest::assertFalse(const bool &a
 assertTrue	BUTT/Tests/TestHelper.cpp	/^bool BUTTTest::assertTrue(const bool &actual, std::string message) {$/;"	f	class:BUTTTest
 benchmarkBuilder	BUTT/main.cpp	/^void benchmarkBuilder(int argc, char** argv) {$/;"	f
 best_only	BUTT/Search/TaxSearch.h	/^    const bool best_only;$/;"	m	class:TaxSearch
-buildConsensus	BUTT/Search/CleverTaxConsensus.cpp	/^string CleverTaxConsensus::buildConsensus(vector< vector< string > > &tax_table)$/;"	f	class:CleverTaxConsensus
+buildConsensus	BUTT/Search/CleverTaxConsensus.cpp	/^string CleverTaxConsensus::buildConsensus(vector< vector< string > > &tax_table) {$/;"	f	class:CleverTaxConsensus
 buildConsensus	BUTT/Search/SimpleTaxConsensus.cpp	/^string SimpleTaxConsensus::buildConsensus(vector< vector< string > > &tax_table)$/;"	f	class:SimpleTaxConsensus
 buildKMerIndex	BUTT/Index/TaxBuilder.cpp	/^void TaxBuilder::buildKMerIndex(TaxNode* n, int depth,$/;"	f	class:TaxBuilder
-buildTaxSuffix	BUTT/Search/CleverTaxConsensus.cpp	/^string CleverTaxConsensus::buildTaxSuffix(int level)$/;"	f	class:CleverTaxConsensus
 buildTaxSuffix	BUTT/Search/SimpleTaxConsensus.cpp	/^string SimpleTaxConsensus::buildTaxSuffix(int level)$/;"	f	class:SimpleTaxConsensus
 builder	BUTT/Tests/TestTaxBuilder.h	/^    TaxBuilder builder;$/;"	m	class:TestTaxBuilder
 checkTaxEntry	BUTT/Index/TaxBuilder.cpp	/^bool TaxBuilder::checkTaxEntry(std::string &taxonomyString,$/;"	f	class:TaxBuilder
 children	BUTT/Index/TaxNode.h	/^    std::map<std::string, TaxNode*> children;$/;"	m	class:TaxNode
-columnPerfectConsensus	BUTT/Search/CleverTaxConsensus.cpp	/^bool CleverTaxConsensus::columnPerfectConsensus(vector< vector< string > > &tax_table, int col)$/;"	f	class:CleverTaxConsensus
 columnPerfectConsensus	BUTT/Search/SimpleTaxConsensus.cpp	/^bool SimpleTaxConsensus::columnPerfectConsensus(vector< vector< string > > &tax_table, int col)$/;"	f	class:SimpleTaxConsensus
 consensus	BUTT/Tests/TestCleverTaxConsensus.h	/^    CleverTaxConsensus consensus;$/;"	m	class:TestCleverTaxConsensus
 consensus	BUTT/Tests/TestSimpleTaxConsensus.h	/^    SimpleTaxConsensus consensus;$/;"	m	class:TestSimpleTaxConsensus

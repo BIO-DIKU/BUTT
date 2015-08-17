@@ -1,12 +1,12 @@
 /* Copyright 2015 BIO-DIKU */
 
-#include "TestHelper.h"
-#include "TestCleverTaxConsensus.h"
-#include "Search/TaxConsensus.h"
-
 #include <iostream>
 #include <vector>
 #include <string>
+
+#include "TestHelper.h"
+#include "TestCleverTaxConsensus.h"
+#include "Search/TaxConsensus.h"
 
 using namespace std;
 
@@ -28,27 +28,37 @@ bool TestCleverTaxConsensus::runTests() {
 }
 
 /**
- * Tests that empty search for non-existing taxonomy gives consensus
- * taxonomy with all levels empty.
- * Input: Kmers not corresponding to any node
- * Expected: ("Q", "K#;P#;C#;O#;F#;G#;S#", 0)
- */
+* Tests that empty search for non-existing taxonomy gives consensus
+* taxonomy with all levels empty.
+* Input: Kmers not corresponding to any node
+*
+* Input:    (("K#a")
+*            ("K#x")
+*
+* Expected: ("query_name", "K#;P#;C#;O#;F#;G#;S#", 0)
+*/
 bool TestCleverTaxConsensus::testBuildConsensus1() {
     vector< vector< string> > tax_table = {
         {"K#a"},
         {"K#x"}
     };
 
-    BUTT_ASSERT_EQUALS("K#;P#;C#;O#;F#;G#;S#", consensus.buildConsensus(tax_table), "Perfect match didn't work.");
+    BUTT_ASSERT_EQUALS("K#;P#;C#;O#;F#;G#;S#",
+                       consensus.buildConsensus(tax_table),
+                       "No match should be all empty.");
 
     return true;
 }
 
 /**
- * Tests consensus of perfect hit
- * Input: kmers matching: C_1, C_1
- * Expected: ("Q", "K#A_1(100/100);P#B_1(100/100);C#C_1(100/100);O#;F#;G#;S#", 2)
- */
+* Tests consensus of perfect hit
+* Input: kmers matching: C_1, C_1
+*
+* Input:    (("K#a", "1", "P#b", "1", "C#c", "1"),
+*            ("K#a", "1", "P#b", "1", "C#c", "1")
+*
+* Expected: ("query_name", "K#A_1(100/100);P#B_1(100/100);C#C_1(100/100);O#;F#;G#;S#", 2)
+*/
 bool TestCleverTaxConsensus::testBuildConsensus2() {
     vector< vector< string> > tax_table = {
         {"K#a", "1", "P#b", "1", "C#c", "1"},
@@ -56,7 +66,8 @@ bool TestCleverTaxConsensus::testBuildConsensus2() {
     };
 
     BUTT_ASSERT_EQUALS("K#A_1(100/100);P#B_1(100/100);C#C_1(100/100);O#;F#;G#;S#",
-                       consensus.buildConsensus(tax_table), "Perfect match didn't work.");
+                       consensus.buildConsensus(tax_table),
+                       "Perfect match didn't work.");
 
     return true;
 }
@@ -92,4 +103,3 @@ bool TestCleverTaxConsensus::testBuildConsensus9() {
 bool TestCleverTaxConsensus::testBuildConsensus10() {
     return false;
 }
-

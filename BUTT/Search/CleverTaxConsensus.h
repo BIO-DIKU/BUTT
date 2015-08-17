@@ -56,6 +56,15 @@ class CleverTaxConsensus: public TaxConsensus {
     }
 
  private:
+
+   /**
+    * Determines the minimum row length.
+    * @param  tax_table  A taxonomy table.
+    * @param  rows       Number of rows in table.
+    * @return            Minimum row length.
+    */
+    unsigned int minRowLength(std::vector< std::vector< std::string > > &tax_table, int rows);
+
     std::vector< std::string > level_names;
 
     std::string buildTaxSuffix(int level);

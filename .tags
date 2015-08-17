@@ -1,2 +1,310 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	0	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+COMMON_H	/Users/maasha/install/src/BUTT/BUTT/Common.h	/^#define COMMON_H$/;"	macro	line:2
+NUCL_BIT	/Users/maasha/install/src/BUTT/BUTT/Common.h	/^#define NUCL_BIT /;"	macro	line:10
+NUCL_A	/Users/maasha/install/src/BUTT/BUTT/Common.h	/^#define NUCL_A /;"	macro	line:12
+NUCL_C	/Users/maasha/install/src/BUTT/BUTT/Common.h	/^#define NUCL_C /;"	macro	line:13
+NUCL_G	/Users/maasha/install/src/BUTT/BUTT/Common.h	/^#define NUCL_G /;"	macro	line:14
+NUCL_U	/Users/maasha/install/src/BUTT/BUTT/Common.h	/^#define NUCL_U /;"	macro	line:15
+NUCL_T	/Users/maasha/install/src/BUTT/BUTT/Common.h	/^#define NUCL_T /;"	macro	line:16
+KMer	/Users/maasha/install/src/BUTT/BUTT/Common.h	/^typedef uint32_t KMer;$/;"	typedef	line:30
+KMerSet	/Users/maasha/install/src/BUTT/BUTT/Common.h	/^typedef std::set<KMer> KMerSet;$/;"	typedef	line:35
+split	/Users/maasha/install/src/BUTT/BUTT/Common.h	/^static std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems) {$/;"	function	line:45	signature:(const std::string &s, char delim, std::vector<std::string> &elems)
+split	/Users/maasha/install/src/BUTT/BUTT/Common.h	/^static std::vector<std::string> split(const std::string &s, char delim) {$/;"	function	line:60	signature:(const std::string &s, char delim)
+operator <<	/Users/maasha/install/src/BUTT/BUTT/Common.h	/^std::ostream & operator<<(std::ostream & os, std::vector<T> vec)$/;"	function	line:67	signature:(std::ostream & os, std::vector<T> vec)
+operator <<	/Users/maasha/install/src/BUTT/BUTT/Common.h	/^std::ostream & operator<<(std::ostream & os, std::pair<T,R> pair)$/;"	function	line:76	signature:(std::ostream & os, std::pair<T,R> pair)
+Fasta	/Users/maasha/install/src/BUTT/BUTT/Fasta.cpp	/^Fasta::Fasta(const std::string &filePath): inputStream(filePath.c_str(), std::ifstream::in) {$/;"	function	line:8	class:Fasta	signature:(const std::string &filePath)
+nextEntry	/Users/maasha/install/src/BUTT/BUTT/Fasta.cpp	/^FastaEntry Fasta::nextEntry() {$/;"	function	line:29	class:Fasta	signature:()
+hasNextEntry	/Users/maasha/install/src/BUTT/BUTT/Fasta.cpp	/^bool Fasta::hasNextEntry() {$/;"	function	line:63	class:Fasta	signature:()
+BUTT_FASTA_H_	/Users/maasha/install/src/BUTT/BUTT/Fasta.h	/^#define BUTT_FASTA_H_$/;"	macro	line:4
+FastaEntry	/Users/maasha/install/src/BUTT/BUTT/Fasta.h	/^struct FastaEntry{$/;"	struct	line:14
+header	/Users/maasha/install/src/BUTT/BUTT/Fasta.h	/^    std::string header;$/;"	member	line:16	struct:FastaEntry
+sequence	/Users/maasha/install/src/BUTT/BUTT/Fasta.h	/^    std::string sequence;$/;"	member	line:19	struct:FastaEntry
+FastaException	/Users/maasha/install/src/BUTT/BUTT/Fasta.h	/^class FastaException: public std::exception {$/;"	class	line:25
+FastaException	/Users/maasha/install/src/BUTT/BUTT/Fasta.h	/^    FastaException(std::string &msg): exceptionMsg(msg) {}$/;"	function	line:27	class:FastaException	signature:(std::string &msg)
+FastaException	/Users/maasha/install/src/BUTT/BUTT/Fasta.h	/^    FastaException(const FastaException &e): exceptionMsg(e.exceptionMsg) {}$/;"	function	line:28	class:FastaException	signature:(const FastaException &e)
+exceptionMsg	/Users/maasha/install/src/BUTT/BUTT/Fasta.h	/^    const std::string exceptionMsg;$/;"	member	line:29	class:FastaException
+Fasta	/Users/maasha/install/src/BUTT/BUTT/Fasta.h	/^class Fasta {$/;"	class	line:35
+inputStream	/Users/maasha/install/src/BUTT/BUTT/Fasta.h	/^    std::ifstream inputStream;$/;"	member	line:58	class:Fasta
+nextHeader	/Users/maasha/install/src/BUTT/BUTT/Fasta.h	/^    std::string nextHeader;$/;"	member	line:59	class:Fasta
+TaxBuilder	/Users/maasha/install/src/BUTT/BUTT/Index/TaxBuilder.cpp	/^TaxBuilder::TaxBuilder(SeqToKMers seqSplitter):$/;"	function	line:13	class:TaxBuilder	signature:(SeqToKMers seqSplitter)
+~TaxBuilder	/Users/maasha/install/src/BUTT/BUTT/Index/TaxBuilder.cpp	/^TaxBuilder::~TaxBuilder() {$/;"	function	line:19	class:TaxBuilder	signature:()
+addTaxEntry	/Users/maasha/install/src/BUTT/BUTT/Index/TaxBuilder.cpp	/^void TaxBuilder::addTaxEntry(std::string &&taxonomyString,$/;"	function	line:23	class:TaxBuilder	signature:(std::string &&taxonomyString, std::string &&sequence)
+addTaxEntry	/Users/maasha/install/src/BUTT/BUTT/Index/TaxBuilder.cpp	/^void TaxBuilder::addTaxEntry(std::string &taxonomyString,$/;"	function	line:28	class:TaxBuilder	signature:(std::string &taxonomyString, std::string &sequence)
+isLeaf	/Users/maasha/install/src/BUTT/BUTT/Index/TaxBuilder.cpp	/^bool TaxBuilder::isLeaf(std::vector<std::string> &tax_path, unsigned int t) {$/;"	function	line:57	class:TaxBuilder	signature:(std::vector<std::string> &tax_path, unsigned int t)
+checkTaxEntry	/Users/maasha/install/src/BUTT/BUTT/Index/TaxBuilder.cpp	/^bool TaxBuilder::checkTaxEntry(std::string &taxonomyString,$/;"	function	line:62	class:TaxBuilder	signature:(std::string &taxonomyString, std::vector<std::string> &splitTaxString)
+getNode	/Users/maasha/install/src/BUTT/BUTT/Index/TaxBuilder.cpp	/^TaxNode& TaxBuilder::getNode(unsigned int id) {$/;"	function	line:115	class:TaxBuilder	signature:(unsigned int id)
+treeSize	/Users/maasha/install/src/BUTT/BUTT/Index/TaxBuilder.cpp	/^unsigned int TaxBuilder::treeSize() {$/;"	function	line:120	class:TaxBuilder	signature:()
+pullUnions	/Users/maasha/install/src/BUTT/BUTT/Index/TaxBuilder.cpp	/^void TaxBuilder::pullUnions(TaxNode &n) {$/;"	function	line:124	class:TaxBuilder	signature:(TaxNode &n)
+saveTaxIndex	/Users/maasha/install/src/BUTT/BUTT/Index/TaxBuilder.cpp	/^void TaxBuilder::saveTaxIndex(TaxNode* n, int depth, std::ofstream &ostream) {$/;"	function	line:138	class:TaxBuilder	signature:(TaxNode* n, int depth, std::ofstream &ostream)
+saveTaxIndex	/Users/maasha/install/src/BUTT/BUTT/Index/TaxBuilder.cpp	/^void TaxBuilder::saveTaxIndex(std::string &file_path) {$/;"	function	line:149	class:TaxBuilder	signature:(std::string &file_path)
+buildKMerIndex	/Users/maasha/install/src/BUTT/BUTT/Index/TaxBuilder.cpp	/^void TaxBuilder::buildKMerIndex(TaxNode* n, int depth,$/;"	function	line:156	class:TaxBuilder	signature:(TaxNode* n, int depth, std::vector< std::map< KMer, std::list<int> > > &kmer_index)
+saveKMerIndex	/Users/maasha/install/src/BUTT/BUTT/Index/TaxBuilder.cpp	/^void TaxBuilder::saveKMerIndex(std::string &file_path) {$/;"	function	line:176	class:TaxBuilder	signature:(std::string &file_path)
+BUTT_INDEX_TAXBUILDER_H_	/Users/maasha/install/src/BUTT/BUTT/Index/TaxBuilder.h	/^#define BUTT_INDEX_TAXBUILDER_H_$/;"	macro	line:4
+TaxonomyStringException	/Users/maasha/install/src/BUTT/BUTT/Index/TaxBuilder.h	/^class TaxonomyStringException: public std::exception {$/;"	class	line:18
+TaxonomyStringException	/Users/maasha/install/src/BUTT/BUTT/Index/TaxBuilder.h	/^    TaxonomyStringException(std::string &msg): exceptionMsg(msg) {}$/;"	function	line:20	class:TaxonomyStringException	signature:(std::string &msg)
+TaxonomyStringException	/Users/maasha/install/src/BUTT/BUTT/Index/TaxBuilder.h	/^    TaxonomyStringException(const TaxonomyStringException &e):$/;"	function	line:21	class:TaxonomyStringException	signature:(const TaxonomyStringException &e)
+exceptionMsg	/Users/maasha/install/src/BUTT/BUTT/Index/TaxBuilder.h	/^    const std::string exceptionMsg;$/;"	member	line:23	class:TaxonomyStringException
+TaxBuilder	/Users/maasha/install/src/BUTT/BUTT/Index/TaxBuilder.h	/^class TaxBuilder {$/;"	class	line:34
+sequenceSplitter	/Users/maasha/install/src/BUTT/BUTT/Index/TaxBuilder.h	/^    const SeqToKMers sequenceSplitter;$/;"	member	line:104	class:TaxBuilder
+root	/Users/maasha/install/src/BUTT/BUTT/Index/TaxBuilder.h	/^    TaxNode* root;$/;"	member	line:106	class:TaxBuilder
+tree_size	/Users/maasha/install/src/BUTT/BUTT/Index/TaxBuilder.h	/^    unsigned int tree_size;$/;"	member	line:107	class:TaxBuilder
+level_names	/Users/maasha/install/src/BUTT/BUTT/Index/TaxBuilder.h	/^    std::vector<char> level_names;$/;"	member	line:128	class:TaxBuilder
+TaxNode	/Users/maasha/install/src/BUTT/BUTT/Index/TaxNode.cpp	/^TaxNode::TaxNode(TaxNode *parent, std::string &name, unsigned int node_id):$/;"	function	line:6	class:TaxNode	signature:(TaxNode *parent, std::string &name, unsigned int node_id)
+TaxNode	/Users/maasha/install/src/BUTT/BUTT/Index/TaxNode.cpp	/^TaxNode::TaxNode():$/;"	function	line:13	class:TaxNode	signature:()
+getParent	/Users/maasha/install/src/BUTT/BUTT/Index/TaxNode.cpp	/^TaxNode& TaxNode::getParent() {$/;"	function	line:17	class:TaxNode	signature:()
+getName	/Users/maasha/install/src/BUTT/BUTT/Index/TaxNode.cpp	/^const std::string& TaxNode::getName() {$/;"	function	line:21	class:TaxNode	signature:()
+getKMers	/Users/maasha/install/src/BUTT/BUTT/Index/TaxNode.cpp	/^KMerSet& TaxNode::getKMers() {$/;"	function	line:25	class:TaxNode	signature:()
+addKMers	/Users/maasha/install/src/BUTT/BUTT/Index/TaxNode.cpp	/^void TaxNode::addKMers(KMerSet &kmers_) {$/;"	function	line:29	class:TaxNode	signature:(KMerSet &kmers_)
+addKMers	/Users/maasha/install/src/BUTT/BUTT/Index/TaxNode.cpp	/^void TaxNode::addKMers(KMerSet &&kmers_) {$/;"	function	line:35	class:TaxNode	signature:(KMerSet &&kmers_)
+getChild	/Users/maasha/install/src/BUTT/BUTT/Index/TaxNode.cpp	/^TaxNode* TaxNode::getChild(std::string &child_name) {$/;"	function	line:41	class:TaxNode	signature:(std::string &child_name)
+findNode	/Users/maasha/install/src/BUTT/BUTT/Index/TaxNode.cpp	/^TaxNode* TaxNode::findNode(int id) {$/;"	function	line:49	class:TaxNode	signature:(int id)
+BUTT_INDEX_TAXNODE_H_	/Users/maasha/install/src/BUTT/BUTT/Index/TaxNode.h	/^#define BUTT_INDEX_TAXNODE_H_$/;"	macro	line:4
+TaxNode	/Users/maasha/install/src/BUTT/BUTT/Index/TaxNode.h	/^class TaxNode {$/;"	class	line:17
+node_id	/Users/maasha/install/src/BUTT/BUTT/Index/TaxNode.h	/^    const unsigned int node_id;   \/\/\/< Node id$/;"	member	line:19	class:TaxNode
+parent	/Users/maasha/install/src/BUTT/BUTT/Index/TaxNode.h	/^    TaxNode* parent;$/;"	member	line:47	class:TaxNode
+children	/Users/maasha/install/src/BUTT/BUTT/Index/TaxNode.h	/^    std::map<std::string, TaxNode*> children;$/;"	member	line:48	class:TaxNode
+name	/Users/maasha/install/src/BUTT/BUTT/Index/TaxNode.h	/^    const std::string name;$/;"	member	line:49	class:TaxNode
+kmers	/Users/maasha/install/src/BUTT/BUTT/Index/TaxNode.h	/^    KMerSet kmers;$/;"	member	line:50	class:TaxNode
+main	/Users/maasha/install/src/BUTT/BUTT/main.cpp	/^int main(int argc, char** argv) {$/;"	function	line:14	signature:(int argc, char** argv)
+benchmarkBuilder	/Users/maasha/install/src/BUTT/BUTT/main.cpp	/^void benchmarkBuilder(int argc, char** argv) {$/;"	function	line:23	signature:(int argc, char** argv)
+CC	/Users/maasha/install/src/BUTT/BUTT/Makefile	/^CC            = clang$/;"	macro	line:11
+CXX	/Users/maasha/install/src/BUTT/BUTT/Makefile	/^CXX           = clang++$/;"	macro	line:12
+DEFINES	/Users/maasha/install/src/BUTT/BUTT/Makefile	/^DEFINES       = $/;"	macro	line:13
+CFLAGS	/Users/maasha/install/src/BUTT/BUTT/Makefile	/^CFLAGS        = -pipe -mmacosx-version-min=10.7 -O2 -arch x86_64 -Wall -W $(DEFINES)$/;"	macro	line:14
+CXXFLAGS	/Users/maasha/install/src/BUTT/BUTT/Makefile	/^CXXFLAGS      = -pipe -stdlib=libc++ -mmacosx-version-min=10.7 -std=c++11 -g -arch x86_64 -Wall -W $(DEFINES)$/;"	macro	line:16
+INCPATH	/Users/maasha/install/src/BUTT/BUTT/Makefile	/^INCPATH       = -I\/usr\/local\/Cellar\/qt\/4.8.6\/mkspecs\/unsupported\/macx-clang-libc++ -I.$/;"	macro	line:17
+LINK	/Users/maasha/install/src/BUTT/BUTT/Makefile	/^LINK          = clang++$/;"	macro	line:18
+LFLAGS	/Users/maasha/install/src/BUTT/BUTT/Makefile	/^LFLAGS        = -headerpad_max_install_names -stdlib=libc++ -mmacosx-version-min=10.7 -arch x86_64$/;"	macro	line:19
+LIBS	/Users/maasha/install/src/BUTT/BUTT/Makefile	/^LIBS          = $(SUBLIBS)    $/;"	macro	line:20
+AR	/Users/maasha/install/src/BUTT/BUTT/Makefile	/^AR            = ar cq$/;"	macro	line:21
+RANLIB	/Users/maasha/install/src/BUTT/BUTT/Makefile	/^RANLIB        = ranlib -s$/;"	macro	line:22
+QMAKE	/Users/maasha/install/src/BUTT/BUTT/Makefile	/^QMAKE         = \/usr\/local\/bin\/qmake$/;"	macro	line:23
+TAR	/Users/maasha/install/src/BUTT/BUTT/Makefile	/^TAR           = tar -cf$/;"	macro	line:24
+COMPRESS	/Users/maasha/install/src/BUTT/BUTT/Makefile	/^COMPRESS      = gzip -9f$/;"	macro	line:25
+COPY	/Users/maasha/install/src/BUTT/BUTT/Makefile	/^COPY          = cp -f$/;"	macro	line:26
+SED	/Users/maasha/install/src/BUTT/BUTT/Makefile	/^SED           = sed$/;"	macro	line:27
+COPY_FILE	/Users/maasha/install/src/BUTT/BUTT/Makefile	/^COPY_FILE     = cp -f$/;"	macro	line:28
+COPY_DIR	/Users/maasha/install/src/BUTT/BUTT/Makefile	/^COPY_DIR      = cp -f -R$/;"	macro	line:29
+STRIP	/Users/maasha/install/src/BUTT/BUTT/Makefile	/^STRIP         = $/;"	macro	line:30
+INSTALL_FILE	/Users/maasha/install/src/BUTT/BUTT/Makefile	/^INSTALL_FILE  = $(COPY_FILE)$/;"	macro	line:31
+INSTALL_DIR	/Users/maasha/install/src/BUTT/BUTT/Makefile	/^INSTALL_DIR   = $(COPY_DIR)$/;"	macro	line:32
+INSTALL_PROGRAM	/Users/maasha/install/src/BUTT/BUTT/Makefile	/^INSTALL_PROGRAM = $(COPY_FILE)$/;"	macro	line:33
+DEL_FILE	/Users/maasha/install/src/BUTT/BUTT/Makefile	/^DEL_FILE      = rm -f$/;"	macro	line:34
+SYMLINK	/Users/maasha/install/src/BUTT/BUTT/Makefile	/^SYMLINK       = ln -f -s$/;"	macro	line:35
+DEL_DIR	/Users/maasha/install/src/BUTT/BUTT/Makefile	/^DEL_DIR       = rmdir$/;"	macro	line:36
+MOVE	/Users/maasha/install/src/BUTT/BUTT/Makefile	/^MOVE          = mv -f$/;"	macro	line:37
+CHK_DIR_EXISTS	/Users/maasha/install/src/BUTT/BUTT/Makefile	/^CHK_DIR_EXISTS= test -d$/;"	macro	line:38
+MKDIR	/Users/maasha/install/src/BUTT/BUTT/Makefile	/^MKDIR         = mkdir -p$/;"	macro	line:39
+MACOSX_DEPLOYMENT_TARGET	/Users/maasha/install/src/BUTT/BUTT/Makefile	/^export MACOSX_DEPLOYMENT_TARGET = 10.7$/;"	macro	line:40
+OBJECTS_DIR	/Users/maasha/install/src/BUTT/BUTT/Makefile	/^OBJECTS_DIR   = .\/$/;"	macro	line:44
+SOURCES	/Users/maasha/install/src/BUTT/BUTT/Makefile	/^SOURCES       = main.cpp \\$/;"	macro	line:48
+OBJECTS	/Users/maasha/install/src/BUTT/BUTT/Makefile	/^OBJECTS       = main.o \\$/;"	macro	line:67
+DIST	/Users/maasha/install/src/BUTT/BUTT/Makefile	/^DIST          = \/usr\/local\/Cellar\/qt\/4.8.6\/mkspecs\/common\/unix.conf \\$/;"	macro	line:86
+QMAKE_TARGET	/Users/maasha/install/src/BUTT/BUTT/Makefile	/^QMAKE_TARGET  = BUTT$/;"	macro	line:114
+DESTDIR	/Users/maasha/install/src/BUTT/BUTT/Makefile	/^DESTDIR       = $/;"	macro	line:115
+TARGET	/Users/maasha/install/src/BUTT/BUTT/Makefile	/^TARGET        = BUTT$/;"	macro	line:116
+QMAKE_COMP_QMAKE_OBJECTIVE_CFLAGS	/Users/maasha/install/src/BUTT/BUTT/Makefile	/^QMAKE_COMP_QMAKE_OBJECTIVE_CFLAGS = -pipe \\$/;"	macro	line:119
 CleverTaxConsensus	/Users/maasha/install/src/BUTT/BUTT/Search/CleverTaxConsensus.cpp	/^CleverTaxConsensus::CleverTaxConsensus(vector < string > _level_names) {$/;"	function	line:9	class:CleverTaxConsensus	signature:(vector < string > _level_names)
 buildConsensus	/Users/maasha/install/src/BUTT/BUTT/Search/CleverTaxConsensus.cpp	/^string CleverTaxConsensus::buildConsensus(vector< vector< string > > &tax_table) {$/;"	function	line:13	class:CleverTaxConsensus	signature:(vector< vector< string > > &tax_table)
+NameNode	/Users/maasha/install/src/BUTT/BUTT/Search/NameNode.cpp	/^NameNode::NameNode(std::string name, int level, int parent, unsigned int node_id):$/;"	function	line:3	class:NameNode	signature:(std::string name, int level, int parent, unsigned int node_id)
+NameNode	/Users/maasha/install/src/BUTT/BUTT/Search/NameNode.cpp	/^NameNode::NameNode(const NameNode& node):$/;"	function	line:11	class:NameNode	signature:(const NameNode& node)
+getName	/Users/maasha/install/src/BUTT/BUTT/Search/NameNode.cpp	/^std::string &NameNode::getName(){ return name; }$/;"	function	line:19	class:NameNode	signature:()
+getLevel	/Users/maasha/install/src/BUTT/BUTT/Search/NameNode.cpp	/^int NameNode::getLevel(){ return level; }$/;"	function	line:20	class:NameNode	signature:()
+getParentId	/Users/maasha/install/src/BUTT/BUTT/Search/NameNode.cpp	/^int NameNode::getParentId(){ return parent; }$/;"	function	line:21	class:NameNode	signature:()
+getNodeId	/Users/maasha/install/src/BUTT/BUTT/Search/NameNode.cpp	/^unsigned int NameNode::getNodeId(){ return node_id; }$/;"	function	line:22	class:NameNode	signature:()
+NAMENODE_H	/Users/maasha/install/src/BUTT/BUTT/Search/NameNode.h	/^#define NAMENODE_H$/;"	macro	line:2
+NameNode	/Users/maasha/install/src/BUTT/BUTT/Search/NameNode.h	/^class NameNode$/;"	class	line:9
+name	/Users/maasha/install/src/BUTT/BUTT/Search/NameNode.h	/^    std::string name;$/;"	member	line:22	class:NameNode
+level	/Users/maasha/install/src/BUTT/BUTT/Search/NameNode.h	/^    int level;$/;"	member	line:23	class:NameNode
+parent	/Users/maasha/install/src/BUTT/BUTT/Search/NameNode.h	/^    int parent;$/;"	member	line:24	class:NameNode
+node_id	/Users/maasha/install/src/BUTT/BUTT/Search/NameNode.h	/^    unsigned int node_id;$/;"	member	line:25	class:NameNode
+SimpleTaxConsensus	/Users/maasha/install/src/BUTT/BUTT/Search/SimpleTaxConsensus.cpp	/^SimpleTaxConsensus::SimpleTaxConsensus(vector < string > _level_names)$/;"	function	line:9	class:SimpleTaxConsensus	signature:(vector < string > _level_names)
+buildConsensus	/Users/maasha/install/src/BUTT/BUTT/Search/SimpleTaxConsensus.cpp	/^string SimpleTaxConsensus::buildConsensus(vector< vector< string > > &tax_table)$/;"	function	line:14	class:SimpleTaxConsensus	signature:(vector< vector< string > > &tax_table)
+columnPerfectConsensus	/Users/maasha/install/src/BUTT/BUTT/Search/SimpleTaxConsensus.cpp	/^bool SimpleTaxConsensus::columnPerfectConsensus(vector< vector< string > > &tax_table, int col)$/;"	function	line:48	class:SimpleTaxConsensus	signature:(vector< vector< string > > &tax_table, int col)
+buildTaxSuffix	/Users/maasha/install/src/BUTT/BUTT/Search/SimpleTaxConsensus.cpp	/^string SimpleTaxConsensus::buildTaxSuffix(int level)$/;"	function	line:58	class:SimpleTaxConsensus	signature:(int level)
+BUTT_SEARCH_SIMPLETAXCONSENSUS_H_	/Users/maasha/install/src/BUTT/BUTT/Search/SimpleTaxConsensus.h	/^#define BUTT_SEARCH_SIMPLETAXCONSENSUS_H_$/;"	macro	line:4
+SimpleTaxConsensusException	/Users/maasha/install/src/BUTT/BUTT/Search/SimpleTaxConsensus.h	/^class SimpleTaxConsensusException: public std::exception {$/;"	class	line:14
+SimpleTaxConsensusException	/Users/maasha/install/src/BUTT/BUTT/Search/SimpleTaxConsensus.h	/^    SimpleTaxConsensusException(std::string &msg): exceptionMsg(msg) {}$/;"	function	line:16	class:SimpleTaxConsensusException	signature:(std::string &msg)
+SimpleTaxConsensusException	/Users/maasha/install/src/BUTT/BUTT/Search/SimpleTaxConsensus.h	/^    SimpleTaxConsensusException(const SimpleTaxConsensusException &e):$/;"	function	line:17	class:SimpleTaxConsensusException	signature:(const SimpleTaxConsensusException &e)
+exceptionMsg	/Users/maasha/install/src/BUTT/BUTT/Search/SimpleTaxConsensus.h	/^    const std::string exceptionMsg;$/;"	member	line:20	class:SimpleTaxConsensusException
+SimpleTaxConsensus	/Users/maasha/install/src/BUTT/BUTT/Search/SimpleTaxConsensus.h	/^class SimpleTaxConsensus: public TaxConsensus {$/;"	class	line:23
+descendingSortOrderPair	/Users/maasha/install/src/BUTT/BUTT/Search/SimpleTaxConsensus.h	/^    static bool descendingSortOrderPair(const std::pair<std::string, int> &a,$/;"	function	line:53	class:SimpleTaxConsensus	signature:(const std::pair<std::string, int> &a, const std::pair<std::string, int> &b)
+level_names	/Users/maasha/install/src/BUTT/BUTT/Search/SimpleTaxConsensus.h	/^    std::vector< std::string > level_names;$/;"	member	line:59	class:SimpleTaxConsensus
+TAXCONSENSUS_H	/Users/maasha/install/src/BUTT/BUTT/Search/TaxConsensus.h	/^#define TAXCONSENSUS_H$/;"	macro	line:2
+TaxConsensus	/Users/maasha/install/src/BUTT/BUTT/Search/TaxConsensus.h	/^class TaxConsensus$/;"	class	line:7
+TaxLevel	/Users/maasha/install/src/BUTT/BUTT/Search/TaxLevel.cpp	/^TaxLevel::TaxLevel(int k)$/;"	function	line:13	class:TaxLevel	signature:(int k)
+update_nodes_hist	/Users/maasha/install/src/BUTT/BUTT/Search/TaxLevel.cpp	/^void TaxLevel::update_nodes_hist(vector<unsigned int>&hist, KMerSet& kmer_set)$/;"	function	line:18	class:TaxLevel	signature:(vector<unsigned int>&hist, KMerSet& kmer_set)
+add_node_to_kmer	/Users/maasha/install/src/BUTT/BUTT/Search/TaxLevel.cpp	/^void TaxLevel::add_node_to_kmer(int node, KMer kmer)$/;"	function	line:28	class:TaxLevel	signature:(int node, KMer kmer)
+TAXLEVEL_H	/Users/maasha/install/src/BUTT/BUTT/Search/TaxLevel.h	/^#define TAXLEVEL_H$/;"	macro	line:2
+TaxLevel	/Users/maasha/install/src/BUTT/BUTT/Search/TaxLevel.h	/^class TaxLevel$/;"	class	line:25
+kmer_to_node_vec	/Users/maasha/install/src/BUTT/BUTT/Search/TaxLevel.h	/^    std::vector< std::list<int> > kmer_to_node_vec;$/;"	member	line:46	class:TaxLevel
+TaxSearch	/Users/maasha/install/src/BUTT/BUTT/Search/TaxSearch.cpp	/^TaxSearch::TaxSearch(SeqToKMers seqSplitter, int hits_max, bool best_only,$/;"	function	line:17	class:TaxSearch	signature:(SeqToKMers seqSplitter, int hits_max, bool best_only, double coverage, TaxConsensus* consensus_builder, std::string &kmer_index_path, std::string &tax_index_path)
+readTaxIndex	/Users/maasha/install/src/BUTT/BUTT/Search/TaxSearch.cpp	/^void TaxSearch::readTaxIndex(std::string &file_path) {$/;"	function	line:31	class:TaxSearch	signature:(std::string &file_path)
+readKMerIndex	/Users/maasha/install/src/BUTT/BUTT/Search/TaxSearch.cpp	/^void TaxSearch::readKMerIndex(std::string &file_path) {$/;"	function	line:69	class:TaxSearch	signature:(std::string &file_path)
+search	/Users/maasha/install/src/BUTT/BUTT/Search/TaxSearch.cpp	/^Hit TaxSearch::search(std::string &&seqName, std::string &&sequence) {$/;"	function	line:116	class:TaxSearch	signature:(std::string &&seqName, std::string &&sequence)
+search	/Users/maasha/install/src/BUTT/BUTT/Search/TaxSearch.cpp	/^Hit TaxSearch::search(std::string &seqName, std::string &sequence) {$/;"	function	line:120	class:TaxSearch	signature:(std::string &seqName, std::string &sequence)
+fill_node_tax_row	/Users/maasha/install/src/BUTT/BUTT/Search/TaxSearch.cpp	/^void TaxSearch::fill_node_tax_row(int node_id, vector<string> &node_tax_row) {$/;"	function	line:142	class:TaxSearch	signature:(int node_id, vector<string> &node_tax_row)
+searchNodes	/Users/maasha/install/src/BUTT/BUTT/Search/TaxSearch.cpp	/^std::vector<int> TaxSearch::searchNodes(std::string &sequence) {$/;"	function	line:158	class:TaxSearch	signature:(std::string &sequence)
+pickBestHits	/Users/maasha/install/src/BUTT/BUTT/Search/TaxSearch.cpp	/^void TaxSearch::pickBestHits(std::vector<int> &ret, int kmer_size) {$/;"	function	line:178	class:TaxSearch	signature:(std::vector<int> &ret, int kmer_size)
+readTaxLevelNames	/Users/maasha/install/src/BUTT/BUTT/Search/TaxSearch.cpp	/^void TaxSearch::readTaxLevelNames() {$/;"	function	line:206	class:TaxSearch	signature:()
+operator <<	/Users/maasha/install/src/BUTT/BUTT/Search/TaxSearch.cpp	/^std::ostream & operator<<(std::ostream & os, Hit hit) {$/;"	function	line:227	signature:(std::ostream & os, Hit hit)
+BUTT_SEARCH_TAXSEARCH_H_	/Users/maasha/install/src/BUTT/BUTT/Search/TaxSearch.h	/^#define BUTT_SEARCH_TAXSEARCH_H_$/;"	macro	line:4
+TaxSearchException	/Users/maasha/install/src/BUTT/BUTT/Search/TaxSearch.h	/^class TaxSearchException: public std::exception {$/;"	class	line:22
+TaxSearchException	/Users/maasha/install/src/BUTT/BUTT/Search/TaxSearch.h	/^    TaxSearchException(std::string &&msg): exceptionMsg(msg) {}$/;"	function	line:24	class:TaxSearchException	signature:(std::string &&msg)
+TaxSearchException	/Users/maasha/install/src/BUTT/BUTT/Search/TaxSearch.h	/^    TaxSearchException(const TaxSearchException &e):$/;"	function	line:25	class:TaxSearchException	signature:(const TaxSearchException &e)
+exceptionMsg	/Users/maasha/install/src/BUTT/BUTT/Search/TaxSearch.h	/^    const std::string exceptionMsg;$/;"	member	line:27	class:TaxSearchException
+Hit	/Users/maasha/install/src/BUTT/BUTT/Search/TaxSearch.h	/^typedef std::tuple<std::string, std::string, int> Hit;$/;"	typedef	line:39
+TaxSearch	/Users/maasha/install/src/BUTT/BUTT/Search/TaxSearch.h	/^class TaxSearch {$/;"	class	line:42
+seq_splitter	/Users/maasha/install/src/BUTT/BUTT/Search/TaxSearch.h	/^    const SeqToKMers seq_splitter;$/;"	member	line:98	class:TaxSearch
+hits_max	/Users/maasha/install/src/BUTT/BUTT/Search/TaxSearch.h	/^    const int hits_max;$/;"	member	line:99	class:TaxSearch
+best_only	/Users/maasha/install/src/BUTT/BUTT/Search/TaxSearch.h	/^    const bool best_only;$/;"	member	line:100	class:TaxSearch
+coverage	/Users/maasha/install/src/BUTT/BUTT/Search/TaxSearch.h	/^    const double coverage;$/;"	member	line:101	class:TaxSearch
+consensus_builder	/Users/maasha/install/src/BUTT/BUTT/Search/TaxSearch.h	/^    TaxConsensus* consensus_builder;$/;"	member	line:102	class:TaxSearch
+nodes	/Users/maasha/install/src/BUTT/BUTT/Search/TaxSearch.h	/^    std::vector<NameNode> nodes;$/;"	member	line:103	class:TaxSearch
+level_names	/Users/maasha/install/src/BUTT/BUTT/Search/TaxSearch.h	/^    std::vector< std::string > level_names;$/;"	member	line:104	class:TaxSearch
+level_vector	/Users/maasha/install/src/BUTT/BUTT/Search/TaxSearch.h	/^    std::vector< TaxLevel > level_vector;$/;"	member	line:107	class:TaxSearch
+node_counts	/Users/maasha/install/src/BUTT/BUTT/Search/TaxSearch.h	/^    std::vector<unsigned int> node_counts;$/;"	member	line:111	class:TaxSearch
+descendingSortOrder	/Users/maasha/install/src/BUTT/BUTT/Search/TaxSearch.h	/^    static bool descendingSortOrder(unsigned int a, unsigned int b) {$/;"	function	line:143	class:TaxSearch	signature:(unsigned int a, unsigned int b)
+descendingPairSortOrder	/Users/maasha/install/src/BUTT/BUTT/Search/TaxSearch.h	/^    static bool descendingPairSortOrder(const std::pair<int, int> &a,$/;"	function	line:153	class:TaxSearch	signature:(const std::pair<int, int> &a, const std::pair<int, int> &b)
+SeqToKMers	/Users/maasha/install/src/BUTT/BUTT/SeqToKMers.cpp	/^SeqToKMers::SeqToKMers(unsigned int kmer_size, unsigned int step_size):$/;"	function	line:7	class:SeqToKMers	signature:(unsigned int kmer_size, unsigned int step_size)
+decode	/Users/maasha/install/src/BUTT/BUTT/SeqToKMers.cpp	/^int decode(char nucl){$/;"	function	line:31	signature:(char nucl)
+decodeKMer	/Users/maasha/install/src/BUTT/BUTT/SeqToKMers.cpp	/^unsigned int SeqToKMers::decodeKMer(std::string &sequence, unsigned int pos, KMer &buffer, int suffixSz) const$/;"	function	line:42	class:SeqToKMers	signature:(std::string &sequence, unsigned int pos, KMer &buffer, int suffixSz) const
+addKMersToSet	/Users/maasha/install/src/BUTT/BUTT/SeqToKMers.cpp	/^void SeqToKMers::addKMersToSet(std::string &sequence, KMerSet &set) const$/;"	function	line:59	class:SeqToKMers	signature:(std::string &sequence, KMerSet &set) const
+sequenceToKMers	/Users/maasha/install/src/BUTT/BUTT/SeqToKMers.cpp	/^KMerSet SeqToKMers::sequenceToKMers(std::string &sequence) const$/;"	function	line:98	class:SeqToKMers	signature:(std::string &sequence) const
+get_kmer_size	/Users/maasha/install/src/BUTT/BUTT/SeqToKMers.cpp	/^unsigned int SeqToKMers::get_kmer_size() const$/;"	function	line:134	class:SeqToKMers	signature:() const
+SEQTOKMERS_H	/Users/maasha/install/src/BUTT/BUTT/SeqToKMers.h	/^#define SEQTOKMERS_H$/;"	macro	line:2
+SeqToKMerException	/Users/maasha/install/src/BUTT/BUTT/SeqToKMers.h	/^class SeqToKMerException: public std::exception {$/;"	class	line:10
+SeqToKMerException	/Users/maasha/install/src/BUTT/BUTT/SeqToKMers.h	/^    SeqToKMerException(std::string &msg): exceptionMsg(msg){}$/;"	function	line:12	class:SeqToKMerException	signature:(std::string &msg)
+SeqToKMerException	/Users/maasha/install/src/BUTT/BUTT/SeqToKMers.h	/^    SeqToKMerException(const SeqToKMerException &e): exceptionMsg(e.exceptionMsg){}$/;"	function	line:13	class:SeqToKMerException	signature:(const SeqToKMerException &e)
+exceptionMsg	/Users/maasha/install/src/BUTT/BUTT/SeqToKMers.h	/^    const std::string exceptionMsg;$/;"	member	line:14	class:SeqToKMerException
+SeqToKMers	/Users/maasha/install/src/BUTT/BUTT/SeqToKMers.h	/^class SeqToKMers$/;"	class	line:24
+kmer_size	/Users/maasha/install/src/BUTT/BUTT/SeqToKMers.h	/^    const unsigned int kmer_size;$/;"	member	line:61	class:SeqToKMers
+step_size	/Users/maasha/install/src/BUTT/BUTT/SeqToKMers.h	/^    const unsigned int step_size;$/;"	member	line:62	class:SeqToKMers
+TestAll	/Users/maasha/install/src/BUTT/BUTT/Tests/TestAll.cpp	/^TestAll::TestAll() {$/;"	function	line:14	class:TestAll	signature:()
+runTests	/Users/maasha/install/src/BUTT/BUTT/Tests/TestAll.cpp	/^bool TestAll::runTests() {$/;"	function	line:17	class:TestAll	signature:()
+TESTALL_H	/Users/maasha/install/src/BUTT/BUTT/Tests/TestAll.h	/^#define TESTALL_H$/;"	macro	line:2
+TestAll	/Users/maasha/install/src/BUTT/BUTT/Tests/TestAll.h	/^class TestAll$/;"	class	line:4
+BUTT_TESTS_TESTCLEVERTAXCONSENSUS_H_	/Users/maasha/install/src/BUTT/BUTT/Tests/TestCleverTaxConsensus.h	/^#define BUTT_TESTS_TESTCLEVERTAXCONSENSUS_H_$/;"	macro	line:4
+TestCleverTaxConsensus	/Users/maasha/install/src/BUTT/BUTT/Tests/TestCleverTaxConsensus.h	/^class TestCleverTaxConsensus {$/;"	class	line:10
+consensus	/Users/maasha/install/src/BUTT/BUTT/Tests/TestCleverTaxConsensus.h	/^    CleverTaxConsensus consensus;$/;"	member	line:12	class:TestCleverTaxConsensus
+TestFasta	/Users/maasha/install/src/BUTT/BUTT/Tests/TestFasta.cpp	/^TestFasta::TestFasta(const string &fasta_test_directory): fastaDirectory(fasta_test_directory)$/;"	function	line:11	class:TestFasta	signature:(const string &fasta_test_directory)
+runTests	/Users/maasha/install/src/BUTT/BUTT/Tests/TestFasta.cpp	/^bool TestFasta::runTests()$/;"	function	line:15	class:TestFasta	signature:()
+test1	/Users/maasha/install/src/BUTT/BUTT/Tests/TestFasta.cpp	/^bool TestFasta::test1()$/;"	function	line:30	class:TestFasta	signature:()
+test2	/Users/maasha/install/src/BUTT/BUTT/Tests/TestFasta.cpp	/^bool TestFasta::test2()$/;"	function	line:44	class:TestFasta	signature:()
+test3	/Users/maasha/install/src/BUTT/BUTT/Tests/TestFasta.cpp	/^bool TestFasta::test3()$/;"	function	line:58	class:TestFasta	signature:()
+test4	/Users/maasha/install/src/BUTT/BUTT/Tests/TestFasta.cpp	/^bool TestFasta::test4()$/;"	function	line:68	class:TestFasta	signature:()
+test5	/Users/maasha/install/src/BUTT/BUTT/Tests/TestFasta.cpp	/^bool TestFasta::test5()$/;"	function	line:82	class:TestFasta	signature:()
+test6	/Users/maasha/install/src/BUTT/BUTT/Tests/TestFasta.cpp	/^bool TestFasta::test6()$/;"	function	line:96	class:TestFasta	signature:()
+test7	/Users/maasha/install/src/BUTT/BUTT/Tests/TestFasta.cpp	/^bool TestFasta::test7()$/;"	function	line:110	class:TestFasta	signature:()
+test8	/Users/maasha/install/src/BUTT/BUTT/Tests/TestFasta.cpp	/^bool TestFasta::test8()$/;"	function	line:125	class:TestFasta	signature:()
+test9	/Users/maasha/install/src/BUTT/BUTT/Tests/TestFasta.cpp	/^bool TestFasta::test9()$/;"	function	line:138	class:TestFasta	signature:()
+TESTFASTA_H	/Users/maasha/install/src/BUTT/BUTT/Tests/TestFasta.h	/^#define TESTFASTA_H$/;"	macro	line:2
+TestFasta	/Users/maasha/install/src/BUTT/BUTT/Tests/TestFasta.h	/^class TestFasta$/;"	class	line:6
+fastaDirectory	/Users/maasha/install/src/BUTT/BUTT/Tests/TestFasta.h	/^    std::string fastaDirectory;$/;"	member	line:14	class:TestFasta
+assertEquals	/Users/maasha/install/src/BUTT/BUTT/Tests/TestHelper.cpp	/^bool BUTTTest::assertEquals(const std::string &expected,$/;"	function	line:8	class:BUTTTest	signature:(const std::string &expected, const std::string &actual, std::string message)
+assertEquals	/Users/maasha/install/src/BUTT/BUTT/Tests/TestHelper.cpp	/^bool BUTTTest::assertEquals(int expected, int actual, std::string message) {$/;"	function	line:18	class:BUTTTest	signature:(int expected, int actual, std::string message)
+assertTrue	/Users/maasha/install/src/BUTT/BUTT/Tests/TestHelper.cpp	/^bool BUTTTest::assertTrue(const bool &actual, std::string message) {$/;"	function	line:27	class:BUTTTest	signature:(const bool &actual, std::string message)
+assertFalse	/Users/maasha/install/src/BUTT/BUTT/Tests/TestHelper.cpp	/^bool BUTTTest::assertFalse(const bool &actual, std::string message) {$/;"	function	line:36	class:BUTTTest	signature:(const bool &actual, std::string message)
+BUTT_TESTS_TESTHELPER_H_	/Users/maasha/install/src/BUTT/BUTT/Tests/TestHelper.h	/^#define BUTT_TESTS_TESTHELPER_H_$/;"	macro	line:4
+BUTTTest	/Users/maasha/install/src/BUTT/BUTT/Tests/TestHelper.h	/^namespace BUTTTest {$/;"	namespace	line:8
+BUTT_ASSERT_EQUALS	/Users/maasha/install/src/BUTT/BUTT/Tests/TestHelper.h	/^#define BUTT_ASSERT_EQUALS(/;"	macro	line:16
+BUTT_ASSERT_TRUE	/Users/maasha/install/src/BUTT/BUTT/Tests/TestHelper.h	/^#define BUTT_ASSERT_TRUE(/;"	macro	line:19
+BUTT_ASSERT_FALSE	/Users/maasha/install/src/BUTT/BUTT/Tests/TestHelper.h	/^#define BUTT_ASSERT_FALSE(/;"	macro	line:22
+BUTT_PRE_TESTS	/Users/maasha/install/src/BUTT/BUTT/Tests/TestHelper.h	/^#define BUTT_PRE_TESTS(/;"	macro	line:25
+BUTT_POST_TESTS	/Users/maasha/install/src/BUTT/BUTT/Tests/TestHelper.h	/^#define BUTT_POST_TESTS(/;"	macro	line:26
+BUTT_RUN_TEST	/Users/maasha/install/src/BUTT/BUTT/Tests/TestHelper.h	/^#define BUTT_RUN_TEST(/;"	macro	line:27
+TestSeqToKMers	/Users/maasha/install/src/BUTT/BUTT/Tests/TestSeqToKMers.cpp	/^TestSeqToKMers::TestSeqToKMers()$/;"	function	line:11	class:TestSeqToKMers	signature:()
+runTests	/Users/maasha/install/src/BUTT/BUTT/Tests/TestSeqToKMers.cpp	/^bool TestSeqToKMers::runTests()$/;"	function	line:16	class:TestSeqToKMers	signature:()
+test1	/Users/maasha/install/src/BUTT/BUTT/Tests/TestSeqToKMers.cpp	/^bool TestSeqToKMers::test1()$/;"	function	line:39	class:TestSeqToKMers	signature:()
+test2	/Users/maasha/install/src/BUTT/BUTT/Tests/TestSeqToKMers.cpp	/^bool TestSeqToKMers::test2()$/;"	function	line:57	class:TestSeqToKMers	signature:()
+test3	/Users/maasha/install/src/BUTT/BUTT/Tests/TestSeqToKMers.cpp	/^bool TestSeqToKMers::test3()$/;"	function	line:77	class:TestSeqToKMers	signature:()
+get	/Users/maasha/install/src/BUTT/BUTT/Tests/TestSeqToKMers.cpp	/^const KMer &TestSeqToKMers::get(KMerSet &set, int elem)$/;"	function	line:90	class:TestSeqToKMers	signature:(KMerSet &set, int elem)
+test4	/Users/maasha/install/src/BUTT/BUTT/Tests/TestSeqToKMers.cpp	/^bool TestSeqToKMers::test4(){$/;"	function	line:103	class:TestSeqToKMers	signature:()
+test5	/Users/maasha/install/src/BUTT/BUTT/Tests/TestSeqToKMers.cpp	/^bool TestSeqToKMers::test5()$/;"	function	line:124	class:TestSeqToKMers	signature:()
+test6	/Users/maasha/install/src/BUTT/BUTT/Tests/TestSeqToKMers.cpp	/^bool TestSeqToKMers::test6()$/;"	function	line:146	class:TestSeqToKMers	signature:()
+test7	/Users/maasha/install/src/BUTT/BUTT/Tests/TestSeqToKMers.cpp	/^bool TestSeqToKMers::test7()$/;"	function	line:162	class:TestSeqToKMers	signature:()
+test8	/Users/maasha/install/src/BUTT/BUTT/Tests/TestSeqToKMers.cpp	/^bool TestSeqToKMers::test8()$/;"	function	line:180	class:TestSeqToKMers	signature:()
+test9	/Users/maasha/install/src/BUTT/BUTT/Tests/TestSeqToKMers.cpp	/^bool TestSeqToKMers::test9()$/;"	function	line:199	class:TestSeqToKMers	signature:()
+test10	/Users/maasha/install/src/BUTT/BUTT/Tests/TestSeqToKMers.cpp	/^bool TestSeqToKMers::test10()$/;"	function	line:216	class:TestSeqToKMers	signature:()
+TESTSEQTOKMERS_H	/Users/maasha/install/src/BUTT/BUTT/Tests/TestSeqToKMers.h	/^#define TESTSEQTOKMERS_H$/;"	macro	line:2
+TestSeqToKMers	/Users/maasha/install/src/BUTT/BUTT/Tests/TestSeqToKMers.h	/^class TestSeqToKMers$/;"	class	line:6
+TestSimpleTaxConsensus	/Users/maasha/install/src/BUTT/BUTT/Tests/TestSimpleTaxConsensus.cpp	/^TestSimpleTaxConsensus::TestSimpleTaxConsensus(): consensus({"K", "P", "C", "O", "F", "G", "S"})$/;"	function	line:9	class:TestSimpleTaxConsensus	signature:()
+runTests	/Users/maasha/install/src/BUTT/BUTT/Tests/TestSimpleTaxConsensus.cpp	/^bool TestSimpleTaxConsensus::runTests()$/;"	function	line:14	class:TestSimpleTaxConsensus	signature:()
+testBuildConsensus1	/Users/maasha/install/src/BUTT/BUTT/Tests/TestSimpleTaxConsensus.cpp	/^bool TestSimpleTaxConsensus::testBuildConsensus1()$/;"	function	line:35	class:TestSimpleTaxConsensus	signature:()
+testBuildConsensus2	/Users/maasha/install/src/BUTT/BUTT/Tests/TestSimpleTaxConsensus.cpp	/^bool TestSimpleTaxConsensus::testBuildConsensus2()$/;"	function	line:47	class:TestSimpleTaxConsensus	signature:()
+testBuildConsensus3	/Users/maasha/install/src/BUTT/BUTT/Tests/TestSimpleTaxConsensus.cpp	/^bool TestSimpleTaxConsensus::testBuildConsensus3()$/;"	function	line:59	class:TestSimpleTaxConsensus	signature:()
+testBuildConsensus4	/Users/maasha/install/src/BUTT/BUTT/Tests/TestSimpleTaxConsensus.cpp	/^bool TestSimpleTaxConsensus::testBuildConsensus4()$/;"	function	line:71	class:TestSimpleTaxConsensus	signature:()
+testBuildConsensus5	/Users/maasha/install/src/BUTT/BUTT/Tests/TestSimpleTaxConsensus.cpp	/^bool TestSimpleTaxConsensus::testBuildConsensus5()$/;"	function	line:83	class:TestSimpleTaxConsensus	signature:()
+testBuildConsensus6	/Users/maasha/install/src/BUTT/BUTT/Tests/TestSimpleTaxConsensus.cpp	/^bool TestSimpleTaxConsensus::testBuildConsensus6()$/;"	function	line:95	class:TestSimpleTaxConsensus	signature:()
+testBuildConsensus7	/Users/maasha/install/src/BUTT/BUTT/Tests/TestSimpleTaxConsensus.cpp	/^bool TestSimpleTaxConsensus::testBuildConsensus7()$/;"	function	line:107	class:TestSimpleTaxConsensus	signature:()
+TESTSIMPLECONSENSUS_H	/Users/maasha/install/src/BUTT/BUTT/Tests/TestSimpleTaxConsensus.h	/^#define TESTSIMPLECONSENSUS_H$/;"	macro	line:2
+TestSimpleTaxConsensus	/Users/maasha/install/src/BUTT/BUTT/Tests/TestSimpleTaxConsensus.h	/^class TestSimpleTaxConsensus$/;"	class	line:7
+consensus	/Users/maasha/install/src/BUTT/BUTT/Tests/TestSimpleTaxConsensus.h	/^    SimpleTaxConsensus consensus;$/;"	member	line:10	class:TestSimpleTaxConsensus
+TestTaxBuilder	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxBuilder.cpp	/^TestTaxBuilder::TestTaxBuilder():$/;"	function	line:12	class:TestTaxBuilder	signature:()
+runTests	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxBuilder.cpp	/^bool TestTaxBuilder::runTests()$/;"	function	line:18	class:TestTaxBuilder	signature:()
+test1	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxBuilder.cpp	/^bool TestTaxBuilder::test1()$/;"	function	line:33	class:TestTaxBuilder	signature:()
+test2	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxBuilder.cpp	/^bool TestTaxBuilder::test2()$/;"	function	line:69	class:TestTaxBuilder	signature:()
+test3	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxBuilder.cpp	/^bool TestTaxBuilder::test3()$/;"	function	line:101	class:TestTaxBuilder	signature:()
+test4	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxBuilder.cpp	/^bool TestTaxBuilder::test4()$/;"	function	line:133	class:TestTaxBuilder	signature:()
+test5	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxBuilder.cpp	/^bool TestTaxBuilder::test5()$/;"	function	line:165	class:TestTaxBuilder	signature:()
+test6	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxBuilder.cpp	/^bool TestTaxBuilder::test6()$/;"	function	line:218	class:TestTaxBuilder	signature:()
+test7	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxBuilder.cpp	/^bool TestTaxBuilder::test7()$/;"	function	line:279	class:TestTaxBuilder	signature:()
+test8	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxBuilder.cpp	/^bool TestTaxBuilder::test8()$/;"	function	line:335	class:TestTaxBuilder	signature:()
+TESTTAXBUILDER_H	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxBuilder.h	/^#define TESTTAXBUILDER_H$/;"	macro	line:2
+TestTaxBuilder	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxBuilder.h	/^class TestTaxBuilder$/;"	class	line:11
+builder	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxBuilder.h	/^    TaxBuilder builder;$/;"	member	line:19	class:TestTaxBuilder
+LEVEL_NAMES	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxSearch.cpp	/^#define LEVEL_NAMES /;"	macro	line:16	file:
+NODES_FIND	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxSearch.cpp	/^#define NODES_FIND(/;"	macro	line:18	file:
+TestTaxSearch	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxSearch.cpp	/^TestTaxSearch::TestTaxSearch() {}$/;"	function	line:22	class:TestTaxSearch	signature:()
+setupTaxTree	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxSearch.cpp	/^void TestTaxSearch::setupTaxTree(string file) {$/;"	function	line:24	class:TestTaxSearch	signature:(string file)
+runTests	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::runTests() {$/;"	function	line:46	class:TestTaxSearch	signature:()
+testIOExceptions	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::testIOExceptions() {$/;"	function	line:71	class:TestTaxSearch	signature:()
+test1	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::test1() {$/;"	function	line:122	class:TestTaxSearch	signature:()
+test2	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::test2() {$/;"	function	line:178	class:TestTaxSearch	signature:()
+test3	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::test3() {$/;"	function	line:235	class:TestTaxSearch	signature:()
+test4	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::test4() {$/;"	function	line:294	class:TestTaxSearch	signature:()
+test5	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::test5() {$/;"	function	line:350	class:TestTaxSearch	signature:()
+test6	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::test6() {$/;"	function	line:407	class:TestTaxSearch	signature:()
+test7	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::test7() {$/;"	function	line:461	class:TestTaxSearch	signature:()
+test8	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::test8() {$/;"	function	line:510	class:TestTaxSearch	signature:()
+test9	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::test9() {$/;"	function	line:564	class:TestTaxSearch	signature:()
+testSearchNodes1	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::testSearchNodes1() {$/;"	function	line:639	class:TestTaxSearch	signature:()
+testSearchNodes2	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::testSearchNodes2() {$/;"	function	line:677	class:TestTaxSearch	signature:()
+testSearchNodes3	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::testSearchNodes3() {$/;"	function	line:720	class:TestTaxSearch	signature:()
+testSearchNodes4	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::testSearchNodes4() {$/;"	function	line:762	class:TestTaxSearch	signature:()
+testSearchNodes5	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::testSearchNodes5() {$/;"	function	line:805	class:TestTaxSearch	signature:()
+testSearchNodes6	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::testSearchNodes6() {$/;"	function	line:849	class:TestTaxSearch	signature:()
+testSearchNodes7	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::testSearchNodes7() {$/;"	function	line:893	class:TestTaxSearch	signature:()
+testSearchNodes8	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::testSearchNodes8() {$/;"	function	line:937	class:TestTaxSearch	signature:()
+testSearchNodes9	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::testSearchNodes9() {$/;"	function	line:982	class:TestTaxSearch	signature:()
+testSearchNodes10	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxSearch.cpp	/^bool TestTaxSearch::testSearchNodes10() {$/;"	function	line:1027	class:TestTaxSearch	signature:()
+BUTT_TESTS_TESTTAXSEARCH_H_	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxSearch.h	/^#define BUTT_TESTS_TESTTAXSEARCH_H_$/;"	macro	line:4
+TestTaxSearch	/Users/maasha/install/src/BUTT/BUTT/Tests/TestTaxSearch.h	/^class TestTaxSearch {$/;"	class	line:9
+BUTT	/Users/maasha/install/src/BUTT/README.md	/^# BUTT$/;"	function	line:1
+BUTT_SEARCH_CLEVERTAXCONSENSUS_H_	/Users/maasha/install/src/BUTT/BUTT/Search/CleverTaxConsensus.h	/^#define BUTT_SEARCH_CLEVERTAXCONSENSUS_H_$/;"	macro	line:4
+CleverTaxConsensusException	/Users/maasha/install/src/BUTT/BUTT/Search/CleverTaxConsensus.h	/^class CleverTaxConsensusException: public std::exception {$/;"	class	line:14
+CleverTaxConsensusException	/Users/maasha/install/src/BUTT/BUTT/Search/CleverTaxConsensus.h	/^    CleverTaxConsensusException(std::string &msg): exceptionMsg(msg) {}$/;"	function	line:16	class:CleverTaxConsensusException	signature:(std::string &msg)
+CleverTaxConsensusException	/Users/maasha/install/src/BUTT/BUTT/Search/CleverTaxConsensus.h	/^    CleverTaxConsensusException(const CleverTaxConsensusException &e):$/;"	function	line:17	class:CleverTaxConsensusException	signature:(const CleverTaxConsensusException &e)
+exceptionMsg	/Users/maasha/install/src/BUTT/BUTT/Search/CleverTaxConsensus.h	/^    const std::string exceptionMsg;$/;"	member	line:20	class:CleverTaxConsensusException
+CleverTaxConsensus	/Users/maasha/install/src/BUTT/BUTT/Search/CleverTaxConsensus.h	/^class CleverTaxConsensus: public TaxConsensus {$/;"	class	line:23
+descendingSortOrderPair	/Users/maasha/install/src/BUTT/BUTT/Search/CleverTaxConsensus.h	/^    static bool descendingSortOrderPair(const std::pair<std::string, int> &a,$/;"	function	line:53	class:CleverTaxConsensus	signature:(const std::pair<std::string, int> &a, const std::pair<std::string, int> &b)
+level_names	/Users/maasha/install/src/BUTT/BUTT/Search/CleverTaxConsensus.h	/^    std::vector< std::string > level_names;$/;"	member	line:59	class:CleverTaxConsensus
+cmd	/Users/maasha/install/src/BUTT/.atom-build.json	/^  "cmd": "make",$/;"	function	line:2
+name	/Users/maasha/install/src/BUTT/.atom-build.json	/^  "name": "BUTT\/Makefile"$/;"	function	line:3
+TestCleverTaxConsensus	/Users/maasha/install/src/BUTT/BUTT/Tests/TestCleverTaxConsensus.cpp	/^TestCleverTaxConsensus::TestCleverTaxConsensus(): consensus({"K", "P", "C", "O", "F", "G", "S"}) {}$/;"	function	line:13	class:TestCleverTaxConsensus	signature:()
+runTests	/Users/maasha/install/src/BUTT/BUTT/Tests/TestCleverTaxConsensus.cpp	/^bool TestCleverTaxConsensus::runTests() {$/;"	function	line:15	class:TestCleverTaxConsensus	signature:()
+testBuildConsensus1	/Users/maasha/install/src/BUTT/BUTT/Tests/TestCleverTaxConsensus.cpp	/^bool TestCleverTaxConsensus::testBuildConsensus1() {$/;"	function	line:36	class:TestCleverTaxConsensus	signature:()
+testBuildConsensus2	/Users/maasha/install/src/BUTT/BUTT/Tests/TestCleverTaxConsensus.cpp	/^bool TestCleverTaxConsensus::testBuildConsensus2() {$/;"	function	line:52	class:TestCleverTaxConsensus	signature:()
+testBuildConsensus3	/Users/maasha/install/src/BUTT/BUTT/Tests/TestCleverTaxConsensus.cpp	/^bool TestCleverTaxConsensus::testBuildConsensus3() {$/;"	function	line:64	class:TestCleverTaxConsensus	signature:()
+testBuildConsensus4	/Users/maasha/install/src/BUTT/BUTT/Tests/TestCleverTaxConsensus.cpp	/^bool TestCleverTaxConsensus::testBuildConsensus4() {$/;"	function	line:68	class:TestCleverTaxConsensus	signature:()
+testBuildConsensus5	/Users/maasha/install/src/BUTT/BUTT/Tests/TestCleverTaxConsensus.cpp	/^bool TestCleverTaxConsensus::testBuildConsensus5() {$/;"	function	line:72	class:TestCleverTaxConsensus	signature:()
+testBuildConsensus6	/Users/maasha/install/src/BUTT/BUTT/Tests/TestCleverTaxConsensus.cpp	/^bool TestCleverTaxConsensus::testBuildConsensus6() {$/;"	function	line:76	class:TestCleverTaxConsensus	signature:()
+testBuildConsensus7	/Users/maasha/install/src/BUTT/BUTT/Tests/TestCleverTaxConsensus.cpp	/^bool TestCleverTaxConsensus::testBuildConsensus7() {$/;"	function	line:80	class:TestCleverTaxConsensus	signature:()
+testBuildConsensus8	/Users/maasha/install/src/BUTT/BUTT/Tests/TestCleverTaxConsensus.cpp	/^bool TestCleverTaxConsensus::testBuildConsensus8() {$/;"	function	line:84	class:TestCleverTaxConsensus	signature:()
+testBuildConsensus9	/Users/maasha/install/src/BUTT/BUTT/Tests/TestCleverTaxConsensus.cpp	/^bool TestCleverTaxConsensus::testBuildConsensus9() {$/;"	function	line:88	class:TestCleverTaxConsensus	signature:()
+testBuildConsensus10	/Users/maasha/install/src/BUTT/BUTT/Tests/TestCleverTaxConsensus.cpp	/^bool TestCleverTaxConsensus::testBuildConsensus10() {$/;"	function	line:92	class:TestCleverTaxConsensus	signature:()

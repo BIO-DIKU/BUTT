@@ -1,8 +1,14 @@
+/* Copyright 2015 BIO-DIKU */
+
 #include "Search/CleverTaxConsensus.h"
+
+#include <limits>
 #include <map>
 #include <string>
 #include <algorithm>
 #include <tuple>
+#include <vector>
+#include <iostream>   // TODO(martin): for debugging - remove
 
 using namespace std;
 
@@ -10,19 +16,27 @@ CleverTaxConsensus::CleverTaxConsensus(vector < string > _level_names) {
     level_names = _level_names;
 }
 
-string CleverTaxConsensus::buildConsensus(vector< vector< string > > &tax_table) {
-    int          rows           = tax_table.size();
-    int          level          = 0;
-    unsigned int min_row_length = 999999;
-    string       ret;
-
-    if (rows == 0) return "";
+unsigned int CleverTaxConsensus::minRowLength(vector< vector< string > > &tax_table, int rows) {
+    unsigned int min_row_length = std::numeric_limits<unsigned int>::max();;
 
     for (int row = 0; row < rows; ++row) {
-        if (tax_table[row].size() < min_row_length) {}
+        if (tax_table[row].size() < min_row_length) {
             min_row_length = tax_table[row].size();
         }
     }
+
+    return min_row_length;
+}
+
+string CleverTaxConsensus::buildConsensus(vector< vector< string > > &tax_table) {
+    int          rows           = tax_table.size();
+    int          level          = 0;
+    string       ret            = "";
+    unsigned int min_row_length = 0;
+
+    if (rows == 0) return ret;
+
+    min_row_length = minRowLength(tax_table, rows);
 
     for (unsigned int col = 0; col < min_row_length; ++col) {
         if (columnPerfectConsensus(tax_table, col)) {
@@ -42,11 +56,14 @@ string CleverTaxConsensus::buildConsensus(vector< vector< string > > &tax_table)
         }
     }
 
+    // std::cerr << "HEEEEEEEEEEER: " << ret << std::endl;
+    // => K#a_1;P#b_1;C#c_n1
+
     return ret + buildTaxSuffix(level);
 }
 
 bool CleverTaxConsensus::columnPerfectConsensus(vector< vector< string > > &tax_table, int col) {
-    for (unsigned int row = 1; row<tax_table.size(); row++) {
+    for (unsigned int row = 1; row < tax_table.size(); row++) {
         if (tax_table[row][col] != tax_table[0][col]) {
             return false;
         }
