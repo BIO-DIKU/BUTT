@@ -8,7 +8,8 @@
 #include <algorithm>
 #include <tuple>
 #include <vector>
-#include <iostream>   // TODO(martin): for debugging - remove
+#include <utility>
+// #include <iostream>   // TODO(martin): for debugging - remove
 
 using namespace std;
 
@@ -28,7 +29,7 @@ unsigned int CleverTaxConsensus::minRowLength(vector< vector< string > > &tax_ta
     return min_row_length;
 }
 
-string CleverTaxConsensus::buildConsensus(vector< vector< string > > &tax_table) {
+string CleverTaxConsensus::buildConsensus(vector< vector< string > > &tax_table, float consensus_min) {
     int          rows           = tax_table.size();
     int          level          = 0;
     string       ret            = "";
@@ -39,21 +40,22 @@ string CleverTaxConsensus::buildConsensus(vector< vector< string > > &tax_table)
     min_row_length = minRowLength(tax_table, rows);
 
     for (unsigned int col = 0; col < min_row_length; ++col) {
-        if (columnPerfectConsensus(tax_table, col)) {
-            if (tax_table[0][col][1] == '#') {
-                if (level > 0) {
-                    ret+=";";
-                }
-
-                level++;
-            } else {
-                ret += "_";
-            }
-
-            ret += tax_table[0][col];
-        } else {
-            break;
-        }
+        columnConsensus(tax_table, col);
+        // if (columnConsensus(tax_table, col)) {
+        //     if (tax_table[0][col][1] == '#') {
+        //         if (level > 0) {
+        //             ret+=";";
+        //         }
+        //
+        //         level++;
+        //     } else {
+        //         ret += "_";
+        //     }
+        //
+        //     ret += tax_table[0][col];
+        // } else {
+        //     break;
+        // }
     }
 
     // std::cerr << "HEEEEEEEEEEER: " << ret << std::endl;
@@ -62,14 +64,32 @@ string CleverTaxConsensus::buildConsensus(vector< vector< string > > &tax_table)
     return ret + buildTaxSuffix(level);
 }
 
-bool CleverTaxConsensus::columnPerfectConsensus(vector< vector< string > > &tax_table, int col) {
-    for (unsigned int row = 1; row < tax_table.size(); row++) {
-        if (tax_table[row][col] != tax_table[0][col]) {
-            return false;
+pair<string, float> CleverTaxConsensus::columnConsensus(vector< vector< string > > &tax_table, int col) {
+    map<string, int> frequencies;
+    string           word;
+    int              count;
+    string           max_word;
+    int              max_count = 0;
+    int              rows      = tax_table.size();
+
+    for (int row = 0; row < rows; row++) {
+      word    = tax_table[row][col];
+      auto it = frequencies.find(word);
+
+      if (it == frequencies.end()) {
+        frequencies[word] = 0;
+      } else {
+        count             = it->second;
+        frequencies[word] = count + 1;
+
+        if (count + 1 > max_count) {
+          max_word  = word;
+          max_count = count;
         }
+      }
     }
 
-    return true;
+    return pair<string, float>(max_word, max_count / rows);
 }
 
 string CleverTaxConsensus::buildTaxSuffix(int level) {
