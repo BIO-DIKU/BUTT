@@ -52,10 +52,9 @@ bool TestCleverTaxConsensus::testBuildConsensus1() {
 
 /**
 * Tests consensus of perfect hit
-* Input: kmers matching: C_1, C_1
 *
 * Input:    (("K#a", "1", "P#b", "1", "C#c", "1"),
-*            ("K#a", "1", "P#b", "1", "C#c", "1")
+*            ("K#a", "1", "P#b", "1", "C#c", "1"))
 *
 * Expected: ("query_name", "K#A_1(100/100);P#B_1(100/100);C#C_1(100/100);O#;F#;G#;S#", 2)
 */
@@ -66,7 +65,7 @@ bool TestCleverTaxConsensus::testBuildConsensus2() {
     };
 
     BUTT_ASSERT_EQUALS("K#A_1(100/100);P#B_1(100/100);C#C_1(100/100);O#;F#;G#;S#",
-                       consensus.buildConsensus(tax_table),
+                       consensus.buildConsensus(tax_table, 0.5),
                        "Perfect match didn't work.");
 
     return true;
