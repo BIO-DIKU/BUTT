@@ -32,36 +32,40 @@ unsigned int CleverTaxConsensus::minRowLength(vector< vector< string > > &tax_ta
 string CleverTaxConsensus::buildConsensus(vector< vector< string > > &tax_table, float consensus_min) {
     int          rows           = tax_table.size();
     int          level          = 0;
-    string       ret            = "";
+    string       return_tax     = "";
+    string       return_cons    = "";
     unsigned int min_row_length = 0;
+    pair<string, float> consensus_col;
 
-    if (rows == 0) return ret;
+    if (rows == 0) return "";
 
     min_row_length = minRowLength(tax_table, rows);
 
     for (unsigned int col = 0; col < min_row_length; ++col) {
-        columnConsensus(tax_table, col);
-        // if (columnConsensus(tax_table, col)) {
-        //     if (tax_table[0][col][1] == '#') {
-        //         if (level > 0) {
-        //             ret+=";";
-        //         }
-        //
-        //         level++;
-        //     } else {
-        //         ret += "_";
-        //     }
-        //
-        //     ret += tax_table[0][col];
-        // } else {
-        //     break;
-        // }
+        consensus_col = columnConsensus(tax_table, col);
+
+        if (consensus_col.second < consensus_min) {
+            break;
+        }
+
+        if (tax_table[0][col][1] == '#') {
+            if (level > 0) {
+                return_tax += ";";
+            }
+
+            level++;
+        } else {
+            return_tax += "_";
+        }
+
+        return_tax  += consensus_col.first;
+        // return_cons += consensus_col.second.to_string + "/";
+        return_cons += "foo";
     }
 
-    // std::cerr << "HEEEEEEEEEEER: " << ret << std::endl;
-    // => K#a_1;P#b_1;C#c_n1
+    return_cons = "(" + return_cons + ")";
 
-    return ret + buildTaxSuffix(level);
+    return return_tax + return_cons + buildTaxSuffix(level);
 }
 
 pair<string, float> CleverTaxConsensus::columnConsensus(vector< vector< string > > &tax_table, int col) {
@@ -73,20 +77,20 @@ pair<string, float> CleverTaxConsensus::columnConsensus(vector< vector< string >
     int              rows      = tax_table.size();
 
     for (int row = 0; row < rows; row++) {
-      word    = tax_table[row][col];
-      auto it = frequencies.find(word);
+        word    = tax_table[row][col];
+        auto it = frequencies.find(word);
 
-      if (it == frequencies.end()) {
-        frequencies[word] = 0;
-      } else {
-        count             = it->second;
-        frequencies[word] = count + 1;
+        if (it == frequencies.end()) {
+            frequencies[word] = 0;
+        } else {
+            count             = it->second;
+            frequencies[word] = count + 1;
 
-        if (count + 1 > max_count) {
-          max_word  = word;
-          max_count = count;
+            if (count + 1 > max_count) {
+                max_word  = word;
+                max_count = count;
+            }
         }
-      }
     }
 
     return pair<string, float>(max_word, max_count / rows);
