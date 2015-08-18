@@ -2,5 +2,5 @@ BUTT/BUTT
 .DS_Store
 *.swp
 *.o
-*tags
-*.tags
+tags
+.tags*
