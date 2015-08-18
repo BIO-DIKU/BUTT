@@ -27,7 +27,7 @@ string SimpleTaxConsensus::buildConsensus(vector< vector< string > > &tax_table)
     }
 
     for (unsigned int col=0; col < min_row_length; ++col) {
-        if (columnPerfectConsensus(tax_table, col)) {
+        if (columnPerfectConsensus(tax_table, col)) { // TODO:(martin) use proper guard
             if (tax_table[0][col][1] == '#') {
                 if (level > 0)
                     ret+=";";
