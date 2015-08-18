@@ -1,7 +1,9 @@
 /* Copyright 2015 BIO-DIKU */
 
 #include "SimpleTaxConsensus.h"
+
 #include <map>
+#include <vector>
 #include <string>
 #include <algorithm>
 #include <tuple>
