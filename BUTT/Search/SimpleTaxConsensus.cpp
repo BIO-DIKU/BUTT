@@ -2,7 +2,6 @@
 
 #include "SimpleTaxConsensus.h"
 
-#include <map>
 #include <vector>
 #include <string>
 #include <algorithm>
