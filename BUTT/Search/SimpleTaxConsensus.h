@@ -41,20 +41,6 @@ class SimpleTaxConsensus: public TaxConsensus {
      */
     std::string buildConsensus(std::vector< std::vector< std::string > > &tax_table);
 
-    /**
-     * Sort function for sorting pairs in decending order according to the
-     * .second member which is an int.
-     *
-     * a - pair where .first is a std::string and .second is an int.
-     * b - pair where .first is a std::string and .second is an int.
-     *
-     * Returns bool.
-     */
-    static bool descendingSortOrderPair(const std::pair<std::string, int> &a,
-                                        const std::pair<std::string, int> &b) {
-        return a.second > b.second;
-    }
-
  private:
     std::vector< std::string > level_names;
 
